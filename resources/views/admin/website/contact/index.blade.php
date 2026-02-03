@@ -465,9 +465,14 @@ textarea.form-control {
                                                            value="{{ old('phone_title', $contactSettings->phone_title) }}">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="phone_number" class="form-label">Phone Number</label>
+                                                    <label for="phone_number" class="form-label">Phone Number 1</label>
                                                     <input type="text" class="form-control" id="phone_number" name="phone_number" 
                                                            value="{{ old('phone_number', $contactSettings->phone_number) }}" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="phone_number_2" class="form-label">Phone Number 2</label>
+                                                    <input type="text" class="form-control" id="phone_number_2" name="phone_number_2" 
+                                                           value="{{ old('phone_number_2', $contactSettings->phone_number_2) }}">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="phone_subtitle" class="form-label">Phone Subtitle</label>
@@ -485,14 +490,26 @@ textarea.form-control {
                                                            value="{{ old('hours_title', $contactSettings->hours_title) }}">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="working_hours" class="form-label">Working Hours</label>
-                                                    <input type="text" class="form-control" id="working_hours" name="working_hours" 
-                                                           value="{{ old('working_hours', $contactSettings->working_hours) }}" required>
+                                                    <label for="working_hours_salt_lake" class="form-label">SALT LAKE Hours</label>
+                                                    <input type="text" class="form-control" id="working_hours_salt_lake" name="working_hours_salt_lake" 
+                                                           value="{{ old('working_hours_salt_lake', $contactSettings->working_hours_salt_lake) }}" 
+                                                           placeholder="10.30 AM - 9.00 PM">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="working_days" class="form-label">Working Days</label>
+                                                    <label for="working_hours_chingrighata" class="form-label">CHINGRIGHATA Hours</label>
+                                                    <input type="text" class="form-control" id="working_hours_chingrighata" name="working_hours_chingrighata" 
+                                                           value="{{ old('working_hours_chingrighata', $contactSettings->working_hours_chingrighata) }}" 
+                                                           placeholder="9.00 AM - 10.00 PM">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="working_hours" class="form-label">Working Hours (Legacy)</label>
+                                                    <input type="text" class="form-control" id="working_hours" name="working_hours" 
+                                                           value="{{ old('working_hours', $contactSettings->working_hours) }}">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="working_days" class="form-label">Working Days (Legacy)</label>
                                                     <input type="text" class="form-control" id="working_days" name="working_days" 
-                                                           value="{{ old('working_days', $contactSettings->working_days) }}" required>
+                                                           value="{{ old('working_days', $contactSettings->working_days) }}">
                                                 </div>
                                             </div>
                                         </div>

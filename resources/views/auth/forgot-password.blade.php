@@ -1,6 +1,6 @@
 @extends('frontend.layouts.layout')
 
-@section('title', 'Forgot Password - PetNet')
+@section('title', 'Forgot Password - Animal Pride')
 
 @section('content')
 <section class="banner" style="background-color: #fff8e5; background-image:url({{ asset('assets/img/banner.png') }})">
@@ -21,9 +21,20 @@
 
                         <!-- Session Status -->
                         @if (session('status'))
-                            <div class="alert alert-success">
+                            <div class="alert alert-success alert-dismissible fade show">
                                 <i class="fas fa-check-circle"></i>
                                 {{ session('status') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger alert-dismissible fade show">
+                                <i class="fas fa-exclamation-circle"></i>
+                                @foreach ($errors->all() as $error)
+                                    <div>{{ $error }}</div>
+                                @endforeach
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         @endif
 
@@ -49,7 +60,7 @@
                                 <a href="{{ route('login') }}" class="btn btn-outline-secondary">
                                     <i class="fas fa-arrow-left"></i> Back to Login
                                 </a>
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" id="submitBtn">
                                     <i class="fas fa-paper-plane"></i>
                                     {{ __('Email Password Reset Link') }}
                                 </button>
@@ -61,4 +72,55 @@
         </div>
     </div>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    const submitBtn = document.getElementById('submitBtn');
+    const emailInput = document.getElementById('email');
+    
+    form.addEventListener('submit', function(e) {
+        // Basic email validation
+        const email = emailInput.value.trim();
+        if (!email || !isValidEmail(email)) {
+            e.preventDefault();
+            showAlert('Please enter a valid email address.', 'danger');
+            return false;
+        }
+        
+        // Show loading state
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        
+        // Re-enable button after 10 seconds to prevent permanent disabled state
+        setTimeout(function() {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> {{ __('Email Password Reset Link') }}';
+        }, 10000);
+    });
+    
+    function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+    
+    function showAlert(message, type) {
+        const alertHtml = `
+            <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                <i class="fas fa-${type === 'danger' ? 'exclamation-circle' : 'info-circle'}"></i>
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        `;
+        
+        // Remove existing alerts
+        const existingAlerts = document.querySelectorAll('.alert');
+        existingAlerts.forEach(alert => alert.remove());
+        
+        // Insert new alert at the top of the form
+        const cardBody = document.querySelector('.card-body');
+        cardBody.insertAdjacentHTML('afterbegin', alertHtml);
+    }
+});
+</script>
 @endsection

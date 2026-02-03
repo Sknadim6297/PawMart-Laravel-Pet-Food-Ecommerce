@@ -1,6 +1,6 @@
 @extends('frontend.layouts.layout')
 
-@section('title', 'Reset Password - PetNet')
+@section('title', 'Reset Password - Animal Pride')
 
 @section('content')
 <section class="banner" style="background-color: #fff8e5; background-image:url({{ asset('assets/img/banner.png') }})">
@@ -14,6 +14,15 @@
                         </h3>
                     </div>
                     <div class="card-body p-4">
+                        @if ($errors->any())
+                            <div class="alert alert-danger alert-dismissible fade show">
+                                <i class="fas fa-exclamation-circle"></i>
+                                @foreach ($errors->all() as $error)
+                                    <div>{{ $error }}</div>
+                                @endforeach
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
                         <form method="POST" action="{{ route('password.store') }}">
                             @csrf
 
@@ -66,7 +75,7 @@
                             </div>
 
                             <div class="d-flex justify-content-center">
-                                <button type="submit" class="btn btn-primary btn-lg">
+                                <button type="submit" class="btn btn-primary btn-lg" id="resetBtn">
                                     <i class="fas fa-save"></i>
                                     {{ __('Reset Password') }}
                                 </button>
@@ -78,4 +87,73 @@
         </div>
     </div>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    const resetBtn = document.getElementById('resetBtn');
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('password_confirmation');
+    
+    form.addEventListener('submit', function(e) {
+        // Validate passwords match
+        const password = passwordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+        
+        if (password !== confirmPassword) {
+            e.preventDefault();
+            showAlert('Passwords do not match.', 'danger');
+            return false;
+        }
+        
+        if (password.length < 8) {
+            e.preventDefault();
+            showAlert('Password must be at least 8 characters long.', 'danger');
+            return false;
+        }
+        
+        // Show loading state
+        resetBtn.disabled = true;
+        resetBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Resetting...';
+    });
+    
+    // Real-time password confirmation validation
+    confirmPasswordInput.addEventListener('input', function() {
+        const password = passwordInput.value;
+        const confirmPassword = this.value;
+        
+        if (confirmPassword && password !== confirmPassword) {
+            this.classList.add('is-invalid');
+            this.classList.remove('is-valid');
+        } else if (confirmPassword && password === confirmPassword) {
+            this.classList.add('is-valid');
+            this.classList.remove('is-invalid');
+        } else {
+            this.classList.remove('is-valid', 'is-invalid');
+        }
+    });
+    
+    function showAlert(message, type) {
+        const alertHtml = `
+            <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                <i class="fas fa-${type === 'danger' ? 'exclamation-circle' : 'info-circle'}"></i>
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        `;
+        
+        // Remove existing alerts
+        const existingAlerts = document.querySelectorAll('.alert');
+        existingAlerts.forEach(alert => alert.remove());
+        
+        // Insert new alert at the top of the form
+        const cardBody = document.querySelector('.card-body');
+        cardBody.insertAdjacentHTML('afterbegin', alertHtml);
+        
+        // Re-enable button
+        resetBtn.disabled = false;
+        resetBtn.innerHTML = '<i class="fas fa-save"></i> {{ __('Reset Password') }}';
+    }
+});
+</script>
 @endsection

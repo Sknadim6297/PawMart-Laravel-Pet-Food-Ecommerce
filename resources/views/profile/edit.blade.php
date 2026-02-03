@@ -1,6 +1,6 @@
 @extends('frontend.layouts.layout')
 
-@section('title', 'Profile Settings - PetNet')
+@section('title', 'Profile Settings - Animal Pride')
 
 @section('styles')
 <style>
@@ -28,7 +28,7 @@
 }
 
 .profile-header {
-    background: linear-gradient(135deg, #fe5716 0%, #ff8a50 100%);
+    background: linear-gradient(135deg, #ee643c 0%, #c20466 100%);
     color: white;
     padding: 40px 30px;
     text-align: center;
@@ -97,13 +97,13 @@
 }
 
 .profile-nav-link:hover {
-    color: #fe5716;
+    color: #ee643c;
     background: #f8f9fa;
     text-decoration: none;
 }
 
 .profile-nav-link.active {
-    background: #fe5716;
+    background: #ee643c;
     color: white;
     position: relative;
 }
@@ -170,12 +170,12 @@
 
 .form-control:focus {
     outline: none;
-    border-color: #fe5716;
+    border-color: #ee643c;
     box-shadow: 0 0 0 3px rgba(254, 87, 22, 0.1);
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #fe5716 0%, #ff8a50 100%);
+    background: linear-gradient(135deg, #ee643c 0%, #c20466 100%);
     color: white;
     border: none;
     padding: 12px 25px;
@@ -271,7 +271,7 @@
 }
 
 .verification-link {
-    color: #fe5716;
+    color: #ee643c;
     text-decoration: underline;
     cursor: pointer;
     background: none;

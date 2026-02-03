@@ -74,4 +74,23 @@ class Category extends Model
     {
         return $query->orderBy('sort_order')->orderBy('name');
     }
+
+    // Get category image URL with fallback
+    public function getImageUrlAttribute()
+    {
+        if ($this->image && file_exists(public_path($this->image))) {
+            return asset($this->image);
+        }
+        // Return default category image
+        return asset('assets/img/default-category.png');
+    }
+
+    // Get category image path with fallback for admin display
+    public function getImagePathAttribute()
+    {
+        if ($this->image && file_exists(public_path($this->image))) {
+            return $this->image;
+        }
+        return 'assets/img/default-category.png';
+    }
 }

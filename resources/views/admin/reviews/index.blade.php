@@ -1121,9 +1121,19 @@ $(document).ready(function() {
                     console.log('Success response:', response);
                     
                     // Show success message
-                    if (response.message) {
+                    if (response && response.message) {
                         const alertDiv = $('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
                             '<i class="fas fa-check-circle me-2"></i>' + response.message +
+                            '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' +
+                            '</div>');
+                        $('.card-body').prepend(alertDiv);
+                        
+                        // Auto-dismiss after 3 seconds
+                        setTimeout(() => alertDiv.alert('close'), 3000);
+                    } else {
+                        // Fallback success message
+                        const alertDiv = $('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
+                            '<i class="fas fa-check-circle me-2"></i>Operation completed successfully.' +
                             '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' +
                             '</div>');
                         $('.card-body').prepend(alertDiv);
@@ -1189,14 +1199,23 @@ $(document).ready(function() {
                 method: 'POST',
                 data: form.serialize(),
                 success: function(response) {
+                    console.log('Form success response:', response);
+                    
                     // Show success message
-                    if (response.message) {
-                        // Create a simple alert or you can use a toast
+                    if (response && response.message) {
                         const alertDiv = $('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
-                            response.message +
+                            '<i class="fas fa-check-circle me-2"></i>' + response.message +
                             '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' +
                             '</div>');
                         $('.card-body').prepend(alertDiv);
+                    } else {
+                        // Fallback success message
+                        const alertDiv = $('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
+                            '<i class="fas fa-check-circle me-2"></i>Review updated successfully.' +
+                            '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' +
+                            '</div>');
+                        $('.card-body').prepend(alertDiv);
+                    }
                         
                         // Auto-dismiss after 3 seconds
                         setTimeout(() => alertDiv.alert('close'), 3000);
@@ -1309,44 +1328,4 @@ function bulkDelete() {
         form.submit();
     }
 }
-</script>
-<<<<<<< HEAD
 @endpush
-=======
-
-<script>
-// Test function for debugging
-function testAjaxConnection() {
-    console.log('Testing AJAX connection...');
-    
-    $.ajax({
-        url: '{{ route("admin.reviews.index") }}',
-        method: 'GET',
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'Accept': 'application/json'
-        },
-        success: function(response) {
-            console.log('AJAX test successful:', response);
-        },
-        error: function(xhr, status, error) {
-            console.error('AJAX test failed:', {
-                xhr: xhr,
-                status: status,
-                error: error,
-                responseText: xhr.responseText
-            });
-        }
-    });
-}
-
-// Add test button for debugging (temporary)
-$(document).ready(function() {
-    if (window.location.search.includes('debug=1')) {
-        $('<button class="btn btn-info btn-sm" onclick="testAjaxConnection()">Test AJAX</button>')
-            .appendTo('.card-tools');
-    }
-});
-</script>
-@endsection
->>>>>>> origin/main

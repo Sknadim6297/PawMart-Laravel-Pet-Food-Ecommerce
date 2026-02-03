@@ -10,7 +10,7 @@
     color: #333;
     margin-bottom: 30px;
     font-weight: 600;
-    border-bottom: 2px solid #fa441d;
+    border-bottom: 2px solid #ee643c;
     padding-bottom: 10px;
 }
 
@@ -34,7 +34,7 @@
 }
 
 .checkout-meta .form-control:focus {
-    border-color: #fa441d;
+    border-color: #ee643c;
     box-shadow: 0 0 0 0.2rem rgba(250, 68, 29, 0.25);
 }
 
@@ -65,18 +65,18 @@
 }
 
 .shop_table_responsive thead th {
-    background: #fa441d;
+    background: #ee643c;
     color: white;
     font-weight: 600;
 }
 
 .shop_table_responsive .product-quantity {
-    color: #fa441d;
+    color: #ee643c;
 }
 
 .shop_table_responsive .order-total th,
 .shop_table_responsive .order-total td {
-    border-top: 2px solid #fa441d;
+    border-top: 2px solid #ee643c;
     font-weight: bold;
     font-size: 16px;
 }
@@ -101,12 +101,12 @@
 }
 
 .payment-method:hover {
-    border-color: #fa441d;
+    border-color: #ee643c;
     background: #fff8f5;
 }
 
 .payment-method.selected {
-    border-color: #fa441d;
+    border-color: #ee643c;
     background: #fff8f5;
 }
 
@@ -122,7 +122,7 @@
 
 .payment-method label i {
     margin-right: 8px;
-    color: #fa441d;
+    color: #ee643c;
 }
 
 .payment-description {
@@ -155,7 +155,7 @@
 }
 
 .checkbox-container a {
-    color: #fa441d;
+    color: #ee643c;
     text-decoration: none;
 }
 
@@ -164,7 +164,7 @@
 }
 
 .button {
-    background: #fa441d;
+    background: #ee643c;
     color: white;
     border: none;
     padding: 15px 30px;

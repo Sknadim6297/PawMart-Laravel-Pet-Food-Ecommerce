@@ -396,7 +396,7 @@
 Thank you for contacting us. 
 
 Best regards,
-PetNet Team" 
+Animal Pride Team" 
                                class="btn btn-enhanced w-100" style="background: #007bff; color: white;">
                                 <i class="fas fa-reply"></i>Reply via Email
                             </a>

@@ -14,12 +14,15 @@ class Review extends Model
         'email',
         'rating',
         'comment',
-        'is_approved'
+        'is_approved',
+        'admin_reply',
+        'replied_at'
     ];
 
     protected $casts = [
         'is_approved' => 'boolean',
-        'rating' => 'integer'
+        'rating' => 'integer',
+        'replied_at' => 'datetime'
     ];
 
     /**

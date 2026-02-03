@@ -39,8 +39,7 @@ class PetCareServiceController extends Controller
             'description' => 'required|string',
             'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'link' => 'nullable|string|max:255',
-            'sort_order' => 'nullable|integer|min:0',
-            'is_active' => 'boolean'
+            'sort_order' => 'nullable|integer|min:0'
         ]);
 
         $data = $request->all();
@@ -94,8 +93,7 @@ class PetCareServiceController extends Controller
             'description' => 'required|string',
             'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'link' => 'nullable|string|max:255',
-            'sort_order' => 'nullable|integer|min:0',
-            'is_active' => 'boolean'
+            'sort_order' => 'nullable|integer|min:0'
         ]);
 
         $data = $request->all();

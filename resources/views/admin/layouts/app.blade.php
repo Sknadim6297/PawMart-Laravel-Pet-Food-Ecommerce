@@ -4,43 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Admin Dashboard') - PetNet</title>
+    <title>@yield('title', 'Admin Dashboard') - Animal Pride</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
-    <link rel="icon" type="image/png" href="{{ asset('assets/img/logo/petnet_logo.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('assets/img/logo/animal_pride_logo.png') }}">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #fa441d;
-            --primary-dark: #e8381a;
-            --primary-light: #ff6b47;
-            --secondary-color: #6c757d;
+            --primary-color: #ee643c;
+            --primary-dark: #e54623;
+            --primary-light: #f17a56;
+            --secondary-color: #c20466;
             --success-color: #10b981;
             --warning-color: #f59e0b;
             --danger-color: #ef4444;
             --info-color: #3b82f6;
-            --dark-color: #1f2937;
-            --light-color: #f8fafc;
+            --dark-color: #131530;
+            --light-color: #1f1e3f;
             --sidebar-width: 280px;
             --header-height: 70px;
             --border-radius: 12px;
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-sm: 0 1px 2px 0 rgba(19, 21, 48, 0.15);
+            --shadow-md: 0 4px 6px -1px rgba(19, 21, 48, 0.2);
+            --shadow-lg: 0 10px 15px -3px rgba(19, 21, 48, 0.25);
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             
             /* Pet-themed colors to match frontend */
-            --pet-orange: #fa441d;
+            --pet-orange: #ee643c;
             --pet-yellow: #fedc4f;
-            --pet-purple: #940c69;
+            --pet-purple: #c20466;
             --pet-green: #22c55e;
             --pet-blue: #3b82f6;
-            --bg-light: #fff8e5;
-            --text-dark: #1e293b;
+            --bg-light: #131530;
+            --text-dark: #ffffff;
         }
 
         * {
@@ -134,18 +134,18 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary-color), #e55a4f);
+            background: linear-gradient(135deg, var(--primary-color), #c20466);
             border: none;
         }
 
         .btn-primary:hover {
-            background: linear-gradient(135deg, #e55a4f, var(--primary-color));
+            background: linear-gradient(135deg, #c20466, var(--primary-color));
             transform: translateY(-1px);
         }
 
         .form-control {
             border-radius: 8px;
-            border: 1.5px solid #e2e8f0;
+            border: 1.5px solid #2b294e;
             padding: 0.75rem 1rem;
             transition: all 0.3s ease;
         }
@@ -214,12 +214,12 @@
         .toast-header strong {
             font-family: 'Poppins', sans-serif;
             font-weight: 600;
-            color: var(--text-dark);
+            color: #2c3e50;
         }
 
         .toast-body {
             padding: 0.5rem 1rem 1rem 1rem;
-            color: var(--text-dark);
+            color: #2c3e50;
             font-weight: 500;
         }
 
@@ -294,7 +294,7 @@
             left: 0;
             width: var(--sidebar-width);
             height: 100vh;
-            background: linear-gradient(180deg, var(--dark-color) 0%, #111827 100%);
+            background: linear-gradient(180deg, var(--dark-color) 0%, #0b0f20 100%);
             transition: var(--transition);
             z-index: 1000;
             overflow-y: auto;
@@ -446,6 +446,84 @@
             font-weight: 600;
         }
 
+        /* Dropdown Navigation Styles */
+        .nav-item-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown-toggle {
+            position: relative;
+        }
+
+        .nav-arrow {
+            font-size: 0.75rem;
+            transition: var(--transition);
+            margin-left: auto !important;
+        }
+
+        .nav-item-dropdown.open .nav-arrow {
+            transform: rotate(180deg);
+        }
+
+        .nav-dropdown {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 0 0 8px 8px;
+            margin-left: 1rem;
+        }
+
+        .nav-item-dropdown.open .nav-dropdown {
+            max-height: 300px;
+            padding: 0.5rem 0;
+        }
+
+        .nav-dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 0.625rem 1.5rem 0.625rem 2rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.875rem;
+            position: relative;
+        }
+
+        .nav-dropdown-item:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+            text-decoration: none;
+        }
+
+        .nav-dropdown-item.active {
+            color: white;
+            background: linear-gradient(90deg, var(--primary-color), transparent);
+            border-right: 3px solid var(--primary-color);
+        }
+
+        .nav-dropdown-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary-color);
+        }
+
+        .nav-dropdown-item .nav-icon {
+            width: 16px;
+            margin-right: 0.75rem;
+            font-size: 0.875rem;
+        }
+
+        .nav-dropdown-item .nav-badge {
+            font-size: 0.625rem;
+            padding: 0.125rem 0.375rem;
+        }
+
         /* Main Content */
         .main-content {
             margin-left: var(--sidebar-width);
@@ -461,7 +539,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid #2b294e;
             box-shadow: var(--shadow-sm);
             position: sticky;
             top: 0;
@@ -559,7 +637,7 @@
         .search-input {
             width: 100%;
             padding: 0.5rem 1rem 0.5rem 2.5rem;
-            border: 1px solid #e2e8f0;
+            border: 1px solid #2b294e;
             border-radius: 8px;
             font-size: 0.875rem;
             transition: var(--transition);
@@ -582,7 +660,7 @@
         .header-actions {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: -0.45rem;
         }
 
         .header-btn {
@@ -713,7 +791,7 @@
         }
 
         .pagination .page-link {
-            border: 2px solid #e2e8f0;
+            border: 2px solid #2b294e;
             border-radius: var(--border-radius);
             color: var(--text-dark);
             font-weight: 500;
@@ -745,14 +823,14 @@
 
         .pagination .page-item.disabled .page-link {
             background-color: #f8fafc;
-            border-color: #e2e8f0;
+            border-color: #2b294e;
             color: #94a3b8;
             cursor: not-allowed;
         }
 
         .pagination .page-item.disabled .page-link:hover {
             background-color: #f8fafc;
-            border-color: #e2e8f0;
+            border-color: #2b294e;
             color: #94a3b8;
             transform: none;
             box-shadow: none;
@@ -763,7 +841,7 @@
             padding: 12px 20px;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow-sm);
-            border: 1px solid #e2e8f0;
+            border: 1px solid #2b294e;
             margin-top: 1rem;
         }
 
@@ -796,9 +874,9 @@
         <!-- Brand -->
         <div class="sidebar-brand">
             <a href="{{ route('admin.dashboard') }}" class="brand-logo">
-                <img src="{{ asset('assets/img/logo/petnet_logo.png') }}" alt="PetNet Logo" class="logo-img">
+                <img src="{{ asset('assets/img/logo/animal_pride_logo.png') }}" alt="Animal Pride Logo" class="logo-img">
             </a>
-            <div class="brand-text">PetNet</div>
+            <div class="brand-text">Animal Pride</div>
             <div class="brand-subtitle">Admin Panel</div>
         </div>
 
@@ -853,6 +931,7 @@
                         <span class="nav-badge">{{ \App\Models\Coupon::active()->count() }}</span>
                     </a>
                 </div>
+                {{-- Cooked Food Menu - DISABLED
                 <div class="nav-item">
                     <a href="{{ route('admin.cooked-foods.index') }}" class="nav-link {{ request()->routeIs('admin.cooked-foods.*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-utensils"></i>
@@ -860,6 +939,7 @@
                         <span class="nav-badge">{{ \App\Models\CookedFood::active()->count() }}</span>
                     </a>
                 </div>
+                --}}
             </div>
 
             <!-- Order Management -->
@@ -956,11 +1036,34 @@
                         <span class="nav-badge">{{ \App\Models\AboutContent::count() }}</span>
                     </a>
                 </div>
-                <div class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-chart-bar"></i>
+                <div class="nav-item nav-item-dropdown">
+                    <a href="javascript:void(0)" class="nav-link nav-dropdown-toggle {{ request()->routeIs('admin.hero-sections.*', 'admin.welcome-sections.*', 'admin.statistics.*', 'admin.pet-care-services.*') ? 'active' : '' }}" data-toggle="dropdown">
+                        <i class="nav-icon fas fa-home"></i>
                         <span class="nav-text">Home Page</span>
+                        <i class="nav-arrow fas fa-chevron-down ms-auto"></i>
                     </a>
+                    <div class="nav-dropdown">
+                        <a href="{{ route('admin.hero-sections.index') }}" class="nav-dropdown-item {{ request()->routeIs('admin.hero-sections.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-image"></i>
+                            <span class="nav-text">Hero Section</span>
+                            <span class="nav-badge">{{ \App\Models\HeroSection::active()->count() }}</span>
+                        </a>
+                        <a href="{{ route('admin.welcome-sections.index') }}" class="nav-dropdown-item {{ request()->routeIs('admin.welcome-sections.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-home"></i>
+                            <span class="nav-text">Welcome Section</span>
+                            <span class="nav-badge">{{ \App\Models\WelcomeSection::active()->count() }}</span>
+                        </a>
+                        <a href="{{ route('admin.statistics.index') }}" class="nav-dropdown-item {{ request()->routeIs('admin.statistics.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-chart-bar"></i>
+                            <span class="nav-text">Statistics</span>
+                            <span class="nav-badge">{{ \App\Models\Statistic::active()->count() }}</span>
+                        </a>
+                        <a href="{{ route('admin.pet-care-services.index') }}" class="nav-dropdown-item {{ request()->routeIs('admin.pet-care-services.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-paw"></i>
+                            <span class="nav-text">Pet Care Services</span>
+                            <span class="nav-badge">{{ \App\Models\PetCareService::active()->count() }}</span>
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -986,7 +1089,7 @@
                     <i class="fas fa-bars"></i>
                 </button>
                 <a href="{{ route('admin.dashboard') }}" class="header-brand">
-                    <img src="{{ asset('assets/img/logo/petnet_logo.png') }}" alt="PetNet Logo" class="header-logo">
+                    <img src="{{ asset('assets/img/logo/animal_pride_logo.png') }}" alt="Animal Pride Logo" class="header-logo">
                     <h1 class="page-title">@yield('page-title', 'Dashboard')</h1>
                 </a>
                 @if(isset($breadcrumbs))
@@ -1085,6 +1188,37 @@
             if (e.key === 'Enter') {
                 // Implement search functionality
                 console.log('Search:', this.value);
+            }
+        });
+
+        // Dropdown Navigation Functionality
+        const dropdownToggles = document.querySelectorAll('.nav-dropdown-toggle');
+        dropdownToggles.forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                const navItem = this.closest('.nav-item-dropdown');
+                const isOpen = navItem.classList.contains('open');
+                
+                // Close all other dropdowns
+                document.querySelectorAll('.nav-item-dropdown.open').forEach(item => {
+                    if (item !== navItem) {
+                        item.classList.remove('open');
+                    }
+                });
+                
+                // Toggle current dropdown
+                navItem.classList.toggle('open', !isOpen);
+            });
+        });
+
+        // Auto-open dropdown if active item is inside
+        document.addEventListener('DOMContentLoaded', function() {
+            const activeDropdownItem = document.querySelector('.nav-dropdown-item.active');
+            if (activeDropdownItem) {
+                const parentDropdown = activeDropdownItem.closest('.nav-item-dropdown');
+                if (parentDropdown) {
+                    parentDropdown.classList.add('open');
+                }
             }
         });
     </script>

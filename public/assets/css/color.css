@@ -12,7 +12,7 @@ footer.two .phone a:hover,
 .pet-grooming h4:hover,.blog-style h5,.blog-style-text h3:hover,.widget-title li i,.working-time h6 span,.recent-post a:hover,
 .heading h6,.healthy-product h6,.healthy-product a:hover,.count-text span,.team-working span,.we-provide h5:hover{
    
-    color: #fa441d;
+    color: #ee643c;
 
 }
 /* Background Color */
@@ -28,12 +28,12 @@ input[type='radio']:checked:after,.footer-provide:hover,.tick:before,
 .food-categorie:hover:before,.slider-categorie button.owl-dot.active,.slider-categorie .owl-nav i:hover,
 .cart-popup .cart-btns a.checkout {
 
-    background-color:#fa441d;
+    background-color:#ee643c;
 
 }
 .quotation-slider .owl-nav i:hover,.team-working:hover,ul.category li:hover,ul.category li:hover span,
 .navbar-links li:hover > a,.hero-two-slider .owl-nav i:hover,.cart:hover,.button:before,.pets-icon:hover,
 .food-categorie:hover,.slider-categorie .owl-nav i:hover,.client-slider .owl-nav i:hover {
-    border-color:#fa441d;
+    border-color:#ee643c;
 
 }

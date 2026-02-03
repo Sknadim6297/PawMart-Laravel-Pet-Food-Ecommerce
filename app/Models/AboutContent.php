@@ -22,7 +22,6 @@ class AboutContent extends Model
         'vision_title',
         'vision_content',
         'vision_image',
-        'statistics',
         'gallery_images',
         'gallery_title',
         'gallery_subtitle',
@@ -34,7 +33,6 @@ class AboutContent extends Model
 
     protected $casts = [
         'features' => 'array',
-        'statistics' => 'array',
         'gallery_images' => 'array',
         'is_active' => 'boolean'
     ];
@@ -44,10 +42,7 @@ class AboutContent extends Model
         return $value ? json_decode($value, true) : [];
     }
 
-    public function getStatisticsAttribute($value)
-    {
-        return $value ? json_decode($value, true) : [];
-    }
+
 
     public function getGalleryImagesAttribute($value)
     {

@@ -320,19 +320,11 @@
         <div class="row">
             <div class="col-lg-8">
                 <!-- Product Details -->
-<<<<<<< HEAD
                 <div class="form-section-card">
                     <div class="form-section-header">
                         <h5><i class="fas fa-info-circle me-2"></i>Product Details</h5>
                     </div>
                     <div class="form-section-body">
-=======
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Product Details</h5>
-                    </div>
-                    <div class="card-body">
->>>>>>> origin/main
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="mb-3">
@@ -496,19 +488,11 @@
                 </div>
 
                 <!-- Product Price Details -->
-<<<<<<< HEAD
                 <div class="form-section-card">
                     <div class="form-section-header">
                         <h5><i class="fas fa-dollar-sign me-2"></i>Product Price Details</h5>
                     </div>
                     <div class="form-section-body">
-=======
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Product Price Details</h5>
-                    </div>
-                    <div class="card-body">
->>>>>>> origin/main
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="mb-3">
@@ -544,19 +528,11 @@
                 </div>
 
                 <!-- Upload Product Image -->
-<<<<<<< HEAD
                 <div class="form-section-card">
                     <div class="form-section-header">
                         <h5><i class="fas fa-image me-2"></i>Upload Product Image</h5>
                     </div>
                     <div class="form-section-body">
-=======
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Upload Product Image</h5>
-                    </div>
-                    <div class="card-body">
->>>>>>> origin/main
                         <div class="mb-3">
                             <label for="image" class="form-label">Image</label>
                             <input type="file" class="form-control @error('image') is-invalid @enderror" 
@@ -567,15 +543,9 @@
                             <div class="form-text">Upload JPG, PNG, GIF (Max: 2MB)</div>
                             @if($product->image)
                                 <div class="mt-2">
-<<<<<<< HEAD
                                     <small class="form-text">Current image:</small><br>
                                     <img src="{{ Storage::url($product->image) }}" alt="Current Image" 
                                          class="product-image-preview">
-=======
-                                    <small class="text-muted">Current image:</small><br>
-                                    <img src="{{ Storage::url($product->image) }}" alt="Current Image" 
-                                         style="max-width: 100px; max-height: 100px;" class="rounded">
->>>>>>> origin/main
                                 </div>
                             @endif
                         </div>
@@ -590,18 +560,10 @@
                             <div class="form-text">Upload multiple images for product gallery</div>
                             @if($product->gallery && count($product->gallery) > 0)
                                 <div class="mt-2">
-<<<<<<< HEAD
                                     <small class="form-text">Current gallery:</small><br>
                                     <div class="gallery-preview">
                                         @foreach($product->gallery as $galleryImage)
                                             <img src="{{ Storage::url($galleryImage) }}" alt="Gallery Image">
-=======
-                                    <small class="text-muted">Current gallery:</small><br>
-                                    <div class="d-flex flex-wrap gap-2 mt-1">
-                                        @foreach($product->gallery as $galleryImage)
-                                            <img src="{{ Storage::url($galleryImage) }}" alt="Gallery Image" 
-                                                 style="width: 60px; height: 60px; object-fit: cover;" class="rounded">
->>>>>>> origin/main
                                         @endforeach
                                     </div>
                                 </div>
@@ -611,19 +573,11 @@
                 </div>
 
                 <!-- SEO Information -->
-<<<<<<< HEAD
                 <div class="form-section-card">
                     <div class="form-section-header">
                         <h5><i class="fas fa-search me-2"></i>SEO Information</h5>
                     </div>
                     <div class="form-section-body">
-=======
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">SEO Information</h5>
-                    </div>
-                    <div class="card-body">
->>>>>>> origin/main
                         <div class="mb-3">
                             <label for="meta_title" class="form-label">Meta Title</label>
                             <input type="text" class="form-control @error('meta_title') is-invalid @enderror" 
@@ -659,19 +613,11 @@
 
             <div class="col-lg-4">
                 <!-- Product Settings -->
-<<<<<<< HEAD
                 <div class="product-edit-sidebar">
                     <div class="product-edit-sidebar-header">
                         <h6><i class="fas fa-cog me-2"></i>Product Settings</h6>
                     </div>
                     <div class="product-edit-sidebar-body">
-=======
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Product Settings</h5>
-                    </div>
-                    <div class="card-body">
->>>>>>> origin/main
                         <div class="mb-3">
                             <label for="sort_order" class="form-label">Sort Order</label>
                             <input type="number" class="form-control @error('sort_order') is-invalid @enderror" 
@@ -714,34 +660,20 @@
                             </div>
                         </div>
 
-<<<<<<< HEAD
                         <div class="d-flex gap-2 justify-content-end">
                             <a href="{{ route('admin.products.index') }}" class="btn-form-cancel">Cancel</a>
                             <button type="submit" class="btn-form-submit">Update Product</button>
-=======
-                        <div class="hstack gap-2 justify-content-end">
-                            <a href="{{ route('admin.products.index') }}" class="btn btn-light">Cancel</a>
-                            <button type="submit" class="btn btn-success">Update Product</button>
->>>>>>> origin/main
                         </div>
                     </div>
                 </div>
 
                 <!-- Current Image -->
                 @if($product->image)
-<<<<<<< HEAD
                 <div class="product-edit-sidebar">
                     <div class="product-edit-sidebar-header">
                         <h6><i class="fas fa-image me-2"></i>Current Image</h6>
                     </div>
                     <div class="product-edit-sidebar-body text-center">
-=======
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Current Image</h5>
-                    </div>
-                    <div class="card-body text-center">
->>>>>>> origin/main
                         <img src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}" 
                              style="max-width: 100%; height: 200px; object-fit: cover;" 
                              class="rounded">
@@ -750,7 +682,6 @@
                 @endif
 
                 <!-- Product Statistics -->
-<<<<<<< HEAD
                 <div class="product-edit-sidebar">
                     <div class="product-edit-sidebar-header">
                         <h6><i class="fas fa-chart-bar me-2"></i>Product Statistics</h6>
@@ -778,34 +709,6 @@
                                 <strong>Created:</strong> {{ $product->created_at->format('M d, Y') }}<br>
                                 <strong>Last Updated:</strong> {{ $product->updated_at->format('M d, Y') }}
                             </small>
-=======
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Product Statistics</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between mb-2">
-                            <span>Current Stock:</span>
-                            <span class="fw-bold">{{ $product->stock_quantity }}</span>
-                        </div>
-                        <div class="d-flex justify-content-between mb-2">
-                            <span>Current Price:</span>
-                            <span class="fw-bold">₹{{ $product->price }}</span>
-                        </div>
-                        @if($product->sale_price)
-                        <div class="d-flex justify-content-between mb-2">
-                            <span>Sale Price:</span>
-                            <span class="fw-bold text-success">₹{{ $product->sale_price }}</span>
-                        </div>
-                        @endif
-                        <div class="d-flex justify-content-between mb-2">
-                            <span>Created:</span>
-                            <span>{{ $product->created_at->format('M d, Y') }}</span>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <span>Last Updated:</span>
-                            <span>{{ $product->updated_at->format('M d, Y') }}</span>
->>>>>>> origin/main
                         </div>
                     </div>
                 </div>
@@ -814,7 +717,6 @@
     </form>
 </div>
 
-<<<<<<< HEAD
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -838,10 +740,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Auto-generate slug from product name
-=======
-<script>
-document.addEventListener('DOMContentLoaded', function() {
->>>>>>> origin/main
     // Auto-generate slug from product name
     const nameInput = document.getElementById('name');
     const slugInput = document.getElementById('slug');
@@ -907,8 +805,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-<<<<<<< HEAD
 @endpush
-=======
->>>>>>> origin/main
 @endsection

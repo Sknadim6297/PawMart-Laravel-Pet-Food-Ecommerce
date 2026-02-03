@@ -1145,6 +1145,9 @@
                     </div>
                     <div class="customer-details">
                         <strong>Email:</strong> {{ $order->user->email }}<br>
+                        @if($order->user->phone)
+                        <strong>Mobile:</strong> {{ $order->user->phone }}<br>
+                        @endif
                         <strong>Phone:</strong> {{ $order->phone }}<br>
                         <strong>Total Orders:</strong> {{ $order->user->orders()->count() }}<br>
                         <strong>Customer ID:</strong> #{{ $order->user->id }}

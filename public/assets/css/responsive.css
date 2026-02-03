@@ -776,7 +776,7 @@
     padding-top: 90px;
 	}
 	.bottom-bar a img {
-    width: 57px;
+    width: 120px;
 	}
 	header {
     background-color: #fff;
@@ -1148,7 +1148,7 @@
     position: absolute;
     width: 14px;
     height: 300px;
-    background: #fa441d;
+    background: #ee643c;
     bottom: -155%;
     z-index: -1;
   }
@@ -2677,7 +2677,7 @@
     height: 63px;
 	}
   button.nav-link.active i {
-    border: 3px solid #fa441d;
+    border: 3px solid #ee643c;
   }
   .hero-two .hero-two-text {
     width: 95%;

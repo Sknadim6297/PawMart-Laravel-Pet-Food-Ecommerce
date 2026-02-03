@@ -1,6 +1,6 @@
 @extends('frontend.layouts.layout')
 
-@section('title', 'Order Confirmation - PetNet')
+@section('title', 'Order Confirmation - Animal Pride')
 
 @push('styles')
 <style>
@@ -86,7 +86,7 @@
 }
 
 .confirmation-card .text-primary {
-    color: #fe5716 !important;
+    color: #ee643c !important;
     font-size: 18px;
 }
 
@@ -114,7 +114,7 @@
     left: 0;
     width: 60px;
     height: 2px;
-    background: linear-gradient(90deg, #fe5716, #ff7a3d);
+    background: linear-gradient(90deg, #ee643c, #ff7a3d);
 }
 
 .order-item {
@@ -141,7 +141,7 @@
 }
 
 .order-item:hover img {
-    border-color: #fe5716;
+    border-color: #ee643c;
     transform: scale(1.05);
 }
 
@@ -158,12 +158,12 @@
 }
 
 .order-item .fw-bold {
-    color: #fe5716 !important;
+    color: #ee643c !important;
     font-weight: 700 !important;
 }
 
 .btn-continue {
-    background: linear-gradient(45deg, #fe5716, #ff6b3d);
+    background: linear-gradient(45deg, #ee643c, #c20466);
     border: none;
     color: white !important;
     padding: 15px 40px;
@@ -236,14 +236,14 @@
 }
 
 .table .border-top td {
-    border-top: 2px solid #fe5716 !important;
+    border-top: 2px solid #ee643c !important;
     padding-top: 15px !important;
     font-size: 18px;
 }
 
 .btn-outline-primary {
-    color: #fe5716;
-    border-color: #fe5716;
+    color: #ee643c;
+    border-color: #ee643c;
     background: transparent;
     font-weight: 600;
     padding: 12px 30px;
@@ -252,8 +252,8 @@
 }
 
 .btn-outline-primary:hover {
-    background: #fe5716;
-    border-color: #fe5716;
+    background: #ee643c;
+    border-color: #ee643c;
     color: white;
     transform: translateY(-1px);
     box-shadow: 0 4px 15px rgba(254, 87, 22, 0.3);

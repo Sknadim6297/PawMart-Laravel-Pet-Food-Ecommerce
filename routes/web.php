@@ -17,6 +17,12 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 
+Route::get('/storage-link', function () {
+    Artisan::call('storage:link');
+    return "Storage link created successfully!";
+});
+
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Static pages routes
@@ -63,12 +69,12 @@ Route::get('/products/subcategories/{categoryId}', [ProductController::class, 'g
 Route::post('/reviews', [App\Http\Controllers\ReviewController::class, 'store'])->name('reviews.store');
 Route::get('/products/{productId}/reviews', [App\Http\Controllers\ReviewController::class, 'getProductReviews'])->name('reviews.product');
 
-// Frontend cooked food routes
-Route::get('/cooked-foods', [CookedFoodController::class, 'index'])->name('cooked-foods.index');
-Route::get('/cooked-food/{slug}', [CookedFoodController::class, 'show'])->name('cooked-food.show');
-Route::get('/cooked-food-details/{id}', [CookedFoodController::class, 'showById'])->name('cooked-food.details');
-Route::post('/cooked-foods/search', [CookedFoodController::class, 'search'])->name('cooked-foods.search');
-Route::get('/cooked-foods/category/{category}', [CookedFoodController::class, 'category'])->name('cooked-foods.category');
+// Frontend cooked food routes - DISABLED
+// Route::get('/cooked-foods', [CookedFoodController::class, 'index'])->name('cooked-foods.index');
+// Route::get('/cooked-food/{slug}', [CookedFoodController::class, 'show'])->name('cooked-food.show');
+// Route::get('/cooked-food-details/{id}', [CookedFoodController::class, 'showById'])->name('cooked-food.details');
+// Route::post('/cooked-foods/search', [CookedFoodController::class, 'search'])->name('cooked-foods.search');
+// Route::get('/cooked-foods/category/{category}', [CookedFoodController::class, 'category'])->name('cooked-foods.category');
 
 // Universal search route
 Route::post('/search', [ProductController::class, 'universalSearch'])->name('universal.search');

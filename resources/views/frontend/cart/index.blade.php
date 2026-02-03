@@ -1,6 +1,6 @@
 @extends('frontend.layouts.layout')
 
-@section('title', 'Shopping Cart - PetNet')
+@section('title', 'Shopping Cart - Animal Pride')
 
 @section('content')
 <section class="banner" style="background-color: #fff8e5; background-image:url(assets/img/banner.png)">
@@ -15,13 +15,13 @@
                 <div class="banner-img">
                     <div class="banner-img-1">
                         <svg width="260" height="260" viewBox="0 0 673 673" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M9.82698 416.603C-19.0352 298.701 18.5108 173.372 107.497 90.7633L110.607 96.5197C24.3117 177.199 -12.311 298.935 15.0502 413.781L9.82698 416.603ZM89.893 565.433C172.674 654.828 298.511 692.463 416.766 663.224L414.077 658.245C298.613 686.363 175.954 649.666 94.9055 562.725L89.893 565.433ZM656.842 259.141C685.039 374.21 648.825 496.492 562.625 577.656L565.413 582.817C654.501 499.935 691.9 374.187 662.536 256.065L656.842 259.141ZM581.945 107.518C499.236 18.8371 373.997 -18.4724 256.228 10.5134L259.436 16.4515C373.888 -10.991 495.248 25.1518 576.04 110.708L581.945 107.518Z" fill="#fa441d"></path>
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M9.82698 416.603C-19.0352 298.701 18.5108 173.372 107.497 90.7633L110.607 96.5197C24.3117 177.199 -12.311 298.935 15.0502 413.781L9.82698 416.603ZM89.893 565.433C172.674 654.828 298.511 692.463 416.766 663.224L414.077 658.245C298.613 686.363 175.954 649.666 94.9055 562.725L89.893 565.433ZM656.842 259.141C685.039 374.21 648.825 496.492 562.625 577.656L565.413 582.817C654.501 499.935 691.9 374.187 662.536 256.065L656.842 259.141ZM581.945 107.518C499.236 18.8371 373.997 -18.4724 256.228 10.5134L259.436 16.4515C373.888 -10.991 495.248 25.1518 576.04 110.708L581.945 107.518Z" fill="#ee643c"></path>
                         </svg>
                         <img src="assets/img/banner-img-1.jpg" alt="banner">
                     </div>
                     <div class="banner-img-2">
                         <svg width="320" height="320" viewBox="0 0 673 673" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M9.82698 416.603C-19.0352 298.701 18.5108 173.372 107.497 90.7633L110.607 96.5197C24.3117 177.199 -12.311 298.935 15.0502 413.781L9.82698 416.603ZM89.893 565.433C172.674 654.828 298.511 692.463 416.766 663.224L414.077 658.245C298.613 686.363 175.954 649.666 94.9055 562.725L89.893 565.433ZM656.842 259.141C685.039 374.21 648.825 496.492 562.625 577.656L565.413 582.817C654.501 499.935 691.9 374.187 662.536 256.065L656.842 259.141ZM581.945 107.518C499.236 18.8371 373.997 -18.4724 256.228 10.5134L259.436 16.4515C373.888 -10.991 495.248 25.1518 576.04 110.708L581.945 107.518Z" fill="#fa441d"></path>
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M9.82698 416.603C-19.0352 298.701 18.5108 173.372 107.497 90.7633L110.607 96.5197C24.3117 177.199 -12.311 298.935 15.0502 413.781L9.82698 416.603ZM89.893 565.433C172.674 654.828 298.511 692.463 416.766 663.224L414.077 658.245C298.613 686.363 175.954 649.666 94.9055 562.725L89.893 565.433ZM656.842 259.141C685.039 374.21 648.825 496.492 562.625 577.656L565.413 582.817C654.501 499.935 691.9 374.187 662.536 256.065L656.842 259.141ZM581.945 107.518C499.236 18.8371 373.997 -18.4724 256.228 10.5134L259.436 16.4515C373.888 -10.991 495.248 25.1518 576.04 110.708L581.945 107.518Z" fill="#ee643c"></path>
                         </svg>
                         <img src="assets/img/banner-img-2.jpg" alt="banner">
                     </div>
@@ -79,14 +79,14 @@
                             <td class="product-quantity">
                                 <div class="quantity-controls" style="display: flex; align-items: center; gap: 8px; justify-content: center;">
                                     <button type="button" class="qty-btn dec" 
-                                            style="background: #fa441d; color: white; border: none; width: 35px; height: 35px; border-radius: 4px; cursor: pointer; font-size: 18px; font-weight: bold; display: flex; align-items: center; justify-content: center;">
+                                            style="background: #ee643c; color: white; border: none; width: 35px; height: 35px; border-radius: 4px; cursor: pointer; font-size: 18px; font-weight: bold; display: flex; align-items: center; justify-content: center;">
                                         −
                                     </button>
                                     <input type="number" class="input-text quantity-input" min="1" max="999" 
                                            value="{{ $item['quantity'] }}" data-item-id="{{ $item['id'] }}" data-item-type="{{ $itemType }}"
                                            style="width: 70px; text-align: center; border: 1px solid #ddd; border-radius: 4px; padding: 8px; font-size: 14px;">
                                     <button type="button" class="qty-btn inc" 
-                                            style="background: #fa441d; color: white; border: none; width: 35px; height: 35px; border-radius: 4px; cursor: pointer; font-size: 18px; font-weight: bold; display: flex; align-items: center; justify-content: center;">
+                                            style="background: #ee643c; color: white; border: none; width: 35px; height: 35px; border-radius: 4px; cursor: pointer; font-size: 18px; font-weight: bold; display: flex; align-items: center; justify-content: center;">
                                         +
                                     </button>
                                 </div>
@@ -101,7 +101,7 @@
                         <tr>
                             <td colspan="5" class="text-center">
                                 <p style="padding: 40px 0; font-size: 18px; color: #666;">
-                                    Your cart is empty. <a href="{{ route('products.index') }}" style="color: #fa441d;">Continue shopping</a>
+                                    Your cart is empty. <a href="{{ route('products.index') }}" style="color: #ee643c;">Continue shopping</a>
                                 </p>
                             </td>
                         </tr>
@@ -688,7 +688,7 @@ $(document).ready(function() {
                      onclick="$('#coupon_code').val('${coupon.code}')">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <div>
-                            <strong style="color: #fa441d;">${coupon.code}</strong>
+                            <strong style="color: #ee643c;">${coupon.code}</strong>
                             <span style="color: #28a745; font-weight: bold; margin-left: 10px;">${discountText}</span>
                         </div>
                         <small style="color: #666;">Click to apply</small>

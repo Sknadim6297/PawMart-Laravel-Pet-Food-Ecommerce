@@ -7,7 +7,7 @@
     @php
         $websiteSettings = \App\Models\WebsiteSetting::getSettings();
     @endphp
-    <title>@yield('title', ($websiteSettings['company_name'] ?? 'PetNet') . ' - ' . ($websiteSettings['tagline'] ?? 'Pet Food Ecommerce'))</title>
+    <title>@yield('title', ($websiteSettings['company_name'] ?? 'Animal Pride') . ' - ' . ($websiteSettings['tagline'] ?? 'Pet Food Ecommerce'))</title>
     
     <!-- Favicon -->
     @if(!empty($websiteSettings['favicon']))
@@ -181,26 +181,48 @@
             font-weight: 400 !important;
         }
         
+        /* Logo Container - Ensure proper display */
+        .bottom-bar > a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            line-height: 1;
+            text-decoration: none;
+            min-width: auto;
+            max-width: fit-content;
+        }
+        
         /* Main Logo Styles */
         .main-logo {
-       max-height: 76px;
-        width: 103px;
+            max-height: 120px;
+            width: auto;
+            height: auto;
+            max-width: 250px;
+            min-width: auto;
+            object-fit: contain;
             transition: all 0.3s ease;
+            display: block;
         }
         
         /* Footer Logo Styles */
         .footer-logo {
-           max-height: 142px;
+            max-height: 150px;
             width: auto;
+            height: auto;
+            max-width: 100%;
+            object-fit: contain;
             transition: all 0.3s ease;
         }
         
         /* Mobile Logo Styles */
         .mobile-logo {
-            max-height: 60px;
+            max-height: 80px;
             width: auto;
-            transition: all 0.3s ease;
+            height: auto;
+            max-width: 100%;
             object-fit: contain;
+            transition: all 0.3s ease;
         }
         
         /* Mobile Navigation Logo Container */
@@ -212,34 +234,44 @@
         }
         
         .res-log .mobile-logo {
-            max-height: 80px;
-            max-width: 200px;
+            max-height: 100px;
+            max-width: 220px;
             width: auto;
             height: auto;
+            object-fit: contain;
         }
         
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .main-logo {
-                max-height: 45px;
+                max-height: 90px;
+                max-width: 200px;
             }
             
             .footer-logo {
-                max-height: 60px;
+                max-height: 120px;
             }
             
             .mobile-logo {
-                max-height: 50px;
+                max-height: 80px;
+                max-width: 180px;
             }
             
             .res-log .mobile-logo {
-                max-height: 123px;
+                max-height: 100px;
+                max-width: 220px;
+            }
+            
+            .bottom-bar > a {
+                flex-shrink: 0;
+                min-width: auto;
             }
         }
         
         @media (max-width: 480px) {
             .main-logo {
-                max-height: 40px;
+                max-height: 75px;
+                max-width: 170px;
             }
             
             .footer-logo {
@@ -247,11 +279,26 @@
             }
             
             .mobile-logo {
-                max-height: 45px;
+                max-height: 70px;
+                max-width: 160px;
             }
             
             .res-log {
                 padding: 15px;
+            }
+            
+            .res-log .mobile-logo {
+                max-height: 90px;
+                max-width: 200px;
+            }
+            
+            .bottom-bar {
+                padding: 12px 15px;
+            }
+            
+            .bottom-bar > a {
+                flex-shrink: 0;
+                min-width: auto;
             }
         }
         
@@ -265,7 +312,7 @@
             align-items: center;
             gap: 8px;
             padding: 8px 16px;
-            background: linear-gradient(135deg, #fa441d, #ff6b47);
+            background: linear-gradient(135deg, #ee643c, #c20466);
             color: white !important;
             text-decoration: none;
             border-radius: 25px;
@@ -281,7 +328,7 @@
         }
         
         .dropdown-toggle:hover {
-            background: linear-gradient(135deg, #e8381a, #fa441d);
+            background: linear-gradient(135deg, #e54623, #ee643c);
             transform: translateY(-2px);
             box-shadow: 0 4px 15px rgba(250, 68, 29, 0.4);
             color: white !important;
@@ -345,7 +392,7 @@
         }
         
         .dropdown-item:hover {
-            background: linear-gradient(135deg, #fa441d, #ff6b47);
+            background: linear-gradient(135deg, #ee643c, #c20466);
             color: white !important;
         }
         
@@ -568,7 +615,7 @@
 
 /* Cart Header */
 .cart-sidebar-header {
-    background: linear-gradient(135deg, #FA441D 0%, #FF6B35 100%);
+    background: linear-gradient(135deg, #ee643c 0%, #c20466 100%);
     color: white;
     padding: 25px 20px;
     display: flex;
@@ -688,12 +735,12 @@
 }
 
 .cart-sidebar-body::-webkit-scrollbar-thumb {
-    background: #FA441D;
+    background: #ee643c;
     border-radius: 10px;
 }
 
 .cart-sidebar-body::-webkit-scrollbar-thumb:hover {
-    background: #e63a1a;
+    background: #c20466;
 }
 
 /* Empty Cart State */
@@ -722,7 +769,7 @@
     align-items: center;
     justify-content: center;
     font-size: 50px;
-    color: #FA441D;
+    color: #ee643c;
     margin: 0 auto;
     position: relative;
     animation: cartBounce 3s ease-in-out infinite;
@@ -780,7 +827,7 @@
 }
 
 .btn-continue-shopping {
-    background: linear-gradient(135deg, #FA441D 0%, #FF6B35 100%);
+    background: linear-gradient(135deg, #ee643c 0%, #c20466 100%);
     color: white;
     padding: 15px 30px;
     border-radius: 50px;
@@ -918,7 +965,7 @@
 }
 
 .quantity-btn:hover {
-    background: #FA441D;
+    background: #ee643c;
     color: white;
 }
 
@@ -935,7 +982,7 @@
 
 .cart-item-price {
     font-weight: 700;
-    color: #FA441D;
+    color: #ee643c;
     font-size: 16px;
     text-align: right;
     margin-left: 15px;
@@ -999,7 +1046,7 @@
 .subtotal-amount {
     font-size: 22px;
     font-weight: 700;
-    color: #FA441D;
+    color: #ee643c;
 }
 
 .tax-info {
@@ -1037,8 +1084,8 @@
 
 .btn-view-cart {
     background: white;
-    color: #FA441D;
-    border: 2px solid #FA441D;
+    color: #ee643c;
+    border: 2px solid #ee643c;
 }
 
 .btn-view-cart::before {
@@ -1048,7 +1095,7 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: #FA441D;
+    background: #ee643c;
     transition: left 0.3s ease;
     z-index: -1;
 }
@@ -1065,7 +1112,7 @@
 }
 
 .btn-checkout {
-    background: linear-gradient(135deg, #FA441D 0%, #FF6B35 100%);
+    background: linear-gradient(135deg, #ee643c 0%, #c20466 100%);
     color: white;
     border: 2px solid transparent;
     box-shadow: 0 8px 25px rgba(250, 68, 29, 0.3);
@@ -1087,7 +1134,7 @@
 }
 
 .btn-checkout:hover {
-    background: linear-gradient(135deg, #e63a1a 0%, #ff5722 100%);
+    background: linear-gradient(135deg, #c20466 0%, #c20466 100%);
     transform: translateY(-3px) scale(1.02);
     box-shadow: 0 15px 35px rgba(250, 68, 29, 0.4);
     color: white;
@@ -1952,13 +1999,13 @@ $(document).ready(function() {
 }
 
 .close-auth-modal:hover {
-    background: #fa441d;
+    background: #ee643c;
     color: white;
     transform: scale(1.1);
 }
 
 .auth-modal-header {
-    background: linear-gradient(135deg, #fa441d 0%, #ff6b47 100%);
+    background: linear-gradient(135deg, #ee643c 0%, #c20466 100%);
     color: white;
     padding: 30px 20px 20px;
     text-align: center;
@@ -2020,7 +2067,7 @@ $(document).ready(function() {
     background: rgba(250, 68, 29, 0.05);
     border-radius: 10px;
     transition: all 0.3s ease;
-    border-left: 3px solid #fa441d;
+    border-left: 3px solid #ee643c;
 }
 
 .benefit-item:hover {
@@ -2060,12 +2107,12 @@ $(document).ready(function() {
 }
 
 .btn-auth-login {
-    background: linear-gradient(135deg, #fa441d 0%, #ff6b47 100%);
+    background: linear-gradient(135deg, #ee643c 0%, #c20466 100%);
     color: white;
 }
 
 .btn-auth-login:hover {
-    background: linear-gradient(135deg, #e63a1a 0%, #ff5722 100%);
+    background: linear-gradient(135deg, #c20466 0%, #c20466 100%);
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(250, 68, 29, 0.4);
     color: white;
@@ -2074,12 +2121,12 @@ $(document).ready(function() {
 
 .btn-auth-register {
     background: white;
-    color: #fa441d;
-    border: 2px solid #fa441d;
+    color: #ee643c;
+    border: 2px solid #ee643c;
 }
 
 .btn-auth-register:hover {
-    background: #fa441d;
+    background: #ee643c;
     color: white;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(250, 68, 29, 0.3);
@@ -2159,7 +2206,7 @@ $(document).ready(function() {
     position: absolute;
     top: -8px;
     right: -10px;
-    background: #FF6B35;
+    background: #c20466;
     color: white;
     font-size: 10px;
     font-weight: 700;
@@ -2281,7 +2328,7 @@ $(document).ready(function() {
 
 .header-icons .icon-link:hover {
     background: rgba(250, 68, 29, 0.1);
-    border-color: #FA441D;
+    border-color: #ee643c;
     transform: translateY(-3px) scale(1.05);
     box-shadow: 0 8px 25px rgba(250, 68, 29, 0.25);
     text-decoration: none;
@@ -2293,7 +2340,7 @@ $(document).ready(function() {
 }
 
 .header-icons .icon-link:hover i {
-    color: #FA441D;
+    color: #ee643c;
     transform: scale(1.15);
 }
 
@@ -2313,7 +2360,7 @@ $(document).ready(function() {
     position: absolute;
     top: -5px;
     right: -5px;
-    background: linear-gradient(135deg, #FA441D, #FF6B35);
+    background: linear-gradient(135deg, #ee643c, #c20466);
     color: white;
     font-size: 11px;
     font-weight: 700;
@@ -2436,7 +2483,7 @@ $(document).ready(function() {
     transform: scale(0.8) translateY(30px);
     transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     background: linear-gradient(135deg, #ffffff 0%, #fff8f0 100%);
-    border: 3px solid #FA441D;
+    border: 3px solid #ee643c;
 }
 
 .login-required-modal.show .login-required-content {
@@ -2462,7 +2509,7 @@ $(document).ready(function() {
 }
 
 .close-login-modal:hover {
-    background: #FA441D;
+    background: #ee643c;
     color: white;
     transform: rotate(90deg) scale(1.1);
 }
@@ -2470,7 +2517,7 @@ $(document).ready(function() {
 .login-modal-header {
     text-align: center;
     padding: 40px 30px 20px;
-    background: linear-gradient(135deg, #FA441D, #FF6B35);
+    background: linear-gradient(135deg, #ee643c, #c20466);
     color: white;
     position: relative;
     overflow: hidden;
@@ -2614,7 +2661,7 @@ $(document).ready(function() {
     padding: 12px 15px;
     background: rgba(250, 68, 29, 0.05);
     border-radius: 12px;
-    border-left: 4px solid #FA441D;
+    border-left: 4px solid #ee643c;
     transition: all 0.3s ease;
     animation: slideIn 0.6s ease forwards;
 }
@@ -2660,7 +2707,7 @@ $(document).ready(function() {
     display: inline-flex;
     align-items: center;
     gap: 12px;
-    background: linear-gradient(135deg, #FA441D, #FF6B35);
+    background: linear-gradient(135deg, #ee643c, #c20466);
     color: white;
     padding: 15px 35px;
     border-radius: 50px;
@@ -2707,14 +2754,14 @@ $(document).ready(function() {
 }
 
 .signup-link {
-    color: #FA441D;
+    color: #ee643c;
     text-decoration: none;
     font-weight: 600;
     transition: all 0.3s ease;
 }
 
 .signup-link:hover {
-    color: #e8381a;
+    color: #e54623;
     text-decoration: underline;
 }
 
@@ -2925,6 +2972,137 @@ body.modal-open {
     .healthy-product h6 {
         font-size: 15px;
         margin-top: 5px;
+    }
+}
+</style>
+
+<!-- Fixed WhatsApp Button -->
+<div class="whatsapp-float" id="whatsapp-float">
+    <a href="https://wa.me/917439767977?text=Hi%20Animal%20Pride!%20I%20need%20some%20help." target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+        <span class="whatsapp-tooltip">Chat with us!</span>
+    </a>
+</div>
+
+<style>
+/* WhatsApp Float Button */
+.whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 40px;
+    left: 40px;
+    background-color: #25D366;
+    color: #fff;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 28px;
+    box-shadow: 2px 2px 15px rgba(37, 211, 102, 0.4);
+    z-index: 9999;
+    transition: all 0.3s ease;
+    animation: pulse-whatsapp 2s infinite;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    box-shadow: 2px 2px 20px rgba(37, 211, 102, 0.6);
+}
+
+.whatsapp-float a {
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-radius: 50px;
+}
+
+.whatsapp-float a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.whatsapp-tooltip {
+    position: absolute;
+    left: 70px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    font-family: "Quicksand", sans-serif !important;
+    font-weight: 500;
+}
+
+.whatsapp-tooltip::before {
+    content: '';
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 6px solid transparent;
+    border-right-color: #333;
+}
+
+.whatsapp-float:hover .whatsapp-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+@keyframes pulse-whatsapp {
+    0% {
+        transform: scale(1);
+        box-shadow: 2px 2px 15px rgba(37, 211, 102, 0.4);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 2px 2px 20px rgba(37, 211, 102, 0.6);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 2px 2px 15px rgba(37, 211, 102, 0.4);
+    }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        bottom: 30px;
+        left: 20px;
+        font-size: 24px;
+    }
+    
+    .whatsapp-tooltip {
+        left: 60px;
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .whatsapp-float {
+        bottom: 20px;
+        left: 15px;
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+    }
+    
+    .whatsapp-tooltip {
+        left: 55px;
+        font-size: 11px;
+        padding: 5px 8px;
     }
 }
 </style>

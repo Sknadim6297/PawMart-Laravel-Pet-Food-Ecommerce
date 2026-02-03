@@ -355,12 +355,11 @@
                             <input type="checkbox" class="form-check-input" id="selectAll">
                         </th>
                         <th width="15%">Title</th>
-                        <th width="20%">Description</th>
-                        <th width="15%">Mission & Vision</th>
-                        <th width="10%">Statistics</th>
+                        <th width="25%">Description</th>
+                        <th width="20%">Mission & Vision</th>
                         <th width="10%">Status</th>
                         <th width="15%">Created</th>
-                        <th width="10%">Actions</th>
+                        <th width="15%">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -389,13 +388,6 @@
                                     <small class="d-block"><strong>Vision:</strong> {{ Str::limit($content->vision_title, 20) }}</small>
                                 @endif
                             </div>
-                        </td>
-                        <td>
-                            @if($content->statistics)
-                                <span class="badge bg-info">{{ count($content->statistics) }} Stats</span>
-                            @else
-                                <span class="text-muted">No Stats</span>
-                            @endif
                         </td>
                         <td>
                             @if($content->is_active)

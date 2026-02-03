@@ -578,30 +578,6 @@
                 </div>
             @endif
 
-            <!-- Statistics Section -->
-            <div class="section-header">
-                <h3 class="section-title"><i class="fas fa-chart-bar me-2"></i>Statistics Section</h3>
-            </div>
-            
-            @if($aboutContent->statistics && count($aboutContent->statistics) > 0)
-                <div class="row">
-                    @foreach($aboutContent->statistics as $statistic)
-                    <div class="col-md-4 mb-3">
-                        <div class="statistic-item text-center">
-                            <h3 class="fw-bold text-primary mb-2">{{ $statistic['number'] ?? '0' }}</h3>
-                            <p class="mb-0 text-muted">{{ $statistic['label'] ?? 'Untitled Statistic' }}</p>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
-            @else
-                <div class="empty-state mb-4">
-                    <i class="fas fa-chart-bar fa-3x mb-3"></i>
-                    <h5>No Statistics</h5>
-                    <p>No statistics have been added yet.</p>
-                </div>
-            @endif
-
             <!-- Gallery Section -->
             <div class="section-header">
                 <h3 class="section-title"><i class="fas fa-images me-2"></i>Gallery Section</h3>

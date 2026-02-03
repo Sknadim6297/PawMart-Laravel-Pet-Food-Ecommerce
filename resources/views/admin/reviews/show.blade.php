@@ -493,6 +493,46 @@
         padding: 8px;
     }
 }
+
+/* Admin Reply Styles */
+.admin-reply-display {
+    background: #f0f8ff;
+    border-left: 4px solid #17a2b8;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.admin-reply-text {
+    color: #2c3e50;
+    line-height: 1.6;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.admin-reply-meta {
+    color: #6c757d;
+    font-size: 12px;
+    font-style: italic;
+}
+
+#reply-form textarea {
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+#reply-form textarea:focus {
+    border-color: #fe5716;
+    box-shadow: 0 0 0 0.2rem rgba(254, 87, 22, 0.15);
+    outline: none;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
 </style>
 @endpush
 
@@ -623,6 +663,46 @@
         </div>
     </div>
 
+    <!-- Admin Reply Section -->
+    <div class="review-comment-card">
+        <div class="review-comment-header">
+            <h5><i class="fas fa-reply me-2"></i>Admin Reply</h5>
+        </div>
+        <div class="review-comment-body">
+            @if($review->admin_reply)
+                <div class="admin-reply-display">
+                    <div class="admin-reply-text">
+                        {{ $review->admin_reply }}
+                    </div>
+                    <div class="admin-reply-meta">
+                        <i class="fas fa-clock me-1"></i>
+                        Replied on {{ $review->replied_at->format('M d, Y \a\t h:i A') }}
+                    </div>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-primary mt-3" onclick="editReply()">
+                    <i class="fas fa-edit me-1"></i>Edit Reply
+                </button>
+            @endif
+            
+            <form id="reply-form" action="{{ route('admin.reviews.reply', $review) }}" method="POST" style="{{ $review->admin_reply ? 'display: none;' : '' }}">
+                @csrf
+                <div class="form-group mb-3">
+                    <textarea name="admin_reply" id="admin_reply" class="form-control" rows="4" placeholder="Write your reply to this review..." required>{{ $review->admin_reply }}</textarea>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane me-1"></i>{{ $review->admin_reply ? 'Update Reply' : 'Post Reply' }}
+                    </button>
+                    @if($review->admin_reply)
+                        <button type="button" class="btn btn-secondary" onclick="cancelEdit()">
+                            <i class="fas fa-times me-1"></i>Cancel
+                        </button>
+                    @endif
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Actions -->
     <div class="review-actions-card">
         <div class="review-actions-header">
@@ -744,6 +824,62 @@ document.addEventListener('DOMContentLoaded', function() {
         }, index * 150);
     });
 });
+
+// Admin reply form handling
+const replyForm = document.getElementById('reply-form');
+if (replyForm) {
+    replyForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(this);
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.innerHTML;
+        
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Posting...';
+        
+        fetch(this.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Show success message using alert since showToast is not defined
+                alert(data.message || 'Reply posted successfully!');
+                
+                // Reload page to show the reply
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            } else {
+                throw new Error(data.message || 'Failed to post reply');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert(error.message || 'Failed to post reply. Please try again.');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
+        });
+    });
+}
+
+function editReply() {
+    document.querySelector('.admin-reply-display').style.display = 'none';
+    document.querySelector('button[onclick="editReply()"]').style.display = 'none';
+    document.getElementById('reply-form').style.display = 'block';
+}
+
+function cancelEdit() {
+    document.querySelector('.admin-reply-display').style.display = 'block';
+    document.querySelector('button[onclick="editReply()"]').style.display = 'block';
+    document.getElementById('reply-form').style.display = 'none';
+}
 </script>
 @endpush
 =======

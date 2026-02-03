@@ -33,6 +33,12 @@
     border-color: #c3e6cb;
 }
 
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
 .mb-4 {
     margin-bottom: 1.5rem;
 }
@@ -141,17 +147,30 @@
 
 <section class="gap">
    <div class="container">
+      <!-- Session Status -->
+      @if (session('status'))
+          <div class="alert alert-success mb-4">
+              {{ session('status') }}
+          </div>
+      @endif
+
+      <!-- Unified Top Error Summary -->
+      @if ($errors->any())
+          <div class="alert alert-danger mb-4" id="error-summary">
+              <ul>
+                  @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                  @endforeach
+              </ul>
+          </div>
+      @else
+          <div class="alert alert-danger mb-4" id="error-summary" style="display:none"></div>
+      @endif
+
       <div class="row">
         <div class="col-lg-6">
           <div class="box login">
             <h3>Log In Your Account</h3>
-            
-            <!-- Session Status -->
-            @if (session('status'))
-                <div class="alert alert-success mb-4">
-                    {{ session('status') }}
-                </div>
-            @endif
 
             <form method="POST" action="{{ route('login') }}">
               @csrf
@@ -163,29 +182,21 @@
                   <input type="hidden" name="intended_url" value="{{ request('redirect') }}">
               @endif
               
-              <!-- Email Address -->
-              <input type="email" 
-                     name="email" 
-                     value="{{ old('email') }}" 
-                     placeholder="Username or email address" 
-                     required 
-                     autofocus 
-                     autocomplete="username"
-                     class="@error('email') is-invalid @enderror">
-              @error('email')
-                  <div class="invalid-feedback">{{ $message }}</div>
-              @enderror
+            <!-- Email or Mobile Number -->
+            <input type="text" 
+                name="login" 
+                value="{{ old('login') }}" 
+                placeholder="Email or mobile number" 
+                required 
+                autofocus 
+                autocomplete="username">
 
               <!-- Password -->
               <input type="password" 
                      name="password" 
                      placeholder="Password" 
                      required 
-                     autocomplete="current-password"
-                     class="@error('password') is-invalid @enderror">
-              @error('password')
-                  <div class="invalid-feedback">{{ $message }}</div>
-              @enderror
+                     autocomplete="current-password">
 
               <div class="remember">
                 <div class="first">
@@ -225,11 +236,15 @@
                      placeholder="Complete Name" 
                      required 
                      autofocus 
-                     autocomplete="name"
-                     class="@error('name') is-invalid @enderror">
-              @error('name')
-                  <div class="invalid-feedback">{{ $message }}</div>
-              @enderror
+                     autocomplete="name">
+
+            <!-- Mobile Number -->
+            <input type="text" 
+                name="phone" 
+                value="{{ old('phone') }}" 
+                placeholder="Mobile number" 
+                required 
+                autocomplete="tel">
 
               <!-- Email Address -->
               <input type="email" 
@@ -237,33 +252,21 @@
                      value="{{ old('email') }}" 
                      placeholder="Email address" 
                      required 
-                     autocomplete="username"
-                     class="@error('email') is-invalid @enderror">
-              @error('email')
-                  <div class="invalid-feedback">{{ $message }}</div>
-              @enderror
+                     autocomplete="username">
 
               <!-- Password -->
               <input type="password" 
                      name="password" 
                      placeholder="Password" 
                      required 
-                     autocomplete="new-password"
-                     class="@error('password') is-invalid @enderror">
-              @error('password')
-                  <div class="invalid-feedback">{{ $message }}</div>
-              @enderror
+                     autocomplete="new-password">
 
               <!-- Confirm Password -->
               <input type="password" 
                      name="password_confirmation" 
                      placeholder="Confirm Password" 
                      required 
-                     autocomplete="new-password"
-                     class="@error('password_confirmation') is-invalid @enderror">
-              @error('password_confirmation')
-                  <div class="invalid-feedback">{{ $message }}</div>
-              @enderror
+                     autocomplete="new-password">
 
               <p>Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our privacy policy.</p>
               <button type="submit" class="button">Register</button>
@@ -277,12 +280,10 @@
 
 @section('script')
 <script>
-// Handle redirect after login
+// Top error summaries and live client-side validation
 document.addEventListener('DOMContentLoaded', function() {
-    // Check if there's an intended URL in session storage
+    // Preserve intended redirect for login
     const intendedUrl = sessionStorage.getItem('intendedUrl');
-    
-    // Add hidden input to login form if intended URL exists
     const loginForm = document.querySelector('form[action*="login"]');
     if (loginForm && intendedUrl) {
         const hiddenInput = document.createElement('input');
@@ -290,9 +291,192 @@ document.addEventListener('DOMContentLoaded', function() {
         hiddenInput.name = 'intended_url';
         hiddenInput.value = intendedUrl;
         loginForm.appendChild(hiddenInput);
-        
-        // Clear the intended URL from session storage
         sessionStorage.removeItem('intendedUrl');
+    }
+
+    const registerForm = document.querySelector('form[action*="register"]');
+
+    function emailValid(value) {
+        // Simple RFC-like check
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    }
+
+    function setFieldError(input, message) {
+        let feedback = input.nextElementSibling;
+        const hasFeedback = feedback && feedback.classList && feedback.classList.contains('invalid-feedback');
+        if (message) {
+            input.classList.add('is-invalid');
+            if (!hasFeedback) {
+                feedback = document.createElement('div');
+                feedback.className = 'invalid-feedback';
+                input.insertAdjacentElement('afterend', feedback);
+            }
+            feedback.textContent = message;
+        } else {
+            input.classList.remove('is-invalid');
+            if (hasFeedback) feedback.textContent = '';
+        }
+    }
+
+    let serverErrors = [];
+
+    function getServerErrors() {
+        const container = document.getElementById('error-summary');
+        if (!container || !container.querySelector('ul')) return [];
+        const listItems = container.querySelectorAll('ul li');
+        return Array.from(listItems).map(li => li.textContent);
+    }
+
+    function showSummary(clientMessages) {
+        const container = document.getElementById('error-summary');
+        if (!container) return;
+        
+        // Combine server errors and client validation messages
+        const allMessages = [...new Set([...serverErrors, ...clientMessages])];
+        
+        if (allMessages.length) {
+            container.style.display = '';
+            container.innerHTML = '<ul>' + allMessages.map(m => '<li>' + m.replace(/</g,'&lt;') + '</li>').join('') + '</ul>';
+        } else {
+            container.style.display = 'none';
+            container.innerHTML = '';
+        }
+    }
+
+    function validateLoginForm() {
+        if (!loginForm) return [];
+        const loginInput = loginForm.querySelector('input[name="login"]');
+        const passwordInput = loginForm.querySelector('input[name="password"]');
+        const messages = [];
+
+        if (loginInput) {
+            const v = loginInput.value.trim();
+            if (!v) {
+                messages.push('Email or mobile number is required.');
+                setFieldError(loginInput, 'Email or mobile number is required.');
+            } else if (v.includes('@')) {
+                if (!emailValid(v)) {
+                    messages.push('Please enter a valid email address.');
+                    setFieldError(loginInput, 'Please enter a valid email address.');
+                } else {
+                    setFieldError(loginInput, '');
+                }
+            } else {
+                const phoneValid = /^\d{10,15}$/.test(v);
+                if (!phoneValid) {
+                    messages.push('Please enter a valid mobile number.');
+                    setFieldError(loginInput, 'Please enter a valid mobile number.');
+                } else {
+                    setFieldError(loginInput, '');
+                }
+            }
+        }
+
+        if (passwordInput) {
+            const v = passwordInput.value;
+            if (!v) {
+                messages.push('Password is required.');
+                setFieldError(passwordInput, 'Password is required.');
+            } else if (v.length < 6) {
+                messages.push('The password field must be at least 6 characters.');
+                setFieldError(passwordInput, 'The password field must be at least 6 characters.');
+            } else {
+                setFieldError(passwordInput, '');
+            }
+        }
+
+        showSummary(messages);
+        return messages;
+    }
+
+    function validateRegisterForm() {
+        if (!registerForm) return [];
+        const nameInput = registerForm.querySelector('input[name="name"]');
+        const phoneInput = registerForm.querySelector('input[name="phone"]');
+        const emailInput = registerForm.querySelector('input[name="email"]');
+        const passwordInput = registerForm.querySelector('input[name="password"]');
+        const confirmInput = registerForm.querySelector('input[name="password_confirmation"]');
+        const messages = [];
+
+        if (nameInput) {
+            const v = nameInput.value.trim();
+            if (!v) {
+                messages.push('Name is required.');
+                setFieldError(nameInput, 'Name is required.');
+            } else {
+                setFieldError(nameInput, '');
+            }
+        }
+        if (emailInput) {
+            const v = emailInput.value.trim();
+            if (!v) {
+                messages.push('Email is required.');
+                setFieldError(emailInput, 'Email is required.');
+            } else if (!emailValid(v)) {
+                messages.push('Please enter a valid email address.');
+                setFieldError(emailInput, 'Please enter a valid email address.');
+            } else {
+                setFieldError(emailInput, '');
+            }
+        }
+        if (phoneInput) {
+            const v = phoneInput.value.trim();
+            if (!v) {
+                messages.push('Mobile number is required.');
+                setFieldError(phoneInput, 'Mobile number is required.');
+            } else if (!/^\d{10,15}$/.test(v)) {
+                messages.push('Please enter a valid mobile number.');
+                setFieldError(phoneInput, 'Please enter a valid mobile number.');
+            } else {
+                setFieldError(phoneInput, '');
+            }
+        }
+        if (passwordInput) {
+            const v = passwordInput.value;
+            if (!v) {
+                messages.push('Password is required.');
+                setFieldError(passwordInput, 'Password is required.');
+            } else if (v.length < 6) {
+                messages.push('The password field must be at least 6 characters.');
+                setFieldError(passwordInput, 'The password field must be at least 6 characters.');
+            } else {
+                setFieldError(passwordInput, '');
+            }
+        }
+        if (confirmInput && passwordInput) {
+            if (confirmInput.value !== passwordInput.value) {
+                messages.push('Password confirmation does not match.');
+                setFieldError(confirmInput, 'Password confirmation does not match.');
+            } else {
+                setFieldError(confirmInput, '');
+            }
+        }
+
+        showSummary(messages);
+        return messages;
+    }
+
+    // Preserve server-side errors on page load
+    serverErrors = getServerErrors();
+
+    // Attach listeners
+    [loginForm?.querySelector('input[name="login"]'), loginForm?.querySelector('input[name="password"]')]
+        .filter(Boolean).forEach(inp => inp.addEventListener('input', validateLoginForm));
+    [registerForm?.querySelector('input[name="name"]'), registerForm?.querySelector('input[name="phone"]'), registerForm?.querySelector('input[name="email"]'), registerForm?.querySelector('input[name="password"]'), registerForm?.querySelector('input[name="password_confirmation"]')]
+        .filter(Boolean).forEach(inp => inp.addEventListener('input', validateRegisterForm));
+
+    // Prevent submit if client-side invalid
+    if (loginForm) {
+        loginForm.addEventListener('submit', function(e) {
+            const msgs = validateLoginForm();
+            if (msgs.length) e.preventDefault();
+        });
+    }
+    if (registerForm) {
+        registerForm.addEventListener('submit', function(e) {
+            const msgs = validateRegisterForm();
+            if (msgs.length) e.preventDefault();
+        });
     }
 });
 </script>

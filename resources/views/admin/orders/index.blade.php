@@ -182,6 +182,11 @@
     color: #6c757d;
 }
 
+.customer-phone {
+    font-size: 12px;
+    color: #6c757d;
+}
+
 .order-date {
     color: #6c757d;
     font-size: 14px;
@@ -710,6 +715,9 @@
                         <div class="customer-info">
                             <div class="customer-name">{{ $order->user->name }}</div>
                             <div class="customer-email">{{ $order->user->email }}</div>
+                            @if($order->user->phone)
+                            <div class="customer-phone">{{ $order->user->phone }}</div>
+                            @endif
                         </div>
                     </td>
                     <td>

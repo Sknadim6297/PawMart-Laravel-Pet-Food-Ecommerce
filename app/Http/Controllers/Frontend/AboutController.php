@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\AboutContent;
+use App\Models\Statistic;
 use Illuminate\Http\Request;
 
 class AboutController extends Controller
@@ -20,7 +21,10 @@ class AboutController extends Controller
             $aboutContent = $this->createDefaultContent();
         }
         
-        return view('frontend.pages.about', compact('aboutContent'));
+        // Get statistics for the statistics section
+        $statistics = Statistic::active()->ordered()->get();
+        
+        return view('frontend.pages.about', compact('aboutContent', 'statistics'));
     }
     
     private function createDefaultContent()

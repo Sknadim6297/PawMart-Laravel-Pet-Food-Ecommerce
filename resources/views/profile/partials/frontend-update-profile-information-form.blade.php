@@ -64,6 +64,29 @@
                 @endforeach
             @endif
 
+
+        <div class="form-group">
+            <label for="phone" class="form-label">
+                <i class="fas fa-phone"></i> Mobile Number
+            </label>
+            <input 
+                id="phone" 
+                name="phone" 
+                type="text" 
+                class="form-control" 
+                value="{{ old('phone', $user->phone) }}" 
+                required 
+                autocomplete="tel"
+                placeholder="Enter your mobile number"
+            />
+            @if($errors->get('phone'))
+                @foreach($errors->get('phone') as $error)
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-triangle"></i> {{ $error }}
+                    </div>
+                @endforeach
+            @endif
+        </div>
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                 <div class="verification-notice">
                     <p>

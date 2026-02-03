@@ -1,4 +1,4 @@
-<!-- PetNet Logo Component -->
+<!-- Animal Pride Logo Component -->
 @props([
     'size' => 'md',
     'variant' => 'default',
@@ -28,15 +28,15 @@ $classes = ($sizeClasses[$size] ?? $sizeClasses['md']) . ' ' . ($variantClasses[
 @if($clickable && $route)
     <a href="{{ route($route) }}" 
        class="inline-flex items-center justify-center transition-all duration-300 hover:scale-105 hover:shadow-lg {{ $classes }}"
-       title="PetNet Admin Dashboard">
+       title="Animal Pride Admin Dashboard">
         <img src="{{ asset('assets/img/logo/petnet_logo.png') }}" 
-             alt="PetNet Logo" 
+             alt="Animal Pride Logo" 
              class="w-full h-full object-contain">
     </a>
 @else
     <div class="inline-flex items-center justify-center {{ $classes }}">
         <img src="{{ asset('assets/img/logo/petnet_logo.png') }}" 
-             alt="PetNet Logo" 
+             alt="Animal Pride Logo" 
              class="w-full h-full object-contain">
     </div>
 @endif

@@ -2,6 +2,7 @@
     <div class="container">
         @php
             $websiteSettings = \App\Models\WebsiteSetting::getSettings();
+            $contactSettings = \App\Models\ContactSetting::getSettings();
         @endphp
         <div class="insta-img">
             <h3><i class="fa-brands fa-instagram"></i>Follow {{ $websiteSettings['instagram_handle'] ?? $websiteSettings['company_name'] ?? '@domain.com' }}</h3>
@@ -57,14 +58,17 @@
                             <path d="M0,81v350h512V81H0z M456.952,111L256,286.104L55.047,111H456.952z M30,128.967l134.031,116.789L30,379.787V128.967z
                                M51.213,401l135.489-135.489L256,325.896l69.298-60.384L460.787,401H51.213z M482,379.788L347.969,245.756L482,128.967V379.788z"></path>
                             </svg>
-                          </i><a href="mailto:{{ $websiteSettings['email'] ?? 'username@domain.com' }}">{{ $websiteSettings['email'] ?? 'username@domain.com' }}</a>
+                          </i><a href="mailto:{{ $websiteSettings['email'] ?? 'info@animalpride.in' }}">{{ $websiteSettings['email'] ?? 'info@animalpride.in' }}</a>
                     </div>
                         <div class="phone d-flax align-items-center">
                           <i>
                               <svg version="1.1" xml:space="preserve" width="682.66669" height="682.66669" viewBox="0 0 682.66669 682.66669" xmlns="http://www.w3.org/2000/svg"><clipPath clipPathUnits="userSpaceOnUse"><path d="M 0,512 H 512 V 0 H 0 Z"></path></clipPath><g transform="matrix(1.3333333,0,0,-1.3333333,0,682.66667)"><g><g clip-path="url(#clipPath2333)"><g transform="translate(256,92)"><path d="m 0,0 c -126.964,143.662 -160,165.23 -160,240 0,88.366 71.634,160 160,160 88.365,0 160,-71.634 160,-160 C 160,165.854 130.212,147.337 0,0 Z" style="fill:none;stroke:#000;stroke-width:40;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"></path></g><g transform="translate(316,372)"><path d="m 0,0 -80,-80 -40,40" style="fill:none;stroke:#000;stroke-width:40;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"></path></g></g></g></g>
                               </svg>
                             </i>
-                          <p>{{ $websiteSettings['address'] ?? 'Eighth Avenue 487, New York' }}</p>
+                          <div class="footer-addresses">
+                              <p class="mb-2"><strong>CLINIC & GROOMING CENTER:</strong><br>{{ $contactSettings->office1_address ?? 'BE-10, SECTOR - I, SALT LAKE, KOLKATA - 700 064 (OPPOSITE SEN MAHASAY BUSSTOP)' }}</p>
+                              <p class="mb-0"><strong>SALES OUTLET:</strong><br>{{ $contactSettings->office2_address ?? 'Q - 424, SUKANTANAGAR, SALT LAKE, SECTOR - IV, KOLKATA - 700 106 (OPPOSITE UPCOMING CHINGRIGHATA METRO)' }}</p>
+                          </div>
                         </div>
                 </div>
             </div>
@@ -77,7 +81,9 @@
                       <li><i class="fa-solid fa-angle-right"></i><a href="{{ route('about') }}">About</a></li>
                       <li><i class="fa-solid fa-angle-right"></i><a href="{{ route('gallery') }}">Photo Gallery</a></li>
                       <li><i class="fa-solid fa-angle-right"></i><a href="{{ route('products.index') }}">Our Products</a></li>
+                      {{-- Cooked Foods - DISABLED
                       <li><i class="fa-solid fa-angle-right"></i><a href="{{ route('cooked-foods.index') }}">Cooked Foods</a></li>
+                      --}}
                       <li><i class="fa-solid fa-angle-right"></i><a href="{{ route('blog') }}">Our Blog</a></li>
                       <li><i class="fa-solid fa-angle-right"></i><a href="{{ route('contact') }}">Contact</a></li>
                     </ul>
@@ -89,19 +95,13 @@
                       <h3>working hours</h3>
                       <div class="boder"></div>
                       <div class="working-time">
-                          @if(!empty($websiteSettings['working_hours_weekdays']) && !empty($websiteSettings['working_hours_weekdays_time']))
-                              <h6 class="pt-0">{{ $websiteSettings['working_hours_weekdays'] }} <span>{{ $websiteSettings['working_hours_weekdays_time'] }}</span></h6>
-                              @if(!empty($websiteSettings['working_hours_weekend']) && !empty($websiteSettings['working_hours_weekend_time']))
-                                  <h6>{{ $websiteSettings['working_hours_weekend'] }}<span>{{ $websiteSettings['working_hours_weekend_time'] }}</span></h6>
-                              @endif
-                          @else
-                              <h6 class="pt-0">Monday - Saturday <span>08AM - 10PM</span></h6>
-                              <h6>Sunday<span>08AM - 10PM</span></h6>
-                          @endif
+                          <h6 class="pt-0"><strong>Salt Lake:</strong> <span>10:30 AM – 9:00 PM</span></h6>
+                          <h6><strong>Chingrighata:</strong> <span>9:00 AM – 10:00 PM</span></h6>
                           <div class="call-us">
                               <img src="{{ asset('assets/img/hadphon.png') }}" alt="hadphon">
                               <div>
-                                  <a href="tel:{{ $websiteSettings['phone'] ?? '+021 01283492' }}">{{ $websiteSettings['phone'] ?? '+021 01283492' }}</a>
+                                  <a href="tel:7439767977">7439767977</a><br>
+                                  <a href="tel:9748546599">9748546599</a>
                                   <span>{{ $websiteSettings['support_text'] ?? 'Got Questions? Call us 24/7' }}</span>
                               </div>
                           </div>
@@ -131,7 +131,7 @@
             </div>
         </div>
         <div class="copyright">
-            <p>{{ $websiteSettings['footer_copyright'] ?? 'Petnet - Copyright 2023. Design by Sk Nadim' }}</p>
+            <p>{{ $websiteSettings['footer_copyright'] ?? 'Animal Pride - Copyright 2023. Design by Sk Nadim' }}</p>
             <a href="#"><img src="{{ asset('assets/img/visa.jpg') }}" alt="cad"></a>
         </div>
     </div>
@@ -149,6 +149,28 @@
 </div>
 
 <style>
+/* Footer Addresses Styling */
+.footer-addresses {
+    line-height: 1.8;
+}
+
+.footer-addresses p {
+    margin-bottom: 1rem;
+    color: #64748b;
+    font-size: 0.95rem;
+}
+
+.footer-addresses strong {
+    color: #ee643c;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.footer-addresses p:last-child {
+    margin-bottom: 0;
+}
+
 /* Progress Scroll to Top Button */
 .progress-wrap {
     position: fixed;
@@ -165,7 +187,7 @@
     visibility: hidden;
     transform: translateY(15px);
     transition: all 200ms linear;
-    background: linear-gradient(45deg, #fa441d, #e63612);
+    background: linear-gradient(45deg, #ee643c, #c20466);
 }
 
 .progress-wrap.active-progress {
@@ -199,7 +221,7 @@
 
 .progress-wrap svg path {
     fill: none;
-    stroke: #fa441d;
+    stroke: #ee643c;
     stroke-width: 3;
     box-sizing: border-box;
     transition: all 200ms linear;

@@ -158,6 +158,47 @@ class ReviewController extends Controller
     }
 
     /**
+     * Reply to a review
+     */
+    public function reply(Request $request, Review $review)
+    {
+        $request->validate([
+            'admin_reply' => 'required|string|max:1000'
+        ]);
+
+        try {
+            $review->update([
+                'admin_reply' => $request->admin_reply,
+                'replied_at' => now()
+            ]);
+
+            // Return JSON response for AJAX requests
+            if ($request->ajax() || $request->expectsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Reply posted successfully.',
+                    'admin_reply' => $review->admin_reply,
+                    'replied_at' => $review->replied_at->format('M d, Y h:i A')
+                ]);
+            }
+
+            return redirect()->back()->with('success', 'Reply posted successfully.');
+        } catch (\Exception $e) {
+            Log::error('Error posting reply: ' . $e->getMessage());
+
+            // Return JSON error for AJAX requests
+            if ($request->ajax() || $request->expectsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to post reply: ' . $e->getMessage()
+                ], 500);
+            }
+
+            return redirect()->back()->with('error', 'Failed to post reply.');
+        }
+    }
+
+    /**
      * Bulk approve reviews
      */
     public function bulkApprove(Request $request)

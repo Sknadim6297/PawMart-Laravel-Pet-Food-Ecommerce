@@ -22,16 +22,19 @@ return new class extends Migration
             $table->text('hero_description')->default('Expert Pet Care with a personal touch');
             
             // Contact Info Cards
-            $table->string('email_title')->default('Email Address.');
-            $table->string('email_address')->default('info@petnet.com');
+            $table->string('email_title')->default('Email Us');
+            $table->string('email_address')->default('info@animalpride.in');
             
-            $table->string('phone_title')->default('Phone Number.');
-            $table->string('phone_number')->default('+09 121 359 6224');
-            $table->string('phone_subtitle')->default('24/7 Support team');
+            $table->string('phone_title')->default('Call Us');
+            $table->string('phone_number')->default('7439767977');
+            $table->string('phone_number_2')->nullable();
+            $table->string('phone_subtitle')->default('Call Us');
             
-            $table->string('hours_title')->default('Working Hours.');
-            $table->string('working_hours')->default('9:00 AM - 5:00 PM');
-            $table->string('working_days')->default('Monday - Friday');
+            $table->string('hours_title')->default('Opening Hours');
+            $table->string('working_hours_salt_lake')->nullable();
+            $table->string('working_hours_chingrighata')->nullable();
+            $table->string('working_hours')->default('SALT LAKE: 10.30 AM - 9.00 PM');
+            $table->string('working_days')->default('CHINGRIGHATA: 9.00 AM - 10.00 PM');
             
             // Find Branch Section
             $table->string('branch_title')->default('Find a dog walker or pet care');
@@ -39,11 +42,11 @@ return new class extends Migration
             $table->string('branch_placeholder')->default('Enter address or postcode...');
             
             // Office Locations
-            $table->string('office1_title')->default('Head Office United State:');
-            $table->text('office1_address')->default('#201 1218 9th Avenue SE, Calgary, AB T2G 0T1');
+            $table->string('office1_title')->default('CLINIC & GROOMING CENTER:');
+            $table->text('office1_address')->default('BE-10, SECTOR - I, SALT LAKE, KOLKATA - 700 064 (OPPOSITE SEN MAHASAY BUSSTOP)');
             
-            $table->string('office2_title')->default('Head Office United State:');
-            $table->text('office2_address')->default('#201 1218 9th Avenue SE, Calgary, AB T2G 0T1');
+            $table->string('office2_title')->default('SALES OUTLET:');
+            $table->text('office2_address')->default('Q - 424, SUKANTANAGAR, SALT LAKE, SECTOR - IV, KOLKATA - 700 106 (OPPOSITE UPCOMING CHINGRIGHATA METRO)');
             
             // Contact Form
             $table->string('form_title')->default('Book Your Place or Find out More');

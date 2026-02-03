@@ -1,6 +1,6 @@
 @extends('frontend.layouts.layout')
 
-@section('title', 'Payment - PetNet')
+@section('title', 'Payment - Animal Pride')
 
 @push('styles')
 <style>
@@ -25,16 +25,16 @@
     text-align: center;
 }
 .payment-method:hover, .payment-method.selected {
-    border-color: #fa441d;
+    border-color: #ee643c;
     background-color: #fff8f5;
 }
 .payment-method i {
     font-size: 48px;
-    color: #fa441d;
+    color: #ee643c;
     margin-bottom: 10px;
 }
 .btn-pay {
-    background: linear-gradient(45deg, #fa441d, #ff6b3d);
+    background: linear-gradient(45deg, #ee643c, #c20466);
     border: none;
     color: white;
     padding: 15px 40px;

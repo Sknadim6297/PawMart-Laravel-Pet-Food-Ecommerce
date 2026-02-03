@@ -1,6 +1,6 @@
 @extends('frontend.layouts.layout')
 
-@section('title', 'Verify Email - PetNet')
+@section('title', 'Verify Email - Animal Pride')
 
 @section('content')
 <section class="banner" style="background-color: #fff8e5; background-image:url({{ asset('assets/img/banner.png') }})">

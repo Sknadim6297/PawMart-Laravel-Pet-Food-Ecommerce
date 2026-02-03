@@ -1,5 +1,5 @@
 <div class="available-coupons-widget">
-    <h5 style="color: #fa441d; margin-bottom: 15px;">
+    <h5 style="color: #ee643c; margin-bottom: 15px;">
         <i class="fas fa-gift"></i> Available Coupons
     </h5>
     <div id="coupons-list">
@@ -9,7 +9,7 @@
 
 <style>
 .coupon-item {
-    border: 2px dashed #fa441d;
+    border: 2px dashed #ee643c;
     border-radius: 8px;
     padding: 15px;
     margin-bottom: 10px;
@@ -27,7 +27,7 @@
 .coupon-code {
     font-size: 18px;
     font-weight: bold;
-    color: #fa441d;
+    color: #ee643c;
     margin-bottom: 5px;
 }
 
@@ -53,7 +53,7 @@
     position: absolute;
     top: 10px;
     right: 10px;
-    background: #fa441d;
+    background: #ee643c;
     color: white;
     border: none;
     padding: 5px 10px;

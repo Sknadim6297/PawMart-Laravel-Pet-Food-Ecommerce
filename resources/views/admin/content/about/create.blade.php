@@ -308,33 +308,6 @@
                     <i class="fas fa-plus me-1"></i> Add Feature
                 </button>
 
-                <!-- Statistics Section -->
-                <div class="section-header">
-                    <h3 class="section-title"><i class="fas fa-chart-bar me-2"></i>Statistics Section</h3>
-                </div>
-                
-                <div id="statistics-container">
-                    <div class="statistic-item dynamic-section">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h6 class="mb-0">Statistic Item</h6>
-                            <button type="button" class="btn btn-remove-item" onclick="removeStatistic(this)">
-                                <i class="fas fa-trash"></i> Remove
-                            </button>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input type="text" class="form-control mb-2" name="statistics[0][number]" placeholder="Number (e.g., 1000+)">
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control mb-2" name="statistics[0][label]" placeholder="Label (e.g., Happy Customers)">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button type="button" class="btn btn-add-item mb-4" onclick="addStatistic()">
-                    <i class="fas fa-plus me-1"></i> Add Statistic
-                </button>
-
                 <!-- Gallery Section -->
                 <div class="section-header">
                     <h3 class="section-title"><i class="fas fa-images me-2"></i>Gallery Section</h3>
@@ -413,7 +386,6 @@
 @push('scripts')
 <script>
 let featureIndex = 1;
-let statisticIndex = 1;
 let galleryIndex = 1;
 
 function addFeature() {
@@ -444,32 +416,7 @@ function removeFeature(btn) {
     btn.closest('.feature-item').remove();
 }
 
-function addStatistic() {
-    const container = document.getElementById('statistics-container');
-    const newStatistic = `
-        <div class="statistic-item dynamic-section">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h6 class="mb-0">Statistic Item</h6>
-                <button type="button" class="btn btn-remove-item" onclick="removeStatistic(this)">
-                    <i class="fas fa-trash"></i> Remove
-                </button>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <input type="text" class="form-control mb-2" name="statistics[${statisticIndex}][number]" placeholder="Number (e.g., 1000+)">
-                </div>
-                <div class="col-md-6">
-                    <input type="text" class="form-control mb-2" name="statistics[${statisticIndex}][label]" placeholder="Label (e.g., Happy Customers)">
-                </div>
-            </div>
-        </div>`;
-    container.insertAdjacentHTML('beforeend', newStatistic);
-    statisticIndex++;
-}
 
-function removeStatistic(btn) {
-    btn.closest('.statistic-item').remove();
-}
 
 function addGallery() {
     const container = document.getElementById('gallery-container');

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Admin Login - PetNet</title>
+    <title>Admin Login - Animal Pride</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
@@ -15,10 +15,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #fe5716;
-            --primary-dark: #e54e14;
+            --primary-color: #ee643c;
+            --primary-dark: #e63612;
             --primary-light: #ff7a3d;
-            --secondary-color: #6c757d;
+            --secondary-color: #c20466;
             --success-color: #10b981;
             --warning-color: #f59e0b;
             --danger-color: #ef4444;
@@ -28,10 +28,10 @@
             --text-dark: #1e293b;
             --bg-light: #fff8e5;
             
-            /* Pet-themed gradients */
-            --gradient-primary: linear-gradient(135deg, #fe5716 0%, #ff7a3d 100%);
-            --gradient-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-overlay: linear-gradient(45deg, rgba(254, 87, 22, 0.1) 0%, rgba(255, 122, 61, 0.1) 100%);
+            /* Animal Pride brand gradients */
+            --gradient-primary: linear-gradient(135deg, #ee643c 0%, #c20466 100%);
+            --gradient-bg: linear-gradient(135deg, #fff8e5 0%, #fff5f0 50%, #fff8e5 100%);
+            --gradient-overlay: linear-gradient(45deg, rgba(238, 100, 60, 0.1) 0%, rgba(194, 4, 102, 0.1) 100%);
             
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -48,13 +48,20 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: var(--bg-light);
+            background: linear-gradient(135deg, #fff8e5 0%, #fff5f0 50%, #fff8e5 100%);
+            background-size: 200% 200%;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             overflow: hidden;
+            animation: backgroundMove 15s ease infinite;
+        }
+
+        @keyframes backgroundMove {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
         /* Animated Background */
@@ -66,10 +73,11 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 20% 20%, rgba(254, 87, 22, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255, 122, 61, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(254, 87, 22, 0.05) 0%, transparent 50%);
-            animation: backgroundFloat 8s ease-in-out infinite;
+                radial-gradient(circle at 20% 20%, rgba(238, 100, 60, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(194, 4, 102, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(238, 100, 60, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 60% 60%, rgba(194, 4, 102, 0.08) 0%, transparent 50%);
+            animation: backgroundFloat 10s ease-in-out infinite;
         }
 
         @keyframes backgroundFloat {
@@ -97,7 +105,7 @@
 
         .pet-icon {
             position: absolute;
-            color: rgba(254, 87, 22, 0.1);
+            color: rgba(238, 100, 60, 0.15);
             font-size: 24px;
             animation: floatPet 12s ease-in-out infinite;
         }
@@ -167,11 +175,14 @@
         }
 
         .login-container {
-            background: rgba(255, 255, 255, 0.95);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 250, 245, 0.98) 100%);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 20px;
-            box-shadow: var(--shadow-2xl);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid rgba(238, 100, 60, 0.1);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15),
+                        0 0 0 1px rgba(238, 100, 60, 0.05),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.6);
             overflow: hidden;
             position: relative;
         }
@@ -182,18 +193,33 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background: var(--gradient-primary);
+            height: 5px;
+            background: linear-gradient(90deg, #ee643c, #c20466, #ee643c);
+            background-size: 200% 100%;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         /* Header Section */
         .login-header {
-            background: linear-gradient(135deg, #fe5716 0%, #ff7a3d 50%, #fe5716 100%);
+            background: linear-gradient(135deg, #ee643c 0%, #c20466 50%, #ee643c 100%);
+            background-size: 200% 200%;
             color: white;
             text-align: center;
-            padding: 40px 30px 30px;
+            padding: 30px 30px 25px;
             position: relative;
             overflow: hidden;
+            animation: headerGradient 8s ease infinite;
+        }
+
+        @keyframes headerGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
         .login-header::before {
@@ -204,9 +230,10 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.2) 0%, transparent 50%),
-                radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-            animation: headerShine 4s ease-in-out infinite;
+                radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.25) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: headerShine 5s ease-in-out infinite;
         }
 
         @keyframes headerShine {
@@ -220,18 +247,29 @@
         }
 
         .brand-logo {
-            width: 90px;
-            height: 90px;
-            background: rgba(255, 255, 255, 0.2);
+            width: 85px;
+            height: 85px;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 36px;
+            margin: 0 auto 18px;
+            font-size: 32px;
             animation: logoPulse 3s ease-in-out infinite;
-            border: 3px solid rgba(255, 255, 255, 0.3);
+            border: 3px solid rgba(255, 255, 255, 0.4);
             padding: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2),
+                        inset 0 2px 10px rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .brand-logo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3),
+                        inset 0 2px 10px rgba(255, 255, 255, 0.4);
         }
 
         .brand-logo .logo-img {
@@ -244,11 +282,15 @@
         @keyframes logoPulse {
             0%, 100% { 
                 transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2),
+                            0 0 0 0 rgba(255, 255, 255, 0.4),
+                            inset 0 2px 10px rgba(255, 255, 255, 0.3);
             }
             50% { 
-                transform: scale(1.05);
-                box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+                transform: scale(1.08);
+                box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3),
+                            0 0 0 15px rgba(255, 255, 255, 0),
+                            inset 0 2px 10px rgba(255, 255, 255, 0.4);
             }
         }
 
@@ -256,13 +298,19 @@
             font-family: 'Poppins', sans-serif;
             font-size: 28px;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             letter-spacing: -0.5px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2),
+                         0 4px 12px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.9) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
         }
 
         .login-subtitle {
-            font-size: 16px;
+            font-size: 14px;
             opacity: 0.95;
             font-weight: 500;
             margin-bottom: 0;
@@ -270,12 +318,23 @@
 
         /* Form Section */
         .login-body {
-            padding: 40px 30px;
-            background: white;
+            padding: 30px 35px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(255, 250, 245, 0.5) 100%);
+            position: relative;
+        }
+
+        .login-body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(238, 100, 60, 0.3), transparent);
         }
 
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             position: relative;
         }
 
@@ -290,10 +349,10 @@
 
         .form-control {
             width: 100%;
-            padding: 16px 20px 16px 50px;
+            padding: 14px 18px 14px 48px;
             border: 2px solid #e2e8f0;
             border-radius: 12px;
-            font-size: 16px;
+            font-size: 15px;
             transition: all 0.3s ease;
             background: #f8fafc;
             font-family: 'Poppins', sans-serif;
@@ -304,7 +363,8 @@
             outline: none;
             border-color: var(--primary-color);
             background: white;
-            box-shadow: 0 0 0 4px rgba(254, 87, 22, 0.1);
+            box-shadow: 0 0 0 4px rgba(238, 100, 60, 0.15),
+                        0 4px 12px rgba(238, 100, 60, 0.1);
             transform: translateY(-2px);
         }
 
@@ -331,26 +391,28 @@
         /* Login Button */
         .btn-login {
             width: 100%;
-            padding: 18px 20px;
+            padding: 15px 20px;
             background: var(--gradient-primary);
             border: none;
             border-radius: 12px;
             color: white;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            margin-top: 10px;
+            margin-top: 8px;
             font-family: 'Poppins', sans-serif;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
         .btn-login:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(254, 87, 22, 0.4);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(238, 100, 60, 0.4),
+                        0 0 0 4px rgba(238, 100, 60, 0.1);
+            background: linear-gradient(135deg, #c20466 0%, #ee643c 100%);
         }
 
         .btn-login:active {
@@ -374,18 +436,31 @@
 
         /* Alert Styles */
         .alert {
-            padding: 16px 20px;
+            padding: 14px 18px;
             border-radius: 12px;
-            margin-bottom: 25px;
-            border: none;
-            background: rgba(239, 68, 68, 0.1);
+            margin-bottom: 20px;
+            border: 2px solid rgba(239, 68, 68, 0.2);
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%);
             color: #dc2626;
             border-left: 4px solid #dc2626;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
             display: flex;
             align-items: center;
             gap: 10px;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.1);
+            animation: alertSlideIn 0.4s ease-out;
+        }
+
+        @keyframes alertSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .alert i {
@@ -396,8 +471,8 @@
         /* Back Link */
         .back-link {
             text-align: center;
-            margin-top: 30px;
-            padding-top: 25px;
+            margin-top: 22px;
+            padding-top: 20px;
             border-top: 1px solid #e2e8f0;
         }
 
@@ -416,8 +491,9 @@
 
         .back-link a:hover {
             color: var(--primary-color);
-            background: rgba(254, 87, 22, 0.05);
+            background: linear-gradient(135deg, rgba(238, 100, 60, 0.08), rgba(194, 4, 102, 0.08));
             transform: translateX(-3px);
+            box-shadow: 0 4px 12px rgba(238, 100, 60, 0.15);
         }
 
         /* Loading State */
@@ -460,9 +536,10 @@
             }
 
             .brand-logo {
-                width: 70px;
-                height: 70px;
+                width: 80px;
+                height: 80px;
                 font-size: 28px;
+                padding: 15px;
             }
 
             .login-title {
@@ -517,17 +594,18 @@
         }
 
         .success-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--gradient-primary);
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #ee643c 0%, #c20466 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 20px;
             color: white;
-            font-size: 32px;
+            font-size: 36px;
             animation: successBounce 0.6s ease-out 0.2s both;
+            box-shadow: 0 8px 25px rgba(238, 100, 60, 0.4);
         }
 
         @keyframes successBounce {
@@ -558,9 +636,9 @@
             <!-- Header -->
             <div class="login-header">
                 <div class="brand-logo">
-                    <img src="{{ asset('assets/img/logo/petnet_logo.png') }}" alt="PetNet Logo" class="logo-img">
+                    <img src="{{ asset('assets/img/logo/petnet_logo.png') }}" alt="Animal Pride Logo" class="logo-img">
                 </div>
-                <h1 class="login-title">PetNet Admin</h1>
+                <h1 class="login-title">Animal Pride Admin</h1>
                 <p class="login-subtitle">Welcome back! Please sign in to manage your pet store</p>
             </div>
             
@@ -612,7 +690,7 @@
                 <div class="back-link">
                     <a href="{{ route('home') }}">
                         <i class="fas fa-arrow-left"></i>
-                        Back to PetNet Website
+                        Back to Animal Pride Website
                     </a>
                 </div>
             </div>

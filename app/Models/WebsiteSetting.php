@@ -57,12 +57,12 @@ class WebsiteSetting extends Model
         if (!$settings) {
             // Create default settings if none exist
             $settings = self::create([
-                'company_name' => 'PetNet',
-                'email' => 'info@petnet.com',
-                'phone' => '+021 01283492',
+                'company_name' => 'Animal Pride',
+                'email' => 'info@animalpride.in',
+                'phone' => '7439767977, 9748546599',
                 'address' => 'Eighth Avenue 487, New York',
-                'footer_copyright' => 'PetNet - Copyright 2025. Design by Sk Nadim',
-                'instagram_handle' => '@petnet',
+                'footer_copyright' => 'Animal Pride - Copyright 2025. Design by Sk Nadim',
+                'instagram_handle' => '@animalpride',
                 'working_hours_weekdays' => 'Monday - Saturday',
                 'working_hours_weekdays_time' => '08AM - 10PM',
                 'working_hours_weekend' => 'Sunday',

@@ -1,0 +1,1138 @@
+<?php $__env->startSection('title', 'Review Details'); ?>
+
+<<<<<<< HEAD
+<?php $__env->startPush('styles'); ?>
+<style>
+.review-show-wrapper {
+    padding: 25px;
+    background: #f8f9fa;
+    min-height: 100vh;
+}
+
+.review-show-header {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.review-show-header h1 {
+    color: #2c3e50;
+    font-weight: 700;
+    margin: 0;
+    font-size: 28px;
+}
+
+.btn-back-reviews {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.btn-back-reviews:hover {
+    background: #545b62;
+    color: white;
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+.review-details-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    margin-bottom: 25px;
+}
+
+.review-details-header {
+    background: linear-gradient(135deg, #fe5716, #ff7a3d);
+    color: white;
+    padding: 20px;
+}
+
+.review-details-header h5 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.review-details-body {
+    padding: 25px;
+}
+
+.product-info-card {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 20px;
+    border: 2px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.product-info-card:hover {
+    border-color: #fe5716;
+    box-shadow: 0 4px 15px rgba(254, 87, 22, 0.1);
+}
+
+.product-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid #e9ecef;
+}
+
+.product-details {
+    padding-left: 15px;
+}
+
+.product-name {
+    color: #2c3e50;
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.product-info-item {
+    color: #6c757d;
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+.btn-view-product {
+    background: linear-gradient(135deg, #17a2b8, #20c997);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.btn-view-product:hover {
+    background: linear-gradient(135deg, #138496, #17a2b8);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(23, 162, 184, 0.3);
+    text-decoration: none;
+}
+
+.reviewer-info-card {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 20px;
+    border: 2px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.reviewer-info-card:hover {
+    border-color: #fe5716;
+    box-shadow: 0 4px 15px rgba(254, 87, 22, 0.1);
+}
+
+.reviewer-info-table {
+    width: 100%;
+}
+
+.reviewer-info-table td {
+    padding: 8px 0;
+    border-bottom: 1px solid #f1f3f4;
+    vertical-align: top;
+}
+
+.reviewer-info-table td:first-child {
+    font-weight: 600;
+    color: #2c3e50;
+    min-width: 120px;
+    font-size: 13px;
+}
+
+.reviewer-info-table td:last-child {
+    color: #6c757d;
+    font-size: 13px;
+}
+
+.user-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.user-badge.registered {
+    background: #d4edda;
+    color: #155724;
+}
+
+.user-badge.guest {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-badge.approved {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-badge.pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.review-rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.review-rating .stars {
+    color: #ffc107;
+}
+
+.review-rating .rating-text {
+    color: #6c757d;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.review-comment-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    margin-bottom: 25px;
+}
+
+.review-comment-header {
+    background: linear-gradient(135deg, #fe5716, #ff7a3d);
+    color: white;
+    padding: 20px;
+}
+
+.review-comment-header h5 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.review-comment-body {
+    padding: 25px;
+}
+
+.review-comment-text {
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    padding: 20px;
+    color: #2c3e50;
+    line-height: 1.6;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.review-actions-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    margin-bottom: 25px;
+}
+
+.review-actions-header {
+    background: linear-gradient(135deg, #fe5716, #ff7a3d);
+    color: white;
+    padding: 20px;
+}
+
+.review-actions-header h5 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.review-actions-body {
+    padding: 25px;
+}
+
+.btn-action {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    font-size: 14px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.btn-action:hover {
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+.btn-approve {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+}
+
+.btn-approve:hover {
+    background: linear-gradient(135deg, #1e7e34, #17a2b8);
+    color: white;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
+.btn-reject {
+    background: linear-gradient(135deg, #ffc107, #fd7e14);
+    color: white;
+}
+
+.btn-reject:hover {
+    background: linear-gradient(135deg, #e0a800, #e55e14);
+    color: white;
+    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+}
+
+.btn-delete {
+    background: linear-gradient(135deg, #dc3545, #e74c3c);
+    color: white;
+}
+
+.btn-delete:hover {
+    background: linear-gradient(135deg, #c82333, #d63031);
+    color: white;
+    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+}
+
+.other-reviews-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    margin-bottom: 25px;
+}
+
+.other-reviews-header {
+    background: linear-gradient(135deg, #fe5716, #ff7a3d);
+    color: white;
+    padding: 20px;
+}
+
+.other-reviews-header h5 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.other-reviews-body {
+    padding: 25px;
+}
+
+.other-reviews-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.other-reviews-table th {
+    background: #f8f9fa;
+    color: #2c3e50;
+    font-weight: 600;
+    padding: 12px;
+    text-align: left;
+    border-bottom: 2px solid #e9ecef;
+    font-size: 13px;
+}
+
+.other-reviews-table td {
+    padding: 12px;
+    border-bottom: 1px solid #f1f3f4;
+    font-size: 13px;
+}
+
+.other-reviews-table tbody tr:hover {
+    background: #f8f9fa;
+}
+
+.btn-view-review {
+    background: #17a2b8;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 12px;
+}
+
+.btn-view-review:hover {
+    background: #138496;
+    color: white;
+    transform: translateY(-1px);
+    text-decoration: none;
+}
+
+.btn-view-all {
+    background: linear-gradient(135deg, #17a2b8, #20c997);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    margin-top: 15px;
+}
+
+.btn-view-all:hover {
+    background: linear-gradient(135deg, #138496, #17a2b8);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(23, 162, 184, 0.3);
+    text-decoration: none;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@media (max-width: 768px) {
+    .review-show-wrapper {
+        padding: 15px;
+    }
+    
+    .review-show-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+    
+    .review-show-header h1 {
+        font-size: 24px;
+    }
+    
+    .review-details-body {
+        padding: 20px;
+    }
+    
+    .product-info-card,
+    .reviewer-info-card {
+        margin-bottom: 20px;
+    }
+    
+    .btn-action {
+        width: 100%;
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .review-show-wrapper {
+        padding: 10px;
+    }
+    
+    .review-show-header h1 {
+        font-size: 20px;
+    }
+    
+    .review-details-body {
+        padding: 15px;
+    }
+    
+    .product-info-card,
+    .reviewer-info-card {
+        padding: 15px;
+    }
+    
+    .other-reviews-table {
+        font-size: 11px;
+    }
+    
+    .other-reviews-table th,
+    .other-reviews-table td {
+        padding: 8px;
+    }
+}
+
+/* Admin Reply Styles */
+.admin-reply-display {
+    background: #f0f8ff;
+    border-left: 4px solid #17a2b8;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.admin-reply-text {
+    color: #2c3e50;
+    line-height: 1.6;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.admin-reply-meta {
+    color: #6c757d;
+    font-size: 12px;
+    font-style: italic;
+}
+
+#reply-form textarea {
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+#reply-form textarea:focus {
+    border-color: #fe5716;
+    box-shadow: 0 0 0 0.2rem rgba(254, 87, 22, 0.15);
+    outline: none;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+</style>
+<?php $__env->stopPush(); ?>
+
+<?php $__env->startSection('content'); ?>
+<div class="review-show-wrapper">
+    <!-- Page Header -->
+    <div class="review-show-header">
+        <div>
+            <h1><i class="fas fa-star me-2"></i>Review Details</h1>
+        </div>
+        <div>
+            <a href="<?php echo e(route('admin.reviews.index')); ?>" class="btn-back-reviews">
+                <i class="fas fa-arrow-left"></i> Back to Reviews
+            </a>
+        </div>
+    </div>
+
+    <!-- Review Details -->
+    <div class="review-details-card">
+        <div class="review-details-header">
+            <h5><i class="fas fa-info-circle me-2"></i>Review Information</h5>
+        </div>
+        <div class="review-details-body">
+
+            <div class="row">
+                <!-- Product Information -->
+                <div class="col-md-6">
+                    <div class="product-info-card">
+                        <div class="d-flex align-items-start">
+                            <?php if($review->product->image): ?>
+                                <img src="<?php echo e(asset('storage/' . $review->product->image)); ?>" 
+                                     alt="<?php echo e($review->product->name); ?>" 
+                                     class="product-image">
+                            <?php endif; ?>
+                            <div class="product-details">
+                                <h6 class="product-name"><?php echo e($review->product->name); ?></h6>
+                                <p class="product-info-item">SKU: <?php echo e($review->product->sku); ?></p>
+                                <p class="product-info-item">Category: <?php echo e($review->product->category->name); ?></p>
+                                <?php if($review->product->brand): ?>
+                                    <p class="product-info-item">Brand: <?php echo e($review->product->brand->name); ?></p>
+                                <?php endif; ?>
+                                <p class="product-info-item">Price: ₹<?php echo e(number_format($review->product->price, 2)); ?></p>
+                                <a href="<?php echo e(route('admin.products.show', $review->product)); ?>" 
+                                   class="btn-view-product">
+                                    <i class="fas fa-eye"></i> View Product
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reviewer Information -->
+                <div class="col-md-6">
+                    <div class="reviewer-info-card">
+                        <table class="reviewer-info-table">
+                            <tr>
+                                <td>Name:</td>
+                                <td><?php echo e($review->name); ?></td>
+                            </tr>
+                            <tr>
+                                <td>Email:</td>
+                                <td><?php echo e($review->email); ?></td>
+                            </tr>
+                            <tr>
+                                <td>User Account:</td>
+                                <td>
+                                    <?php if($review->user): ?>
+                                        <span class="user-badge registered">Registered User</span>
+                                        <br>
+                                        <small class="text-muted">User ID: <?php echo e($review->user->id); ?></small>
+                                    <?php else: ?>
+                                        <span class="user-badge guest">Guest User</span>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Rating:</td>
+                                <td>
+                                    <div class="review-rating">
+                                        <div class="stars">
+                                            <?php for($i = 1; $i <= 5; $i++): ?>
+                                                <?php if($i <= $review->rating): ?>
+                                                    <i class="fas fa-star"></i>
+                                                <?php else: ?>
+                                                    <i class="far fa-star"></i>
+                                                <?php endif; ?>
+                                            <?php endfor; ?>
+                                        </div>
+                                        <span class="rating-text"><?php echo e($review->rating); ?>/5</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Status:</td>
+                                <td>
+                                    <?php if($review->is_approved): ?>
+                                        <span class="status-badge approved">Approved</span>
+                                    <?php else: ?>
+                                        <span class="status-badge pending">Pending Approval</span>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Submitted:</td>
+                                <td>
+                                    <?php echo e($review->created_at->format('F d, Y \a\t h:i A')); ?>
+
+                                    <br>
+                                    <small class="text-muted"><?php echo e($review->created_at->diffForHumans()); ?></small>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Review Comment -->
+    <div class="review-comment-card">
+        <div class="review-comment-header">
+            <h5><i class="fas fa-comment me-2"></i>Review Comment</h5>
+        </div>
+        <div class="review-comment-body">
+            <div class="review-comment-text">
+                <?php echo e($review->comment); ?>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Reply Section -->
+    <div class="review-comment-card">
+        <div class="review-comment-header">
+            <h5><i class="fas fa-reply me-2"></i>Admin Reply</h5>
+        </div>
+        <div class="review-comment-body">
+            <?php if($review->admin_reply): ?>
+                <div class="admin-reply-display">
+                    <div class="admin-reply-text">
+                        <?php echo e($review->admin_reply); ?>
+
+                    </div>
+                    <div class="admin-reply-meta">
+                        <i class="fas fa-clock me-1"></i>
+                        Replied on <?php echo e($review->replied_at->format('M d, Y \a\t h:i A')); ?>
+
+                    </div>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-primary mt-3" onclick="editReply()">
+                    <i class="fas fa-edit me-1"></i>Edit Reply
+                </button>
+            <?php endif; ?>
+            
+            <form id="reply-form" action="<?php echo e(route('admin.reviews.reply', $review)); ?>" method="POST" style="<?php echo e($review->admin_reply ? 'display: none;' : ''); ?>">
+                <?php echo csrf_field(); ?>
+                <div class="form-group mb-3">
+                    <textarea name="admin_reply" id="admin_reply" class="form-control" rows="4" placeholder="Write your reply to this review..." required><?php echo e($review->admin_reply); ?></textarea>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane me-1"></i><?php echo e($review->admin_reply ? 'Update Reply' : 'Post Reply'); ?>
+
+                    </button>
+                    <?php if($review->admin_reply): ?>
+                        <button type="button" class="btn btn-secondary" onclick="cancelEdit()">
+                            <i class="fas fa-times me-1"></i>Cancel
+                        </button>
+                    <?php endif; ?>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="review-actions-card">
+        <div class="review-actions-header">
+            <h5><i class="fas fa-bolt me-2"></i>Actions</h5>
+        </div>
+        <div class="review-actions-body">
+            <?php if($review->is_approved): ?>
+                <form action="<?php echo e(route('admin.reviews.reject', $review)); ?>" 
+                      method="POST" class="d-inline" 
+                      onsubmit="return confirm('Are you sure you want to reject this review?')">
+                    <?php echo csrf_field(); ?>
+                    <button type="submit" class="btn-action btn-reject">
+                        <i class="fas fa-times"></i> Reject Review
+                    </button>
+                </form>
+            <?php else: ?>
+                <form action="<?php echo e(route('admin.reviews.approve', $review)); ?>" 
+                      method="POST" class="d-inline" 
+                      onsubmit="return confirm('Are you sure you want to approve this review?')">
+                    <?php echo csrf_field(); ?>
+                    <button type="submit" class="btn-action btn-approve">
+                        <i class="fas fa-check"></i> Approve Review
+                    </button>
+                </form>
+            <?php endif; ?>
+            
+            <form action="<?php echo e(route('admin.reviews.destroy', $review)); ?>" 
+                  method="POST" class="d-inline" 
+                  onsubmit="return confirm('Are you sure you want to delete this review? This action cannot be undone.')">
+                <?php echo csrf_field(); ?>
+                <?php echo method_field('DELETE'); ?>
+                <button type="submit" class="btn-action btn-delete">
+                    <i class="fas fa-trash"></i> Delete Review
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Other Reviews for this Product -->
+    <?php if($review->product->reviews()->count() > 1): ?>
+    <div class="other-reviews-card">
+        <div class="other-reviews-header">
+            <h5><i class="fas fa-list me-2"></i>Other Reviews for this Product</h5>
+        </div>
+        <div class="other-reviews-body">
+            <div class="table-responsive">
+                <table class="other-reviews-table">
+                    <thead>
+                        <tr>
+                            <th>Reviewer</th>
+                            <th>Rating</th>
+                            <th>Comment</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $__currentLoopData = $review->product->reviews()->where('id', '!=', $review->id)->latest()->limit(5)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $otherReview): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <tr>
+                            <td><?php echo e($otherReview->name); ?></td>
+                            <td>
+                                <div class="review-rating">
+                                    <div class="stars">
+                                        <?php for($i = 1; $i <= 5; $i++): ?>
+                                            <?php if($i <= $otherReview->rating): ?>
+                                                <i class="fas fa-star"></i>
+                                            <?php else: ?>
+                                                <i class="far fa-star"></i>
+                                            <?php endif; ?>
+                                        <?php endfor; ?>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><?php echo e(Str::limit($otherReview->comment, 50)); ?></td>
+                            <td>
+                                <?php if($otherReview->is_approved): ?>
+                                    <span class="status-badge approved">Approved</span>
+                                <?php else: ?>
+                                    <span class="status-badge pending">Pending</span>
+                                <?php endif; ?>
+                            </td>
+                            <td><?php echo e($otherReview->created_at->format('M d, Y')); ?></td>
+                            <td>
+                                <a href="<?php echo e(route('admin.reviews.show', $otherReview)); ?>" 
+                                   class="btn-view-review">View</a>
+                            </td>
+                        </tr>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </tbody>
+                </table>
+            </div>
+            <?php if($review->product->reviews()->count() > 6): ?>
+                <div class="text-center mt-3">
+                    <a href="<?php echo e(route('admin.reviews.index', ['product_id' => $review->product->id])); ?>" 
+                       class="btn-view-all">
+                        <i class="fas fa-list me-2"></i>View All Reviews for this Product
+                    </a>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+    <?php endif; ?>
+</div>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startPush('scripts'); ?>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Add animations to page elements
+    const header = document.querySelector('.review-show-header');
+    const cards = document.querySelectorAll('.review-details-card, .review-comment-card, .review-actions-card, .other-reviews-card');
+    
+    if (header) header.classList.add('animate-fade-up');
+    
+    cards.forEach((card, index) => {
+        setTimeout(() => {
+            card.classList.add('animate-fade-up');
+        }, index * 150);
+    });
+});
+
+// Admin reply form handling
+const replyForm = document.getElementById('reply-form');
+if (replyForm) {
+    replyForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(this);
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.innerHTML;
+        
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Posting...';
+        
+        fetch(this.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Show success message using alert since showToast is not defined
+                alert(data.message || 'Reply posted successfully!');
+                
+                // Reload page to show the reply
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            } else {
+                throw new Error(data.message || 'Failed to post reply');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert(error.message || 'Failed to post reply. Please try again.');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
+        });
+    });
+}
+
+function editReply() {
+    document.querySelector('.admin-reply-display').style.display = 'none';
+    document.querySelector('button[onclick="editReply()"]').style.display = 'none';
+    document.getElementById('reply-form').style.display = 'block';
+}
+
+function cancelEdit() {
+    document.querySelector('.admin-reply-display').style.display = 'block';
+    document.querySelector('button[onclick="editReply()"]').style.display = 'block';
+    document.getElementById('reply-form').style.display = 'none';
+}
+</script>
+<?php $__env->stopPush(); ?>
+=======
+<?php $__env->startSection('content'); ?>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title">Review Details</h3>
+                    <div class="card-tools">
+                        <a href="<?php echo e(route('admin.reviews.index')); ?>" class="btn btn-secondary btn-sm">
+                            <i class="fas fa-arrow-left"></i> Back to Reviews
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Product Information -->
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">Product Information</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex align-items-start">
+                                        <?php if($review->product->image): ?>
+                                            <img src="<?php echo e(asset('storage/' . $review->product->image)); ?>" 
+                                                 alt="<?php echo e($review->product->name); ?>" 
+                                                 class="img-thumbnail mr-3" style="width: 100px; height: 100px; object-fit: cover;">
+                                        <?php endif; ?>
+                                        <div>
+                                            <h6><?php echo e($review->product->name); ?></h6>
+                                            <p class="text-muted mb-1">SKU: <?php echo e($review->product->sku); ?></p>
+                                            <p class="text-muted mb-1">Category: <?php echo e($review->product->category->name); ?></p>
+                                            <?php if($review->product->brand): ?>
+                                                <p class="text-muted mb-1">Brand: <?php echo e($review->product->brand->name); ?></p>
+                                            <?php endif; ?>
+                                            <p class="text-muted">Price: ₹<?php echo e(number_format($review->product->price, 2)); ?></p>
+                                            <a href="<?php echo e(route('admin.products.show', $review->product)); ?>" 
+                                               class="btn btn-primary btn-sm">
+                                                <i class="fas fa-eye"></i> View Product
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Reviewer Information -->
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">Reviewer Information</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-borderless">
+                                        <tr>
+                                            <td><strong>Name:</strong></td>
+                                            <td><?php echo e($review->name); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Email:</strong></td>
+                                            <td><?php echo e($review->email); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>User Account:</strong></td>
+                                            <td>
+                                                <?php if($review->user): ?>
+                                                    <span class="badge badge-success">Registered User</span>
+                                                    <br>
+                                                    <small class="text-muted">User ID: <?php echo e($review->user->id); ?></small>
+                                                <?php else: ?>
+                                                    <span class="badge badge-secondary">Guest User</span>
+                                                <?php endif; ?>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Rating:</strong></td>
+                                            <td>
+                                                <div class="rating">
+                                                    <?php for($i = 1; $i <= 5; $i++): ?>
+                                                        <?php if($i <= $review->rating): ?>
+                                                            <i class="fas fa-star text-warning"></i>
+                                                        <?php else: ?>
+                                                            <i class="far fa-star text-muted"></i>
+                                                        <?php endif; ?>
+                                                    <?php endfor; ?>
+                                                    <span class="ml-2"><?php echo e($review->rating); ?>/5</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Status:</strong></td>
+                                            <td>
+                                                <?php if($review->is_approved): ?>
+                                                    <span class="badge badge-success">Approved</span>
+                                                <?php else: ?>
+                                                    <span class="badge badge-warning">Pending Approval</span>
+                                                <?php endif; ?>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Submitted:</strong></td>
+                                            <td>
+                                                <?php echo e($review->created_at->format('F d, Y \a\t h:i A')); ?>
+
+                                                <br>
+                                                <small class="text-muted"><?php echo e($review->created_at->diffForHumans()); ?></small>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review Comment -->
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">Review Comment</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="bg-light p-3 rounded">
+                                        <?php echo e($review->comment); ?>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">Actions</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="btn-group" role="group">
+                                        <?php if($review->is_approved): ?>
+                                            <form action="<?php echo e(route('admin.reviews.reject', $review)); ?>" 
+                                                  method="POST" class="d-inline" 
+                                                  onsubmit="return confirm('Are you sure you want to reject this review?')">
+                                                <?php echo csrf_field(); ?>
+                                                <button type="submit" class="btn btn-warning">
+                                                    <i class="fas fa-times"></i> Reject Review
+                                                </button>
+                                            </form>
+                                        <?php else: ?>
+                                            <form action="<?php echo e(route('admin.reviews.approve', $review)); ?>" 
+                                                  method="POST" class="d-inline" 
+                                                  onsubmit="return confirm('Are you sure you want to approve this review?')">
+                                                <?php echo csrf_field(); ?>
+                                                <button type="submit" class="btn btn-success">
+                                                    <i class="fas fa-check"></i> Approve Review
+                                                </button>
+                                            </form>
+                                        <?php endif; ?>
+                                        
+                                        <form action="<?php echo e(route('admin.reviews.destroy', $review)); ?>" 
+                                              method="POST" class="d-inline ml-2" 
+                                              onsubmit="return confirm('Are you sure you want to delete this review? This action cannot be undone.')">
+                                            <?php echo csrf_field(); ?>
+                                            <?php echo method_field('DELETE'); ?>
+                                            <button type="submit" class="btn btn-danger">
+                                                <i class="fas fa-trash"></i> Delete Review
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Other Reviews for this Product -->
+                    <?php if($review->product->reviews()->count() > 1): ?>
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">Other Reviews for this Product</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>Reviewer</th>
+                                                    <th>Rating</th>
+                                                    <th>Comment</th>
+                                                    <th>Status</th>
+                                                    <th>Date</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php $__currentLoopData = $review->product->reviews()->where('id', '!=', $review->id)->latest()->limit(5)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $otherReview): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <tr>
+                                                    <td><?php echo e($otherReview->name); ?></td>
+                                                    <td>
+                                                        <?php for($i = 1; $i <= 5; $i++): ?>
+                                                            <?php if($i <= $otherReview->rating): ?>
+                                                                <i class="fas fa-star text-warning"></i>
+                                                            <?php else: ?>
+                                                                <i class="far fa-star text-muted"></i>
+                                                            <?php endif; ?>
+                                                        <?php endfor; ?>
+                                                    </td>
+                                                    <td><?php echo e(Str::limit($otherReview->comment, 50)); ?></td>
+                                                    <td>
+                                                        <?php if($otherReview->is_approved): ?>
+                                                            <span class="badge badge-success">Approved</span>
+                                                        <?php else: ?>
+                                                            <span class="badge badge-warning">Pending</span>
+                                                        <?php endif; ?>
+                                                    </td>
+                                                    <td><?php echo e($otherReview->created_at->format('M d, Y')); ?></td>
+                                                    <td>
+                                                        <a href="<?php echo e(route('admin.reviews.show', $otherReview)); ?>" 
+                                                           class="btn btn-sm btn-outline-primary">View</a>
+                                                    </td>
+                                                </tr>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <?php if($review->product->reviews()->count() > 6): ?>
+                                        <div class="text-center mt-3">
+                                            <a href="<?php echo e(route('admin.reviews.index', ['product_id' => $review->product->id])); ?>" 
+                                               class="btn btn-outline-primary">
+                                                View All Reviews for this Product
+                                            </a>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $__env->stopSection(); ?>
+>>>>>>> origin/main
+
+<?php echo $__env->make('admin.layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\SK NADIM\Downloads\_animalpride\resources\views/admin/reviews/show.blade.php ENDPATH**/ ?>

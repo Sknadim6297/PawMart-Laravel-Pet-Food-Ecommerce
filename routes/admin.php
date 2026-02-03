@@ -18,6 +18,9 @@ use App\Http\Controllers\Admin\ContactQueryController;
 use App\Http\Controllers\Admin\WebsiteSettingsController;
 use App\Http\Controllers\Admin\AboutContentController;
 use App\Http\Controllers\Admin\PetCareServiceController;
+use App\Http\Controllers\Admin\HeroSectionController;
+use App\Http\Controllers\Admin\WelcomeSectionController;
+use App\Http\Controllers\Admin\StatisticController;
 
 // Admin Authentication
 Route::get('login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
@@ -28,6 +31,15 @@ Route::post('logout', [AdminAuthController::class, 'logout'])->name('admin.logou
 Route::middleware('admin')->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard.index');
+    
+    // Hero Sections Management
+    Route::resource('hero-sections', HeroSectionController::class, ['as' => 'admin']);
+    
+    // Welcome Sections Management
+    Route::resource('welcome-sections', WelcomeSectionController::class, ['as' => 'admin']);
+    
+    // Statistics Management
+    Route::resource('statistics', StatisticController::class, ['as' => 'admin']);
     
     // Category Management
     Route::resource('categories', CategoryController::class, ['as' => 'admin']);
@@ -45,6 +57,7 @@ Route::middleware('admin')->group(function () {
         Route::get('/{review}', [App\Http\Controllers\Admin\ReviewController::class, 'show'])->name('show');
         Route::post('/{review}/approve', [App\Http\Controllers\Admin\ReviewController::class, 'approve'])->name('approve');
         Route::post('/{review}/reject', [App\Http\Controllers\Admin\ReviewController::class, 'reject'])->name('reject');
+        Route::post('/{review}/reply', [App\Http\Controllers\Admin\ReviewController::class, 'reply'])->name('reply');
         Route::delete('/{review}', [App\Http\Controllers\Admin\ReviewController::class, 'destroy'])->name('destroy');
         Route::post('/bulk-approve', [App\Http\Controllers\Admin\ReviewController::class, 'bulkApprove'])->name('bulk-approve');
         Route::post('/bulk-delete', [App\Http\Controllers\Admin\ReviewController::class, 'bulkDelete'])->name('bulk-delete');
@@ -62,29 +75,29 @@ Route::middleware('admin')->group(function () {
         Route::post('/{coupon}/toggle-status', [CouponController::class, 'toggleStatus'])->name('toggle-status');
     });
     
-    // Cooked Food Management
-    Route::prefix('cooked-foods')->name('admin.cooked-foods.')->group(function () {
-        Route::get('/', [CookedFoodController::class, 'index'])->name('index');
-        Route::get('/create', [CookedFoodController::class, 'create'])->name('create');
-        Route::post('/', [CookedFoodController::class, 'store'])->name('store');
-        Route::get('/{cookedFood}', [CookedFoodController::class, 'show'])->name('show');
-        Route::get('/{cookedFood}/edit', [CookedFoodController::class, 'edit'])->name('edit');
-        Route::put('/{cookedFood}', [CookedFoodController::class, 'update'])->name('update');
-        Route::delete('/{cookedFood}', [CookedFoodController::class, 'destroy'])->name('destroy');
-        Route::post('/{cookedFood}/toggle-status', [CookedFoodController::class, 'toggleStatus'])->name('toggle-status');
-    });
+    // Cooked Food Management - DISABLED
+    // Route::prefix('cooked-foods')->name('admin.cooked-foods.')->group(function () {
+    //     Route::get('/', [CookedFoodController::class, 'index'])->name('index');
+    //     Route::get('/create', [CookedFoodController::class, 'create'])->name('create');
+    //     Route::post('/', [CookedFoodController::class, 'store'])->name('store');
+    //     Route::get('/{cookedFood}', [CookedFoodController::class, 'show'])->name('show');
+    //     Route::get('/{cookedFood}/edit', [CookedFoodController::class, 'edit'])->name('edit');
+    //     Route::put('/{cookedFood}', [CookedFoodController::class, 'update'])->name('update');
+    //     Route::delete('/{cookedFood}', [CookedFoodController::class, 'destroy'])->name('destroy');
+    //     Route::post('/{cookedFood}/toggle-status', [CookedFoodController::class, 'toggleStatus'])->name('toggle-status');
+    // });
     
-    // Cooked Food Management
-    Route::prefix('cooked-foods')->name('admin.cooked-foods.')->group(function () {
-        Route::get('/', [CookedFoodController::class, 'index'])->name('index');
-        Route::get('/create', [CookedFoodController::class, 'create'])->name('create');
-        Route::post('/', [CookedFoodController::class, 'store'])->name('store');
-        Route::get('/{cookedFood}', [CookedFoodController::class, 'show'])->name('show');
-        Route::get('/{cookedFood}/edit', [CookedFoodController::class, 'edit'])->name('edit');
-        Route::put('/{cookedFood}', [CookedFoodController::class, 'update'])->name('update');
-        Route::delete('/{cookedFood}', [CookedFoodController::class, 'destroy'])->name('destroy');
-        Route::post('/{cookedFood}/toggle-status', [CookedFoodController::class, 'toggleStatus'])->name('toggle-status');
-    });
+    // Cooked Food Management - DISABLED
+    // Route::prefix('cooked-foods')->name('admin.cooked-foods.')->group(function () {
+    //     Route::get('/', [CookedFoodController::class, 'index'])->name('index');
+    //     Route::get('/create', [CookedFoodController::class, 'create'])->name('create');
+    //     Route::post('/', [CookedFoodController::class, 'store'])->name('store');
+    //     Route::get('/{cookedFood}', [CookedFoodController::class, 'show'])->name('show');
+    //     Route::get('/{cookedFood}/edit', [CookedFoodController::class, 'edit'])->name('edit');
+    //     Route::put('/{cookedFood}', [CookedFoodController::class, 'update'])->name('update');
+    //     Route::delete('/{cookedFood}', [CookedFoodController::class, 'destroy'])->name('destroy');
+    //     Route::post('/{cookedFood}/toggle-status', [CookedFoodController::class, 'toggleStatus'])->name('toggle-status');
+    // });
     
     // User Management
     Route::prefix('users')->group(function () {

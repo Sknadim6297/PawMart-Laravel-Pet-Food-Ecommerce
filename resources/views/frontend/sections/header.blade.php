@@ -19,7 +19,8 @@
               <i>
                 <svg height="112" viewBox="0 0 24 24" width="112" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill="rgb(255255,255)" fill-rule="evenodd"><path d="m7 2.75c-.41421 0-.75.33579-.75.75v17c0 .4142.33579.75.75.75h10c.4142 0 .75-.3358.75-.75v-17c0-.41421-.3358-.75-.75-.75zm-2.25.75c0-1.24264 1.00736-2.25 2.25-2.25h10c1.2426 0 2.25 1.00736 2.25 2.25v17c0 1.2426-1.0074 2.25-2.25 2.25h-10c-1.24264 0-2.25-1.0074-2.25-2.25z"></path><path d="m10.25 5c0-.41421.3358-.75.75-.75h2c.4142 0 .75.33579.75.75s-.3358.75-.75.75h-2c-.4142 0-.75-.33579-.75-.75z"></path><path d="m9.25 19c0-.4142.33579-.75.75-.75h4c.4142 0 .75.3358.75.75s-.3358.75-.75.75h-4c-.41421 0-.75-.3358-.75-.75z"></path></g></svg>
               </i>
-              <a class="me-3" href="tel:{{ $websiteSettings['phone'] ?? '+021 01283492' }}">{{ $websiteSettings['phone'] ?? '+021 01283492' }}</a>
+              <a class="me-3" href="tel:7439767977">7439767977</a>
+              <a class="me-3" href="tel:9748546599">9748546599</a>
             </div>
           </div>
         </div>
@@ -115,7 +116,9 @@
                       <a href="javascript:void(0)">Shop</a>
                       <div class="dropdown">
                         <a href="{{ route('products.index') }}">our products</a>
+                        {{-- Cooked Foods - DISABLED
                         <a href="{{ route('cooked-foods.index') }}">cooked foods</a>
+                        --}}
                       </div>
                     </li>
                     <li class="navbar-dropdown menu-item-children">
@@ -195,7 +198,9 @@
           <li class="menu-item-has-children"><a href="JavaScript:void(0)">Shop</a>
               <ul class="sub-menu">
                 <li><a href="{{ route('products.index') }}">our products</a></li>
+                {{-- Cooked Foods - DISABLED
                 <li><a href="{{ route('cooked-foods.index') }}">cooked foods</a></li>
+                --}}
               </ul>
           </li>
           

@@ -1,6 +1,6 @@
 @extends('frontend.layouts.layout')
 
-@section('title', 'Checkout - PetNet')
+@section('title', 'Checkout - Animal Pride')
 
 @push('styles')
 <style>
@@ -1203,12 +1203,18 @@ $(document).ready(function() {
                     // Add the new address card
                     $('#addresses-container').append(newAddressCard);
                     
+                    // Auto-select the newly added address
+                    setTimeout(() => {
+                        const $newCard = $(`[data-address-id="${address.id}"]`);
+                        $newCard.click();
+                    }, 100);
+                    
                     // Reset form and close modal
                     $('#address-form')[0].reset();
                     $('#addressModal').modal('hide');
                     
                     // Show success message
-                    showNotification('Address added successfully!', 'success');
+                    showNotification('Address added successfully and selected!', 'success');
                 } else {
                     showNotification(response.message || 'Error adding address', 'error');
                 }

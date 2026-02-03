@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\PetCareService;
+use App\Models\HeroSection;
+use App\Models\WelcomeSection;
+use App\Models\Statistic;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -77,6 +80,21 @@ class HomeController extends Controller
             ->limit(4)
             ->get();
 
-        return view('frontend.index', compact('categories', 'petTypes', 'featuredProducts', 'healthyProducts', 'dealOfWeek', 'petCareServices'));
+        // Get hero sections for slider
+        $heroSections = HeroSection::active()
+            ->ordered()
+            ->get();
+
+        // Get welcome sections
+        $welcomeSections = WelcomeSection::active()
+            ->ordered()
+            ->get();
+
+        // Get statistics for counter section
+        $statistics = Statistic::active()
+            ->ordered()
+            ->get();
+
+        return view('frontend.index', compact('categories', 'petTypes', 'featuredProducts', 'healthyProducts', 'dealOfWeek', 'petCareServices', 'heroSections', 'welcomeSections', 'statistics'));
     }
 }

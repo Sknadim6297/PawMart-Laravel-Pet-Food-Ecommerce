@@ -21,13 +21,13 @@
                 <div class="banner-img">
                     <div class="banner-img-1">
                         <svg width="260" height="260" viewBox="0 0 673 673" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M9.82698 416.603C-19.0352 298.701 18.5108 173.372 107.497 90.7633L110.607 96.5197C24.3117 177.199 -12.311 298.935 15.0502 413.781L9.82698 416.603ZM89.893 565.433C172.674 654.828 298.511 692.463 416.766 663.224L414.077 658.245C298.613 686.363 175.954 649.666 94.9055 562.725L89.893 565.433ZM656.842 259.141C685.039 374.21 648.825 496.492 562.625 577.656L565.413 582.817C654.501 499.935 691.9 374.187 662.536 256.065L656.842 259.141ZM581.945 107.518C499.236 18.8371 373.997 -18.4724 256.228 10.5134L259.436 16.4515C373.888 -10.991 495.248 25.1518 576.04 110.708L581.945 107.518Z" fill="#fa441d"></path>
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M9.82698 416.603C-19.0352 298.701 18.5108 173.372 107.497 90.7633L110.607 96.5197C24.3117 177.199 -12.311 298.935 15.0502 413.781L9.82698 416.603ZM89.893 565.433C172.674 654.828 298.511 692.463 416.766 663.224L414.077 658.245C298.613 686.363 175.954 649.666 94.9055 562.725L89.893 565.433ZM656.842 259.141C685.039 374.21 648.825 496.492 562.625 577.656L565.413 582.817C654.501 499.935 691.9 374.187 662.536 256.065L656.842 259.141ZM581.945 107.518C499.236 18.8371 373.997 -18.4724 256.228 10.5134L259.436 16.4515C373.888 -10.991 495.248 25.1518 576.04 110.708L581.945 107.518Z" fill="#ee643c"></path>
                         </svg>
                         <img src="assets/img/banner-img-1.jpg" alt="banner">
                     </div>
                     <div class="banner-img-2">
                         <svg width="320" height="320" viewBox="0 0 673 673" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M9.82698 416.603C-19.0352 298.701 18.5108 173.372 107.497 90.7633L110.607 96.5197C24.3117 177.199 -12.311 298.935 15.0502 413.781L9.82698 416.603ZM89.893 565.433C172.674 654.828 298.511 692.463 416.766 663.224L414.077 658.245C298.613 686.363 175.954 649.666 94.9055 562.725L89.893 565.433ZM656.842 259.141C685.039 374.21 648.825 496.492 562.625 577.656L565.413 582.817C654.501 499.935 691.9 374.187 662.536 256.065L656.842 259.141ZM581.945 107.518C499.236 18.8371 373.997 -18.4724 256.228 10.5134L259.436 16.4515C373.888 -10.991 495.248 25.1518 576.04 110.708L581.945 107.518Z" fill="#fa441d"></path>
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M9.82698 416.603C-19.0352 298.701 18.5108 173.372 107.497 90.7633L110.607 96.5197C24.3117 177.199 -12.311 298.935 15.0502 413.781L9.82698 416.603ZM89.893 565.433C172.674 654.828 298.511 692.463 416.766 663.224L414.077 658.245C298.613 686.363 175.954 649.666 94.9055 562.725L89.893 565.433ZM656.842 259.141C685.039 374.21 648.825 496.492 562.625 577.656L565.413 582.817C654.501 499.935 691.9 374.187 662.536 256.065L656.842 259.141ZM581.945 107.518C499.236 18.8371 373.997 -18.4724 256.228 10.5134L259.436 16.4515C373.888 -10.991 495.248 25.1518 576.04 110.708L581.945 107.518Z" fill="#ee643c"></path>
                         </svg>
                         <img src="assets/img/banner-img-2.jpg" alt="banner">
                     </div>
@@ -56,8 +56,8 @@
                            M51.213,401l135.489-135.489L256,325.896l69.298-60.384L460.787,401H51.213z M482,379.788L347.969,245.756L482,128.967V379.788z"></path>
                         </svg>
                       </i>
-                      <span>{{ $contactSettings->email_title ?? 'Email Address.' }}</span>
-                      <a href="mailto:{{ $contactSettings->email_address ?? 'info@petnet.com' }}">{{ $contactSettings->email_address ?? 'info@petnet.com' }}</a>
+                      <span>{{ $contactSettings->email_title ?? 'Email Us' }}</span>
+                      <a href="mailto:{{ $contactSettings->email_address ?? 'info@animalpride.in' }}">{{ $contactSettings->email_address ?? 'info@animalpride.in' }}</a>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6">
@@ -68,9 +68,12 @@
                     <i>
                         <svg height="112" viewBox="0 0 24 24" width="112" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill="rgb(255255,255)" fill-rule="evenodd"><path d="m7 2.75c-.41421 0-.75.33579-.75.75v17c0 .4142.33579.75.75.75h10c.4142 0 .75-.3358.75-.75v-17c0-.41421-.3358-.75-.75-.75zm-2.25.75c0-1.24264 1.00736-2.25 2.25-2.25h10c1.2426 0 2.25 1.00736 2.25 2.25v17c0 1.2426-1.0074 2.25-2.25 2.25h-10c-1.24264 0-2.25-1.0074-2.25-2.25z"></path><path d="m10.25 5c0-.41421.3358-.75.75-.75h2c.4142 0 .75.33579.75.75s-.3358.75-.75.75h-2c-.4142 0-.75-.33579-.75-.75z"></path><path d="m9.25 19c0-.4142.33579-.75.75-.75h4c.4142 0 .75.3358.75.75s-.3358.75-.75.75h-4c-.41421 0-.75-.3358-.75-.75z"></path></g></svg>
                       </i>
-                      <span>{{ $contactSettings->phone_title ?? 'Phone Number.' }}</span>
-                      <a href="tel:{{ $contactSettings->phone_number ?? '+09 121 359 6224' }}">{{ $contactSettings->phone_number ?? '+09 121 359 6224' }}</a>
-                      <h6>{{ $contactSettings->phone_subtitle ?? '24/7 Support team' }}</h6>
+                      <span>{{ $contactSettings->phone_title ?? 'Call Us' }}</span>
+                      <a href="tel:{{ $contactSettings->phone_number ?? '7439767977' }}">{{ $contactSettings->phone_number ?? '7439767977' }}</a>
+                      @if($contactSettings->phone_number_2 ?? '9748546599')
+                          <a href="tel:{{ $contactSettings->phone_number_2 ?? '9748546599' }}" class="d-block mt-1">{{ $contactSettings->phone_number_2 ?? '9748546599' }}</a>
+                      @endif
+                      <h6>{{ $contactSettings->phone_subtitle ?? 'Call Us' }}</h6>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6">
@@ -115,9 +118,11 @@
                                     c-8.781,0-15.898-7.117-15.898-15.898s7.117-15.898,15.898-15.898s15.898,7.117,15.898,15.898S219.611,226.728,210.83,226.728z"/>
                         </svg>
                       </i>
-                      <span>{{ $contactSettings->hours_title ?? 'Working Hours.' }}</span>
-                      <a href="#">{{ $contactSettings->working_hours ?? '9:00 AM - 5:00 PM' }}</a>
-                      <h6>{{ $contactSettings->working_days ?? 'Monday - Friday' }}</h6>
+                      <span>{{ $contactSettings->hours_title ?? 'Opening Hours' }}</span>
+                      <div class="working-hours-list" style="text-align: left; margin-top: 10px;">
+                          <div class="mb-2"><strong>SALT LAKE:</strong> {{ $contactSettings->working_hours_salt_lake ?? '10.30 AM - 9.00 PM' }}</div>
+                          <div><strong>CHINGRIGHATA:</strong> {{ $contactSettings->working_hours_chingrighata ?? '9.00 AM - 10.00 PM' }}</div>
+                      </div>
                 </div>
             </div>
         </div>
@@ -131,17 +136,17 @@
                     <h2>Our Office Locations</h2>
                     <div class="office-card mb-4">
                         <div class="d-flex align-items-center mb-2">
-                            <i class="fa-solid fa-location-dot me-3" style="color: #fa441d; font-size: 1.5rem;"></i>
-                            <h5 class="mb-0" style="color: #fa441d;">{{ $contactSettings->office1_title ?? 'Head Office United State:' }}</h5>
+                            <i class="fa-solid fa-location-dot me-3" style="color: #ee643c; font-size: 1.5rem;"></i>
+                            <h5 class="mb-0" style="color: #ee643c;">{{ $contactSettings->office1_title ?? 'CLINIC & GROOMING CENTER:' }}</h5>
                         </div>
-                        <p class="ms-5">{{ $contactSettings->office1_address ?? '#201 1218 9th Avenue SE, Calgary, AB T2G 0T1' }}</p>
+                        <p class="ms-5">{{ $contactSettings->office1_address ?? 'BE-10, SECTOR - I, SALT LAKE, KOLKATA - 700 064 (OPPOSITE SEN MAHASAY BUSSTOP)' }}</p>
                     </div>
                     <div class="office-card">
                         <div class="d-flex align-items-center mb-2">
-                            <i class="fa-solid fa-location-dot me-3" style="color: #fa441d; font-size: 1.5rem;"></i>
-                            <h5 class="mb-0" style="color: #fa441d;">{{ $contactSettings->office2_title ?? 'Head Office Canada:' }}</h5>
+                            <i class="fa-solid fa-location-dot me-3" style="color: #ee643c; font-size: 1.5rem;"></i>
+                            <h5 class="mb-0" style="color: #ee643c;">{{ $contactSettings->office2_title ?? 'SALES OUTLET:' }}</h5>
                         </div>
-                        <p class="ms-5">{{ $contactSettings->office2_address ?? '#201 1218 9th Avenue SE, Calgary, AB T2G 0T1' }}</p>
+                        <p class="ms-5">{{ $contactSettings->office2_address ?? 'Q - 424, SUKANTANAGAR, SALT LAKE, SECTOR - IV, KOLKATA - 700 106 (OPPOSITE UPCOMING CHINGRIGHATA METRO)' }}</p>
                     </div>
                 </div>
             </div>
@@ -384,7 +389,7 @@
     padding: 1.5rem;
     background: #f8fafc;
     border-radius: 12px;
-    border-left: 4px solid #fa441d;
+    border-left: 4px solid #ee643c;
     transition: all 0.3s ease;
 }
 
@@ -421,7 +426,7 @@
     left: 0;
     right: 0;
     height: 5px;
-    background: linear-gradient(90deg, #fa441d, #ff6b47, #fedc4f);
+    background: linear-gradient(90deg, #ee643c, #c20466, #fedc4f);
 }
 
 .form-header {
@@ -495,8 +500,8 @@
 }
 
 .pet-radio:checked + .pet-label {
-    background: linear-gradient(135deg, #fa441d, #ff6b47);
-    border-color: #fa441d;
+    background: linear-gradient(135deg, #ee643c, #c20466);
+    border-color: #ee643c;
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(250, 68, 29, 0.3);
 }
@@ -507,7 +512,7 @@
 }
 
 .pet-label:hover {
-    border-color: #fa441d;
+    border-color: #ee643c;
     transform: translateY(-1px);
 }
 
@@ -536,7 +541,7 @@
 .modern-select:focus,
 .modern-textarea:focus {
     outline: none;
-    border-color: #fa441d;
+    border-color: #ee643c;
     box-shadow: 0 0 0 3px rgba(250, 68, 29, 0.1);
     transform: translateY(-1px);
 }
@@ -563,8 +568,8 @@
 }
 
 .modern-checkbox .form-check-input:checked {
-    background-color: #fa441d;
-    border-color: #fa441d;
+    background-color: #ee643c;
+    border-color: #ee643c;
 }
 
 .modern-checkbox .form-check-label {
@@ -581,7 +586,7 @@
 }
 
 .modern-submit-btn {
-    background: linear-gradient(135deg, #fa441d, #ff6b47);
+    background: linear-gradient(135deg, #ee643c, #c20466);
     border: none;
     color: white;
     padding: 1rem 2.5rem;
@@ -597,7 +602,7 @@
 }
 
 .modern-submit-btn:hover {
-    background: linear-gradient(135deg, #e55a4f, #fa441d);
+    background: linear-gradient(135deg, #e55a4f, #ee643c);
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(250, 68, 29, 0.4);
     color: white;
@@ -648,7 +653,7 @@
 .form-group:hover .modern-input,
 .form-group:hover .modern-select,
 .form-group:hover .modern-textarea {
-    border-color: #fa441d;
+    border-color: #ee643c;
     box-shadow: 0 2px 8px rgba(250, 68, 29, 0.1);
 }
 

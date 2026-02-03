@@ -246,7 +246,7 @@
                                 </li>
                             @endif
                         </ul>
-                        <h5><i class="fa-brands fa-instagram"></i>Follow @petnet</h5>
+                        <h5><i class="fa-brands fa-instagram"></i>Follow @animalpride</h5>
                     </div>
                     {{-- <div class="sidebar sidebar-two">
                         <h3>Newsletter</h3>
