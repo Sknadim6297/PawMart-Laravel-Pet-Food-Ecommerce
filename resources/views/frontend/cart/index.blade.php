@@ -29,8 +29,6 @@
             </div>
         </div>
     </div>
-    <img src="assets/img/hero-shaps-1.png" alt="hero-shaps" class="img-2">
-    <img src="assets/img/hero-shaps-1.png" alt="hero-shaps" class="img-4">
 </section>
 <section class="gap">
     <div class="container">

@@ -38,10 +38,7 @@
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </div>
                     </div>
-    <img src="<?php echo e(asset('assets/img/hero-shaps-1.png')); ?>" alt="hero-shaps" class="img-2">
     <img src="<?php echo e(asset('assets/img/dabal-foot-1.png')); ?>" alt="hero-shaps" class="img-3">
-    <img src="<?php echo e(asset('assets/img/hero-shaps-1.png')); ?>" alt="hero-shaps" class="img-4">
-</section>
 <?php endif; ?> 
 <?php if(isset($petCareServices) && $petCareServices->count() > 0): ?>
 <section class="gap no-bottom">

@@ -66,6 +66,20 @@ class PageController extends Controller
     }
 
     /**
+     * Show the video gallery page
+     */
+    public function videoGallery()
+    {
+        // Get all active videos from the image library
+        $videos = ImageLibrary::where('status', true)
+            ->where('mime_type', 'like', 'video/%')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('frontend.pages.video-gallery', compact('videos'));
+    }
+
+    /**
      * Show the team page
      */
     public function team()

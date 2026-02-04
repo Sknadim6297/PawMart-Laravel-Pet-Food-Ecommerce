@@ -375,8 +375,6 @@
             </div>
         </div>
     </div>
-    <img src="{{ asset('assets/img/hero-shaps-1.png') }}" alt="hero-shaps" class="img-2">
-    <img src="{{ asset('assets/img/hero-shaps-1.png') }}" alt="hero-shaps" class="img-3">
 </section>
 
 <!-- Product Detail -->

@@ -683,6 +683,13 @@
                     <option value="week">This Week</option>
                     <option value="month">This Month</option>
                 </select>
+                <!-- Export Buttons -->
+                <a href="<?php echo e(route('admin.orders.export-csv')); ?>" class="btn btn-success btn-sm">
+                    <i class="fas fa-file-excel"></i> Export Excel
+                </a>
+                <a href="<?php echo e(route('admin.orders.export-pdf')); ?>" class="btn btn-danger btn-sm">
+                    <i class="fas fa-file-pdf"></i> Export PDF
+                </a>
             </div>
         </div>
 

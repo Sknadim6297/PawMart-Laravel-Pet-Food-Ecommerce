@@ -1,6 +1,6 @@
 @extends('frontend.layouts.layout')
 
-@section('title', 'Photo Gallery')
+@section('title', 'Video Gallery')
 
 @section('content')
 <section class="banner" style="background-color: #fff8e5; background-image:url({{ asset('assets/img/banner.png') }})">
@@ -8,13 +8,13 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="banner-text">
-                    <h2>Photo Gallery</h2>
+                    <h2>Video Gallery</h2>
                     <ol class="breadcrumb">
                       <li class="breadcrumb-item">
                         <a href="{{ route('home') }}">Home</a>
                       </li>
-                      <li class="breadcrumb-item active" aria-current="page">pages</li>
-                        <li class="breadcrumb-item active" aria-current="page">Photo Gallery</li>
+                      <li class="breadcrumb-item active" aria-current="page">Gallery</li>
+                        <li class="breadcrumb-item active" aria-current="page">Video Gallery</li>
                     </ol>
                 </div>
             </div>
@@ -39,25 +39,26 @@
 </section>
 <div class="gap">
     <div class="container">
-        @if($images->count() > 0)
-            @php
-                $imageChunks = $images->chunk(ceil($images->count() / 3));
-            @endphp
+        @if($videos->count() > 0)
             <div class="row">
-                @foreach($imageChunks as $columnIndex => $columnImages)
-                <div class="col-lg-4 col-md-6 {{ $columnIndex == 2 ? 'col-md-12' : '' }}">
-                    @foreach($columnImages as $index => $image)
-                    <div class="about-gallery-img {{ $loop->last && $columnIndex == 0 ? '' : ($loop->last && $columnIndex == 1 && $imageChunks->count() < 3 ? 'mb-lg-0' : '') }}">
-                        <a href="{{ asset($image->path) }}" data-fancybox="gallery">
-                           <i class="fa-solid fa-plus"></i>
-                        </a>
-                        <figure>
-                            <img alt="{{ $image->title ?: 'Gallery Image' }}" 
-                                 src="{{ asset($image->path) }}"
-                                 title="{{ $image->title ?: 'Gallery Image' }}">
-                        </figure>
+                @foreach($videos as $video)
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="video-card">
+                        <div class="video-wrapper" style="position: relative; width: 100%; padding-bottom: 56.25%;">
+                            <video 
+                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 8px;"
+                                controls
+                                poster="{{ asset($video->path) }}">
+                                <source src="{{ asset($video->path) }}" type="{{ $video->mime_type }}">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        @if($video->title)
+                        <div class="mt-3">
+                            <h6 class="video-title">{{ $video->title }}</h6>
+                        </div>
+                        @endif
                     </div>
-                    @endforeach
                 </div>
                 @endforeach
             </div>
@@ -65,12 +66,39 @@
             <div class="row">
                 <div class="col-12">
                     <div class="text-center py-5">
-                        <h3>No Images Available</h3>
-                        <p class="text-muted">Gallery images will be displayed here once they are uploaded.</p>
+                        <h3>No Videos Available</h3>
+                        <p class="text-muted">Gallery videos will be displayed here once they are uploaded.</p>
                     </div>
                 </div>
             </div>
         @endif
     </div>
 </div>
+
+<style>
+.video-card {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.video-title {
+    color: #333;
+    font-weight: 600;
+    margin: 0;
+    padding: 12px;
+    font-size: 0.95rem;
+}
+
+video {
+    background: #000;
+}
+</style>
 @endsection

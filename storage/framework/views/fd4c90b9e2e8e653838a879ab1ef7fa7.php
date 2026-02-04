@@ -1,6 +1,5 @@
 <?php $__env->startSection('title', 'Reviews Management'); ?>
 
-<<<<<<< HEAD
 <?php $__env->startPush('styles'); ?>
 <style>
 .reviews-management-wrapper {
@@ -645,6 +644,13 @@
                 <button type="button" class="btn-bulk-delete btn-sm" onclick="bulkDelete()">
                     <i class="fas fa-trash"></i> Bulk Delete
                 </button>
+                <!-- Export Buttons -->
+                <a href="<?php echo e(route('admin.reviews.export-csv', request()->query())); ?>" class="btn btn-success btn-sm">
+                    <i class="fas fa-file-excel"></i> Export Excel
+                </a>
+                <a href="<?php echo e(route('admin.reviews.export-pdf', request()->query())); ?>" class="btn btn-danger btn-sm">
+                    <i class="fas fa-file-pdf"></i> Export PDF
+                </a>
             </div>
         </div>
     </div>
@@ -844,238 +850,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-=======
-<?php $__env->startSection('content'); ?>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h3 class="card-title">Reviews Management</h3>
-                    <div class="card-tools">
-                        <span class="badge badge-primary"><?php echo e($reviews->total()); ?> Total Reviews</span>
-                    </div>
-                </div>
-
-                <!-- Filters -->
-                <div class="card-body">
-                    <form method="GET" action="<?php echo e(route('admin.reviews.index')); ?>" class="mb-4">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label for="status">Status</label>
-                                <select name="status" id="status" class="form-control">
-                                    <option value="">All Reviews</option>
-                                    <option value="approved" <?php echo e(request('status') == 'approved' ? 'selected' : ''); ?>>Approved</option>
-                                    <option value="pending" <?php echo e(request('status') == 'pending' ? 'selected' : ''); ?>>Pending</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="product_id">Product</label>
-                                <select name="product_id" id="product_id" class="form-control">
-                                    <option value="">All Products</option>
-                                    <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($product->id); ?>" <?php echo e(request('product_id') == $product->id ? 'selected' : ''); ?>>
-                                            <?php echo e($product->name); ?>
-
-                                        </option>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                </select>
-                            </div>
-                            <div class="col-md-2">
-                                <label for="rating">Rating</label>
-                                <select name="rating" id="rating" class="form-control">
-                                    <option value="">All Ratings</option>
-                                    <?php for($i = 5; $i >= 1; $i--): ?>
-                                        <option value="<?php echo e($i); ?>" <?php echo e(request('rating') == $i ? 'selected' : ''); ?>>
-                                            <?php echo e($i); ?> Star<?php echo e($i > 1 ? 's' : ''); ?>
-
-                                        </option>
-                                    <?php endfor; ?>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="search">Search</label>
-                                <input type="text" name="search" id="search" class="form-control" 
-                                       placeholder="Search by name, email, or comment" value="<?php echo e(request('search')); ?>">
-                            </div>
-                            <div class="col-md-1">
-                                <label>&nbsp;</label>
-                                <button type="submit" class="btn btn-primary btn-block">Filter</button>
-                            </div>
-                        </div>
-                    </form>
-
-                    <!-- Bulk Actions -->
-                    <div class="row mb-3">
-                        <div class="col-12">
-                            <button type="button" class="btn btn-success btn-sm" onclick="bulkApprove()">
-                                <i class="fas fa-check"></i> Bulk Approve
-                            </button>
-                            <button type="button" class="btn btn-danger btn-sm" onclick="bulkDelete()">
-                                <i class="fas fa-trash"></i> Bulk Delete
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Reviews Table -->
-                    <form id="bulk-form">
-                        <?php echo csrf_field(); ?>
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            <input type="checkbox" id="select-all">
-                                        </th>
-                                        <th>Product</th>
-                                        <th>Reviewer</th>
-                                        <th>Rating</th>
-                                        <th>Comment</th>
-                                        <th>Status</th>
-                                        <th>Date</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $__empty_1 = true; $__currentLoopData = $reviews; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $review): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                                    <tr>
-                                        <td>
-                                            <input type="checkbox" name="review_ids[]" value="<?php echo e($review->id); ?>" class="review-checkbox">
-                                        </td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <?php if($review->product->image): ?>
-                                                    <img src="<?php echo e(asset('storage/' . $review->product->image)); ?>" 
-                                                         alt="<?php echo e($review->product->name); ?>" 
-                                                         class="img-thumbnail mr-2" style="width: 40px; height: 40px; object-fit: cover;">
-                                                <?php endif; ?>
-                                                <div>
-                                                    <strong><?php echo e(Str::limit($review->product->name, 30)); ?></strong>
-                                                    <br>
-                                                    <small class="text-muted"><?php echo e($review->product->sku); ?></small>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div>
-                                                <strong><?php echo e($review->name); ?></strong>
-                                                <br>
-                                                <small class="text-muted"><?php echo e($review->email); ?></small>
-                                                <?php if($review->user): ?>
-                                                    <br>
-                                                    <span class="badge badge-info">Registered User</span>
-                                                <?php endif; ?>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="rating">
-                                                <?php for($i = 1; $i <= 5; $i++): ?>
-                                                    <?php if($i <= $review->rating): ?>
-                                                        <i class="fas fa-star text-warning"></i>
-                                                    <?php else: ?>
-                                                        <i class="far fa-star text-muted"></i>
-                                                    <?php endif; ?>
-                                                <?php endfor; ?>
-                                                <br>
-                                                <small class="text-muted"><?php echo e($review->rating); ?>/5</small>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div style="max-width: 200px;">
-                                                <?php echo e(Str::limit($review->comment, 100)); ?>
-
-                                                <?php if(strlen($review->comment) > 100): ?>
-                                                    <a href="<?php echo e(route('admin.reviews.show', $review)); ?>" class="text-primary">
-                                                        <small>Read more...</small>
-                                                    </a>
-                                                <?php endif; ?>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <?php if($review->is_approved): ?>
-                                                <span class="badge badge-success">Approved</span>
-                                            <?php else: ?>
-                                                <span class="badge badge-warning">Pending</span>
-                                            <?php endif; ?>
-                                        </td>
-                                        <td>
-                                            <small><?php echo e($review->created_at->format('M d, Y')); ?></small>
-                                            <br>
-                                            <small class="text-muted"><?php echo e($review->created_at->format('h:i A')); ?></small>
-                                        </td>
-                                        <td>
-                                            <div class="btn-group" role="group">
-                                                <a href="<?php echo e(route('admin.reviews.show', $review)); ?>" 
-                                                   class="btn btn-info btn-sm" title="View Details">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                
-                                                <?php if($review->is_approved): ?>
-                                                    <button type="button" 
-                                                            class="btn btn-warning btn-sm approve-reject-btn" 
-                                                            data-url="<?php echo e(route('admin.reviews.reject', $review)); ?>"
-                                                            data-action="reject"
-                                                            title="Reject Review">
-                                                        <i class="fas fa-times"></i>
-                                                    </button>
-                                                <?php else: ?>
-                                                    <button type="button" 
-                                                            class="btn btn-success btn-sm approve-reject-btn" 
-                                                            data-url="<?php echo e(route('admin.reviews.approve', $review)); ?>"
-                                                            data-action="approve"
-                                                            title="Approve Review">
-                                                        <i class="fas fa-check"></i>
-                                                    </button>
-                                                <?php endif; ?>
-                                                
-                                                <form action="<?php echo e(route('admin.reviews.destroy', $review)); ?>" 
-                                                      method="POST" class="d-inline" 
-                                                      onsubmit="return confirm('Are you sure you want to delete this review?')">
-                                                    <?php echo csrf_field(); ?>
-                                                    <?php echo method_field('DELETE'); ?>
-                                                    <button type="submit" class="btn btn-danger btn-sm" title="Delete Review">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                                    <tr>
-                                        <td colspan="8" class="text-center py-4">
-                                            <div class="text-muted">
-                                                <i class="fas fa-star fa-3x mb-3"></i>
-                                                <h5>No Reviews Found</h5>
-                                                <p>No reviews match your current filters.</p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <?php endif; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </form>
-
-                    <!-- Pagination -->
-                    <div class="d-flex justify-content-between align-items-center mt-4">
-                        <div>
-                            Showing <?php echo e($reviews->firstItem() ?? 0); ?> to <?php echo e($reviews->lastItem() ?? 0); ?> of <?php echo e($reviews->total()); ?> results
-                        </div>
-                        <div>
-                            <?php echo e($reviews->appends(request()->query())->links()); ?>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<?php $__env->stopSection(); ?>
-
-<?php $__env->startSection('scripts'); ?>
-<script>
->>>>>>> origin/main
 $(document).ready(function() {
     // Check if jQuery is loaded
     if (typeof jQuery === 'undefined') {
@@ -1127,9 +901,19 @@ $(document).ready(function() {
                     console.log('Success response:', response);
                     
                     // Show success message
-                    if (response.message) {
+                    if (response && response.message) {
                         const alertDiv = $('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
                             '<i class="fas fa-check-circle me-2"></i>' + response.message +
+                            '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' +
+                            '</div>');
+                        $('.card-body').prepend(alertDiv);
+                        
+                        // Auto-dismiss after 3 seconds
+                        setTimeout(() => alertDiv.alert('close'), 3000);
+                    } else {
+                        // Fallback success message
+                        const alertDiv = $('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
+                            '<i class="fas fa-check-circle me-2"></i>Operation completed successfully.' +
                             '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' +
                             '</div>');
                         $('.card-body').prepend(alertDiv);
@@ -1195,14 +979,23 @@ $(document).ready(function() {
                 method: 'POST',
                 data: form.serialize(),
                 success: function(response) {
+                    console.log('Form success response:', response);
+                    
                     // Show success message
-                    if (response.message) {
-                        // Create a simple alert or you can use a toast
+                    if (response && response.message) {
                         const alertDiv = $('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
-                            response.message +
+                            '<i class="fas fa-check-circle me-2"></i>' + response.message +
                             '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' +
                             '</div>');
                         $('.card-body').prepend(alertDiv);
+                    } else {
+                        // Fallback success message
+                        const alertDiv = $('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
+                            '<i class="fas fa-check-circle me-2"></i>Review updated successfully.' +
+                            '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' +
+                            '</div>');
+                        $('.card-body').prepend(alertDiv);
+                    }
                         
                         // Auto-dismiss after 3 seconds
                         setTimeout(() => alertDiv.alert('close'), 3000);
@@ -1315,46 +1108,6 @@ function bulkDelete() {
         form.submit();
     }
 }
-</script>
-<<<<<<< HEAD
 <?php $__env->stopPush(); ?>
-=======
-
-<script>
-// Test function for debugging
-function testAjaxConnection() {
-    console.log('Testing AJAX connection...');
-    
-    $.ajax({
-        url: '<?php echo e(route("admin.reviews.index")); ?>',
-        method: 'GET',
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'Accept': 'application/json'
-        },
-        success: function(response) {
-            console.log('AJAX test successful:', response);
-        },
-        error: function(xhr, status, error) {
-            console.error('AJAX test failed:', {
-                xhr: xhr,
-                status: status,
-                error: error,
-                responseText: xhr.responseText
-            });
-        }
-    });
-}
-
-// Add test button for debugging (temporary)
-$(document).ready(function() {
-    if (window.location.search.includes('debug=1')) {
-        $('<button class="btn btn-info btn-sm" onclick="testAjaxConnection()">Test AJAX</button>')
-            .appendTo('.card-tools');
-    }
-});
-</script>
-<?php $__env->stopSection(); ?>
->>>>>>> origin/main
 
 <?php echo $__env->make('admin.layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\SK NADIM\Downloads\_animalpride\resources\views/admin/reviews/index.blade.php ENDPATH**/ ?>

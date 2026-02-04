@@ -61,6 +61,8 @@ Route::middleware('admin')->group(function () {
         Route::delete('/{review}', [App\Http\Controllers\Admin\ReviewController::class, 'destroy'])->name('destroy');
         Route::post('/bulk-approve', [App\Http\Controllers\Admin\ReviewController::class, 'bulkApprove'])->name('bulk-approve');
         Route::post('/bulk-delete', [App\Http\Controllers\Admin\ReviewController::class, 'bulkDelete'])->name('bulk-delete');
+        Route::get('/export/csv', [App\Http\Controllers\Admin\ReviewController::class, 'exportCSV'])->name('export-csv');
+        Route::get('/export/pdf', [App\Http\Controllers\Admin\ReviewController::class, 'exportPDF'])->name('export-pdf');
     });
     
     // Coupon Management
@@ -111,6 +113,8 @@ Route::middleware('admin')->group(function () {
         Route::get('/{customer}', [CustomerController::class, 'show'])->name('show');
         Route::patch('/{customer}/toggle-status', [CustomerController::class, 'toggleStatus'])->name('toggle-status');
         Route::delete('/{customer}', [CustomerController::class, 'destroy'])->name('destroy');
+        Route::get('/export/csv', [CustomerController::class, 'exportCSV'])->name('export-csv');
+        Route::get('/export/pdf', [CustomerController::class, 'exportPDF'])->name('export-pdf');
     });
     
     // Order Management
@@ -118,6 +122,8 @@ Route::middleware('admin')->group(function () {
         Route::get('/', [AdminOrderController::class, 'index'])->name('index');
         Route::get('/{order}', [AdminOrderController::class, 'show'])->name('show');
         Route::patch('/{order}/status', [AdminOrderController::class, 'updateStatus'])->name('update-status');
+        Route::get('/export/csv', [AdminOrderController::class, 'exportCSV'])->name('export-csv');
+        Route::get('/export/pdf', [AdminOrderController::class, 'exportPDF'])->name('export-pdf');
     });
 
     // About Content Management (standalone routes for sidebar compatibility)

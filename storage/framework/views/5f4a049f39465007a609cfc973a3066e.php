@@ -108,9 +108,10 @@
                       <a href="<?php echo e(route('about')); ?>">About</a>
                     </li>
                     <li class="navbar-dropdown menu-item-children">
-                      <a href="javascript:void(0)">pages</a>
+                      <a href="javascript:void(0)">Gallery</a>
                       <div class="dropdown">
-                        <a href="<?php echo e(route('gallery')); ?>">photo gallery</a>
+                        <a href="<?php echo e(route('gallery')); ?>">Photo Gallery</a>
+                        <a href="<?php echo e(route('video-gallery')); ?>">Video Gallery</a>
                       </div>
                     </li>
                     <li class="navbar-dropdown menu-item-children">
@@ -188,9 +189,10 @@
           
           <li><a href="<?php echo e(route('about')); ?>">About</a></li>
           
-          <li class="menu-item-has-children"><a href="JavaScript:void(0)">Pages</a>
+          <li class="menu-item-has-children"><a href="JavaScript:void(0)">Gallery</a>
               <ul class="sub-menu">
-                <li><a href="<?php echo e(route('gallery')); ?>">photo gallery</a></li>
+                <li><a href="<?php echo e(route('gallery')); ?>">Photo Gallery</a></li>
+                <li><a href="<?php echo e(route('video-gallery')); ?>">Video Gallery</a></li>
               </ul>
           </li>
           

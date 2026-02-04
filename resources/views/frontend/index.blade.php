@@ -40,10 +40,7 @@
             @endforeach
                         </div>
                     </div>
-    <img src="{{ asset('assets/img/hero-shaps-1.png') }}" alt="hero-shaps" class="img-2">
     <img src="{{ asset('assets/img/dabal-foot-1.png') }}" alt="hero-shaps" class="img-3">
-    <img src="{{ asset('assets/img/hero-shaps-1.png') }}" alt="hero-shaps" class="img-4">
-</section>
 @endif 
 @if(isset($petCareServices) && $petCareServices->count() > 0)
 <section class="gap no-bottom">

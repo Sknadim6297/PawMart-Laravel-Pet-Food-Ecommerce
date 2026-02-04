@@ -133,9 +133,7 @@
             <a href="#"><img src="<?php echo e(asset('assets/img/visa.jpg')); ?>" alt="cad"></a>
         </div>
     </div>
-    <img src="<?php echo e(asset('assets/img/hero-shaps-1.png')); ?>" alt="hero-shaps" class="img-2">
     <img src="<?php echo e(asset('assets/img/dabal-foot-1.png')); ?>" alt="hero-shaps" class="img-3">
-    <img src="<?php echo e(asset('assets/img/hero-shaps-1.png')); ?>" alt="hero-shaps" class="img-4">
 </footer>
 
 <!-- Progress Scroll to Top Button -->

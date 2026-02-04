@@ -33,6 +33,7 @@ Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/how-we-work', [PageController::class, 'howWeWork'])->name('how-we-work');
 Route::get('/gallery', [PageController::class, 'gallery'])->name('gallery');
+Route::get('/video-gallery', [PageController::class, 'videoGallery'])->name('video-gallery');
 Route::get('/team', [PageController::class, 'team'])->name('team');
 Route::get('/pricing', [PageController::class, 'pricing'])->name('pricing');
 Route::get('/history', [PageController::class, 'history'])->name('history');

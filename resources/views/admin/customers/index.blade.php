@@ -520,6 +520,14 @@
                         <i class="fas fa-times me-1"></i>Clear
                     </a>
                     @endif
+                    
+                    <!-- Export Buttons -->
+                    <a href="{{ route('admin.customers.export-csv', request()->query()) }}" class="btn btn-success">
+                        <i class="fas fa-file-excel me-1"></i>Excel
+                    </a>
+                    <a href="{{ route('admin.customers.export-pdf', request()->query()) }}" class="btn btn-danger">
+                        <i class="fas fa-file-pdf me-1"></i>PDF
+                    </a>
                 </form>
             </div>
         </div>

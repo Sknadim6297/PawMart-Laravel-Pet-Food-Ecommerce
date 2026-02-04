@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Review;
 use App\Models\Product;
+use App\Services\ExportService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -281,4 +282,129 @@ class ReviewController extends Controller
             ]);
         }
     }
+
+    /**
+     * Export reviews to CSV
+     */
+    public function exportCSV(Request $request)
+    {
+        $query = Review::with(['product', 'user']);
+
+        // Apply same filters as index
+        if ($request->has('status')) {
+            if ($request->status === 'approved') {
+                $query->where('is_approved', true);
+            } elseif ($request->status === 'pending') {
+                $query->where('is_approved', false);
+            }
+        }
+
+        if ($request->has('product_id') && $request->product_id) {
+            $query->where('product_id', $request->product_id);
+        }
+
+        if ($request->has('rating') && $request->rating) {
+            $query->where('rating', $request->rating);
+        }
+
+        if ($request->has('search') && $request->search) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('comment', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%");
+            });
+        }
+
+        $reviews = $query->orderBy('created_at', 'desc')->get();
+
+        $headers = ['ID', 'Product', 'Reviewer Name', 'Email', 'Rating', 'Comment', 'Status', 'Date'];
+        $rows = $reviews->map(function($review) {
+            return [
+                $review->id,
+                $review->product->name ?? 'N/A',
+                $review->name,
+                $review->email,
+                $review->rating . ' Stars',
+                substr($review->comment, 0, 50) . '...',
+                $review->is_approved ? 'Approved' : 'Pending',
+                $review->created_at->format('Y-m-d H:i')
+            ];
+        })->toArray();
+
+        return ExportService::toCSV($rows, 'reviews-' . now()->format('Y-m-d-H-i-s') . '.csv', $headers);
+    }
+
+    /**
+     * Export reviews to PDF
+     */
+    public function exportPDF(Request $request)
+    {
+        $query = Review::with(['product', 'user']);
+
+        // Apply same filters as index
+        if ($request->has('status')) {
+            if ($request->status === 'approved') {
+                $query->where('is_approved', true);
+            } elseif ($request->status === 'pending') {
+                $query->where('is_approved', false);
+            }
+        }
+
+        if ($request->has('product_id') && $request->product_id) {
+            $query->where('product_id', $request->product_id);
+        }
+
+        if ($request->has('rating') && $request->rating) {
+            $query->where('rating', $request->rating);
+        }
+
+        if ($request->has('search') && $request->search) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('comment', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%");
+            });
+        }
+
+        $reviews = $query->orderBy('created_at', 'desc')->get();
+
+        $headers = ['ID', 'Product', 'Reviewer Name', 'Email', 'Rating', 'Comment', 'Status', 'Date'];
+        $rows = $reviews->map(function($review) {
+            return [
+                $review->id,
+                $review->product->name ?? 'N/A',
+                $review->name,
+                $review->email,
+                $review->rating . ' Stars',
+                substr($review->comment, 0, 50) . '...',
+                $review->is_approved ? 'Approved' : 'Pending',
+                $review->created_at->format('Y-m-d H:i')
+            ];
+        })->toArray();
+
+        $html = ExportService::generateHTMLTable(
+            $headers,
+            $rows,
+            'Reviews Report - ' . now()->format('M d, Y')
+        );
+
+        $mpdf = new \Mpdf\Mpdf([
+            'mode' => 'utf-8',
+            'format' => 'A4',
+            'margin_left' => 10,
+            'margin_right' => 10,
+            'margin_top' => 15,
+            'margin_bottom' => 15,
+        ]);
+        
+        $mpdf->WriteHTML($html);
+        
+        return response($mpdf->Output('', 'S'), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="reviews-' . now()->format('Y-m-d-H-i-s') . '.pdf"',
+        ]);
+    }
 }
+
