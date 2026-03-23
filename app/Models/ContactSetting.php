@@ -17,9 +17,11 @@ class ContactSetting extends Model
         'hero_description',
         'email_title',
         'email_address',
+        'additional_email_addresses',
         'phone_title',
         'phone_number',
         'phone_number_2',
+        'additional_phone_numbers',
         'phone_subtitle',
         'hours_title',
         'working_hours_salt_lake',
@@ -33,6 +35,7 @@ class ContactSetting extends Model
         'office1_address',
         'office2_title',
         'office2_address',
+        'additional_addresses',
         'form_title',
         'form_textarea_placeholder',
         'awards_title',
@@ -41,6 +44,9 @@ class ContactSetting extends Model
     ];
 
     protected $casts = [
+        'additional_email_addresses' => 'array',
+        'additional_phone_numbers' => 'array',
+        'additional_addresses' => 'array',
         'show_awards' => 'boolean',
         'is_active' => 'boolean'
     ];

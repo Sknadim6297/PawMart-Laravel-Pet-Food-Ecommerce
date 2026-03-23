@@ -143,7 +143,7 @@ class ImageLibraryController extends Controller
                         'description' => $request->description[$index] ?? null,
                         'tags' => $tags,
                         'status' => isset($request->status[$index]) ? (bool)$request->status[$index] : true,
-                        'user_id' => session('admin_user')['id'] ?? 1
+                        'user_id' => Auth::id() ?: (\App\Models\User::first()->id ?? null)
                     ];
 
                     $uploadedFiles[] = ImageLibrary::create($imageData);

@@ -92,6 +92,46 @@
                                             @enderror
                                             <div class="form-text">Upload JPG, PNG, GIF (Max: 2MB)</div>
                                         </div>
+
+                                        <hr>
+                                        <h5>Service Tile 1</h5>
+                                        <div class="mb-3">
+                                            <label for="service_title" class="form-label">Service Title</label>
+                                            <input type="text" class="form-control" id="service_title" name="service_title" value="{{ old('service_title') }}">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="service_description" class="form-label">Service Description</label>
+                                            <textarea class="form-control" id="service_description" name="service_description" rows="2">{{ old('service_description') }}</textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="service_icon" class="form-label">Service Icon</label>
+                                            <input type="file" class="form-control" id="service_icon" name="service_icon" accept="image/*">
+                                            <div class="form-text">Upload JPG, PNG, GIF (Max: 2MB)</div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="service_link" class="form-label">Service Link</label>
+                                            <input type="url" class="form-control" id="service_link" name="service_link" value="{{ old('service_link') }}">
+                                        </div>
+
+                                        <hr>
+                                        <h5>Service Tile 2</h5>
+                                        <div class="mb-3">
+                                            <label for="service2_title" class="form-label">Service 2 Title</label>
+                                            <input type="text" class="form-control" id="service2_title" name="service2_title" value="{{ old('service2_title') }}">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="service2_description" class="form-label">Service 2 Description</label>
+                                            <textarea class="form-control" id="service2_description" name="service2_description" rows="2">{{ old('service2_description') }}</textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="service2_icon" class="form-label">Service 2 Icon</label>
+                                            <input type="file" class="form-control" id="service2_icon" name="service2_icon" accept="image/*">
+                                            <div class="form-text">Upload JPG, PNG, GIF (Max: 2MB)</div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="service2_link" class="form-label">Service 2 Link</label>
+                                            <input type="url" class="form-control" id="service2_link" name="service2_link" value="{{ old('service2_link') }}">
+                                        </div>
                                     </div>
                                 </div>
                             </div>

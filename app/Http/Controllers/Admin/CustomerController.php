@@ -18,8 +18,12 @@ class CustomerController extends Controller
             $search = $request->search;
             $query->where(function($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%")
-                  ->orWhere('phone', 'like', "%{$search}%");
+                  ->orWhere('email', 'like', "%{$search}%");
+                
+                // Only search by phone if the column exists
+                if (\Illuminate\Support\Facades\Schema::hasColumn('users', 'phone')) {
+                    $q->orWhere('phone', 'like', "%{$search}%");
+                }
             });
         }
 
@@ -127,8 +131,12 @@ class CustomerController extends Controller
             $search = $request->search;
             $query->where(function($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%")
-                  ->orWhere('phone', 'like', "%{$search}%");
+                  ->orWhere('email', 'like', "%{$search}%");
+                
+                // Only search by phone if the column exists
+                if (\Illuminate\Support\Facades\Schema::hasColumn('users', 'phone')) {
+                    $q->orWhere('phone', 'like', "%{$search}%");
+                }
             });
         }
 
@@ -195,8 +203,12 @@ class CustomerController extends Controller
             $search = $request->search;
             $query->where(function($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%")
-                  ->orWhere('phone', 'like', "%{$search}%");
+                  ->orWhere('email', 'like', "%{$search}%");
+                
+                // Only search by phone if the column exists
+                if (\Illuminate\Support\Facades\Schema::hasColumn('users', 'phone')) {
+                    $q->orWhere('phone', 'like', "%{$search}%");
+                }
             });
         }
 

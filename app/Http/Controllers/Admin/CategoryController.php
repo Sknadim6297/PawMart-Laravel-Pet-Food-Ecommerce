@@ -12,12 +12,47 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::with(['parent', 'children'])
-            ->withCount('products')
-            ->ordered()
-            ->paginate(15);
+        $query = Category::with(['parent', 'children'])
+            ->withCount('products');
+
+        // Search functionality
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%")
+                  ->orWhere('slug', 'like', "%{$search}%");
+            });
+        }
+
+        // Status filter
+        if ($request->filled('status')) {
+            $query->where('is_active', $request->status === 'active');
+        }
+
+        // Type filter (Main Category or Subcategory)
+        if ($request->filled('type')) {
+            if ($request->type === 'main') {
+                $query->whereNull('parent_id');
+            } elseif ($request->type === 'subcategory') {
+                $query->whereNotNull('parent_id');
+            }
+        }
+
+        // Sort functionality
+        $sortBy = $request->get('sort_by', 'sort_order');
+        $sortOrder = $request->get('sort_order', 'asc');
+        
+        if (in_array($sortBy, ['name', 'created_at', 'sort_order', 'is_active'])) {
+            $query->orderBy($sortBy, $sortOrder);
+        } else {
+            $query->ordered();
+        }
+
+        $categories = $query->paginate(15)->withQueryString();
+        
         return view('admin.categories.index', compact('categories'));
     }
 

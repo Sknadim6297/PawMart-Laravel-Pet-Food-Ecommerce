@@ -1,3 +1,7 @@
+@php
+use Illuminate\Support\Facades\Route;
+@endphp
+
 @extends('frontend.layouts.layout')
 
 @section('style')

@@ -182,15 +182,26 @@
                             <label for="tags" class="form-label fw-semibold text-dark">
                                 🏷️ Tags
                             </label>
-                            <input type="text" class="form-control @error('tags') is-invalid @enderror" 
-                                   id="tags" name="tags" value="{{ old('tags', $image->tags) }}" 
-                                   placeholder="tag1, tag2, tag3">
+                            <div class="input-group">
+                                <input type="text" class="form-control @error('tags') is-invalid @enderror" 
+                                       id="tags" name="tags" value="{{ old('tags', is_array($image->tags) ? implode(', ', $image->tags) : $image->tags) }}" 
+                                       placeholder="tag1, tag2, tag3">
+                                @if(str_starts_with($image->mime_type, 'image/'))
+                                    <button type="button" class="btn btn-sm btn-outline-info" id="toggleGalleryTag">
+                                        <i class="fas fa-images"></i> {{ in_array('gallery', is_array($image->tags) ? $image->tags : []) ? 'Remove from Gallery' : 'Add to Gallery' }}
+                                    </button>
+                                @elseif(str_starts_with($image->mime_type, 'video/'))
+                                    <button type="button" class="btn btn-sm btn-outline-info" id="toggleVideoGalleryTag">
+                                        <i class="fas fa-video"></i> {{ in_array('video-gallery', is_array($image->tags) ? $image->tags : []) ? 'Remove from Video Gallery' : 'Add to Video Gallery' }}
+                                    </button>
+                                @endif
+                            </div>
                             @error('tags')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                             <div class="form-text">
                                 <i class="fas fa-info-circle text-primary"></i>
-                                Separate tags with commas to help organize your files
+                                Separate tags with commas. Use "gallery" tag for Photo Gallery, "video-gallery" tag for Video Gallery.
                             </div>
                         </div>
 
@@ -352,6 +363,50 @@ document.addEventListener('DOMContentLoaded', function() {
             showToast('File URL copied to clipboard!', 'success');
         });
     });
+
+    // Toggle gallery tag
+    const toggleGalleryTagBtn = document.getElementById('toggleGalleryTag');
+    if (toggleGalleryTagBtn) {
+        toggleGalleryTagBtn.addEventListener('click', function() {
+            const tagsInput = document.getElementById('tags');
+            let tags = tagsInput.value.split(',').map(t => t.trim()).filter(t => t);
+            const hasGalleryTag = tags.includes('gallery');
+            
+            if (hasGalleryTag) {
+                tags = tags.filter(t => t !== 'gallery');
+                this.innerHTML = '<i class="fas fa-images"></i> Add to Gallery';
+            } else {
+                if (!tags.includes('gallery')) {
+                    tags.push('gallery');
+                }
+                this.innerHTML = '<i class="fas fa-images"></i> Remove from Gallery';
+            }
+            
+            tagsInput.value = tags.join(', ');
+        });
+    }
+
+    // Toggle video-gallery tag
+    const toggleVideoGalleryTagBtn = document.getElementById('toggleVideoGalleryTag');
+    if (toggleVideoGalleryTagBtn) {
+        toggleVideoGalleryTagBtn.addEventListener('click', function() {
+            const tagsInput = document.getElementById('tags');
+            let tags = tagsInput.value.split(',').map(t => t.trim()).filter(t => t);
+            const hasVideoGalleryTag = tags.includes('video-gallery');
+            
+            if (hasVideoGalleryTag) {
+                tags = tags.filter(t => t !== 'video-gallery');
+                this.innerHTML = '<i class="fas fa-video"></i> Add to Video Gallery';
+            } else {
+                if (!tags.includes('video-gallery')) {
+                    tags.push('video-gallery');
+                }
+                this.innerHTML = '<i class="fas fa-video"></i> Remove from Video Gallery';
+            }
+            
+            tagsInput.value = tags.join(', ');
+        });
+    }
 
     // Form validation
     document.getElementById('editForm').addEventListener('submit', function(e) {

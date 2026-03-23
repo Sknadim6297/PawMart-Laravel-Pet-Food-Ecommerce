@@ -1023,10 +1023,17 @@
                     </a>
                 </div>
                 <div class="nav-item">
-                    <a href="{{ route('admin.content.image-library.index') }}" class="nav-link {{ request()->routeIs('admin.content.image-library.*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-images"></i>
-                        <span class="nav-text">Image Library</span>
-                        <span class="nav-badge">{{ \App\Models\ImageLibrary::count() }}</span>
+                    <a href="{{ route('admin.content.image-upload.index') }}" class="nav-link {{ request()->routeIs('admin.content.image-upload.*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-image"></i>
+                        <span class="nav-text">Image Upload</span>
+                        <span class="nav-badge">{{ \App\Models\ImageLibrary::where('mime_type', 'like', 'image/%')->count() }}</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="{{ route('admin.content.video-upload.index') }}" class="nav-link {{ request()->routeIs('admin.content.video-upload.*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-video"></i>
+                        <span class="nav-text">Video Upload</span>
+                        <span class="nav-badge">{{ \App\Models\ImageLibrary::where('mime_type', 'like', 'video/%')->count() }}</span>
                     </a>
                 </div>
                 <div class="nav-item">
@@ -1037,7 +1044,7 @@
                     </a>
                 </div>
                 <div class="nav-item nav-item-dropdown">
-                    <a href="javascript:void(0)" class="nav-link nav-dropdown-toggle {{ request()->routeIs('admin.hero-sections.*', 'admin.welcome-sections.*', 'admin.statistics.*', 'admin.pet-care-services.*') ? 'active' : '' }}" data-toggle="dropdown">
+                    <a href="javascript:void(0)" class="nav-link nav-dropdown-toggle {{ request()->routeIs('admin.hero-sections.*', 'admin.welcome-sections.*', 'admin.testimonials.*', 'admin.statistics.*', 'admin.pet-care-services.*') ? 'active' : '' }}" data-toggle="dropdown">
                         <i class="nav-icon fas fa-home"></i>
                         <span class="nav-text">Home Page</span>
                         <i class="nav-arrow fas fa-chevron-down ms-auto"></i>
@@ -1052,6 +1059,11 @@
                             <i class="nav-icon fas fa-home"></i>
                             <span class="nav-text">Welcome Section</span>
                             <span class="nav-badge">{{ \App\Models\WelcomeSection::active()->count() }}</span>
+                        </a>
+                        <a href="{{ route('admin.testimonials.index') }}" class="nav-dropdown-item {{ request()->routeIs('admin.testimonials.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-comments"></i>
+                            <span class="nav-text">Testimonials</span>
+                            <span class="nav-badge">{{ \App\Models\Testimonial::active()->count() }}</span>
                         </a>
                         <a href="{{ route('admin.statistics.index') }}" class="nav-dropdown-item {{ request()->routeIs('admin.statistics.*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-chart-bar"></i>
@@ -1362,8 +1374,15 @@
 
         // Auto-attach delete confirmation to all delete forms
         document.addEventListener('DOMContentLoaded', function() {
-            const deleteForms = document.querySelectorAll('form[onsubmit*="confirm"]');
+            const deleteForms = document.querySelectorAll('form');
             deleteForms.forEach(form => {
+                const methodInput = form.querySelector('input[name="_method"]');
+                const isDelete = methodInput && methodInput.value && methodInput.value.toUpperCase() === 'DELETE';
+
+                if (!isDelete) {
+                    return;
+                }
+
                 form.removeAttribute('onsubmit');
                 const submitBtn = form.querySelector('button[type="submit"]');
                 if (submitBtn) {

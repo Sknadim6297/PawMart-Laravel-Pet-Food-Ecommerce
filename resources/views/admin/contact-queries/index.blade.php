@@ -26,10 +26,11 @@
 }
 
 .stats-row {
-    background: var(--light-color);
+    background: #f8fafc;
     padding: 1rem;
     border-radius: var(--border-radius);
     margin-bottom: 1.5rem;
+    border: 1px solid #e2e8f0;
 }
 
 .stat-card {
@@ -80,9 +81,9 @@
 }
 
 .table-header-enhanced {
-    background: var(--light-color);
+    background: #f8fafc;
     padding: 1rem 1.5rem;
-    border-bottom: 1px solid #dee2e6;
+    border-bottom: 1px solid #e2e8f0;
 }
 
 .bulk-actions-enhanced {
@@ -118,11 +119,11 @@
 }
 
 .table-enhanced thead th {
-    background: var(--light-color);
+    background: #eef2f7;
     border: none;
     padding: 1rem;
     font-weight: 600;
-    color: var(--dark-color);
+    color: #1f2937;
     font-size: 0.875rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -134,7 +135,7 @@
 }
 
 .table-enhanced tbody tr:hover {
-    background-color: var(--light-color);
+    background-color: #f8fafc;
 }
 
 .table-enhanced tbody td {
@@ -210,9 +211,9 @@
 }
 
 .pet-badge-enhanced.dog {
-    background: rgba(254, 220, 79, 0.2);
-    color: var(--pet-yellow);
-    border: 1px solid var(--pet-yellow);
+    background: #fff7d1;
+    color: #8a6200;
+    border: 1px solid #facc15;
 }
 
 .pet-badge-enhanced.cat {
@@ -356,7 +357,7 @@
     transition: var(--transition);
     border: 1px solid #dee2e6;
     background: white;
-    color: var(--dark-color);
+    color: #1f2937;
 }
 
 .filter-tab-enhanced:hover {
@@ -366,8 +367,8 @@
 }
 
 .filter-tab-enhanced.active {
-    background: var(--pet-orange);
-    border-color: var(--pet-orange);
+    background: linear-gradient(135deg, var(--pet-orange), var(--primary-dark));
+    border-color: var(--primary-dark);
     color: white;
     box-shadow: 0 2px 8px rgba(250, 68, 29, 0.3);
 }
@@ -471,12 +472,12 @@
 }
 
 .btn-view {
-    background: #007bff;
+    background: #0d6efd;
     color: white;
 }
 
 .btn-view:hover {
-    background: #0056b3;
+    background: #0b5ed7;
     color: white;
     text-decoration: none;
     transform: translateY(-2px);
@@ -495,13 +496,13 @@
 }
 
 .btn-approve {
-    background: #ffc107;
-    color: #212529;
+    background: #f59e0b;
+    color: white;
 }
 
 .btn-approve:hover {
-    background: #e0a800;
-    color: #212529;
+    background: #d97706;
+    color: white;
     text-decoration: none;
     transform: translateY(-2px);
 }
@@ -516,6 +517,17 @@
     color: white;
     text-decoration: none;
     transform: translateY(-2px);
+}
+
+.search-filter-section .form-control,
+.bulk-select-enhanced {
+    background: #ffffff;
+    color: #111827;
+    border: 1px solid #d1d5db;
+}
+
+.search-filter-section .form-control::placeholder {
+    color: #6b7280;
 }
 
 /* Responsive adjustments for action buttons */
@@ -566,44 +578,12 @@
         </div>
     </div>
 
-    <!-- Search and Filter Section -->
-    <div class="search-filter-section">
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <form method="GET" action="{{ route('admin.contact-queries.index') }}" class="d-flex gap-2">
-                    <input type="text" class="form-control" name="search" placeholder="Search by name, email, or subject..." value="{{ request('search') }}">
-                    <button class="btn btn-outline-primary" type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
-                    @if(request('search'))
-                        <a href="{{ route('admin.contact-queries.index') }}" class="btn btn-outline-secondary">
-                            <i class="fas fa-times"></i>
-                        </a>
-                    @endif
-                </form>
-            </div>
-            <div class="col-md-6">
-                <div class="filter-tabs-enhanced">
-                    <a href="{{ route('admin.contact-queries.index') }}" 
-                       class="filter-tab-enhanced {{ !request('status') ? 'active' : '' }}">
-                        All ({{ $stats['total'] }})
-                    </a>
-                    <a href="{{ route('admin.contact-queries.index', ['status' => 'unread']) }}" 
-                       class="filter-tab-enhanced {{ request('status') == 'unread' ? 'active' : '' }}">
-                        <span class="status-indicator unread"></span>Unread ({{ $stats['unread'] }})
-                    </a>
-                    <a href="{{ route('admin.contact-queries.index', ['status' => 'read']) }}" 
-                       class="filter-tab-enhanced {{ request('status') == 'read' ? 'active' : '' }}">
-                        <span class="status-indicator read"></span>Read ({{ $stats['read'] }})
-                    </a>
-                    <a href="{{ route('admin.contact-queries.index', ['status' => 'replied']) }}" 
-                       class="filter-tab-enhanced {{ request('status') == 'replied' ? 'active' : '' }}">
-                        <span class="status-indicator replied"></span>Replied ({{ $stats['replied'] }})
-                    </a>
-                </div>
-            </div>
+    @if($errors->any())
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-circle me-2"></i>{{ $errors->first() }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-    </div>
+    @endif
 
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -615,34 +595,11 @@
     <!-- Main Table -->
     <div class="enhanced-table">
         @if($contactQueries->count() > 0)
-            <!-- Bulk Actions Header -->
-            <div class="table-header-enhanced">
-                <form id="bulk-action-form" method="POST" action="{{ route('admin.contact-queries.bulk-action') }}">
-                    @csrf
-                    <div class="bulk-actions-enhanced">
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input checkbox-enhanced" id="select-all" onchange="toggleAllCheckboxes(this)">
-                            <label for="select-all" class="form-check-label fw-medium">Select All</label>
-                        </div>
-                        <select name="action" class="form-select bulk-select-enhanced" required>
-                            <option value="">Choose Bulk Action</option>
-                            <option value="mark_read">Mark as Read</option>
-                            <option value="mark_replied">Mark as Replied</option>
-                            <option value="delete">Delete Selected</option>
-                        </select>
-                        <button type="submit" class="btn btn-bulk-apply" onclick="return confirmBulkAction()">
-                            <i class="fas fa-bolt me-1"></i>Apply Action
-                        </button>
-                    </div>
-                </form>
-            </div>
-
             <!-- Enhanced Table -->
             <div class="table-responsive">
                 <table class="table table-enhanced">
                     <thead>
                         <tr>
-                            <th style="width: 50px;"></th>
                             <th>Customer</th>
                             <th>Subject & Message</th>
                             <th>Pet Type</th>
@@ -654,10 +611,6 @@
                     <tbody>
                         @foreach($contactQueries as $query)
                         <tr>
-                            <td>
-                                <input type="checkbox" class="form-check-input checkbox-enhanced query-checkbox" 
-                                       name="selected_ids[]" value="{{ $query->id }}" form="bulk-action-form">
-                            </td>
                             <td>
                                 <div class="customer-info">
                                     <div class="customer-avatar">
@@ -680,7 +633,7 @@
                             </td>
                             <td class="subject-content">
                                 <div class="subject-title">{{ $query->subject }}</div>
-                                <div class="message-preview">{{ Str::limit($query->message, 80) }}</div>
+                                <div class="message-preview">{{ \Illuminate\Support\Str::limit($query->message, 80) }}</div>
                             </td>
                             <td>
                                 @if($query->pet_type)
@@ -714,19 +667,13 @@
                                         <i class="fas fa-eye"></i> View
                                     </a>
                                     
-                                    @if($query->status === 'unread')
-                                        <button onclick="updateQueryStatus({{ $query->id }}, 'read')" class="btn-action btn-edit">
-                                            <i class="fas fa-eye"></i> Read
-                                        </button>
-                                    @endif
-                                    
                                     @if($query->status !== 'replied')
-                                        <button onclick="updateQueryStatus({{ $query->id }}, 'replied')" class="btn-action btn-approve">
+                                        <button type="button" onclick="updateQueryStatus({{ $query->id }}, 'replied', this)" class="btn-action btn-approve">
                                             <i class="fas fa-check"></i> Reply
                                         </button>
                                     @endif
                                     
-                                    <button onclick="deleteQuery({{ $query->id }})" class="btn-action btn-delete">
+                                    <button type="button" onclick="deleteQuery({{ $query->id }})" class="btn-action btn-delete">
                                         <i class="fas fa-trash"></i> Delete
                                     </button>
                                 </div>
@@ -758,17 +705,8 @@
                 </div>
                 <h5>No Contact Queries Found</h5>
                 <p class="text-muted">
-                    @if(request('search') || request('status'))
-                        No queries match your current filters. Try adjusting your search criteria.
-                    @else
-                        Contact queries will appear here once customers submit the contact form.
-                    @endif
+                    Contact queries will appear here once customers submit the contact form.
                 </p>
-                @if(request('search') || request('status'))
-                    <a href="{{ route('admin.contact-queries.index') }}" class="btn btn-outline-primary">
-                        <i class="fas fa-times me-1"></i>Clear Filters
-                    </a>
-                @endif
             </div>
         @endif
     </div>
@@ -808,7 +746,7 @@
 </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
 <script>
 // Enhanced JavaScript functionality for Contact Queries
 document.addEventListener('DOMContentLoaded', function() {
@@ -819,10 +757,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Add loading states to buttons
-    const actionButtons = document.querySelectorAll('.btn-action-enhanced');
+    const actionButtons = document.querySelectorAll('.btn-action');
     actionButtons.forEach(button => {
         button.addEventListener('click', function() {
-            if (!this.classList.contains('btn-delete-enhanced')) {
+            if (!this.classList.contains('btn-delete')) {
                 this.classList.add('btn-loading');
                 setTimeout(() => {
                     this.classList.remove('btn-loading');
@@ -830,16 +768,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-
-    // Enhanced bulk action form handling
-    const bulkForm = document.getElementById('bulk-action-form');
-    if (bulkForm) {
-        bulkForm.addEventListener('submit', function(e) {
-            const submitBtn = this.querySelector('.btn-bulk-apply');
-            submitBtn.classList.add('btn-loading');
-            submitBtn.disabled = true;
-        });
-    }
 
     // Auto-hide success alerts
     const successAlert = document.querySelector('.alert-success');
@@ -853,7 +781,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-function updateQueryStatus(id, status) {
+function updateQueryStatus(id, status, triggerButton) {
     // Show confirmation
     const statusText = status.charAt(0).toUpperCase() + status.slice(1);
     if (!confirm(`Are you sure you want to mark this query as ${statusText}?`)) {
@@ -861,23 +789,31 @@ function updateQueryStatus(id, status) {
     }
 
     // Show loading state
-    const button = event.target.closest('.btn-action-enhanced');
+    const button = triggerButton;
+    if (!button) {
+        return;
+    }
+
     const originalContent = button.innerHTML;
     button.classList.add('btn-loading');
     button.disabled = true;
 
     // Make API request
     fetch(`/admin/contact-queries/${id}/status`, {
-        method: 'POST',
+        method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest',
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         },
         body: JSON.stringify({ status: status })
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            return response.json().then(err => {
+                throw new Error(err.message || `HTTP error! status: ${response.status}`);
+            });
         }
         return response.json();
     })
@@ -914,49 +850,6 @@ function deleteQuery(id) {
     modal.show();
 }
 
-function toggleAllCheckboxes(source) {
-    const checkboxes = document.querySelectorAll('.query-checkbox');
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = source.checked;
-    });
-    
-    // Update bulk action button state
-    updateBulkActionState();
-}
-
-function updateBulkActionState() {
-    const selectedCheckboxes = document.querySelectorAll('.query-checkbox:checked');
-    const bulkActionBtn = document.querySelector('.btn-bulk-apply');
-    const bulkSelect = document.querySelector('.bulk-select-enhanced');
-    
-    if (selectedCheckboxes.length > 0) {
-        bulkActionBtn.disabled = false;
-        bulkSelect.disabled = false;
-    } else {
-        bulkActionBtn.disabled = true;
-        bulkSelect.disabled = true;
-    }
-}
-
-function confirmBulkAction() {
-    const selectedCheckboxes = document.querySelectorAll('.query-checkbox:checked');
-    if (selectedCheckboxes.length === 0) {
-        showNotification('Please select at least one query.', 'warning');
-        return false;
-    }
-
-    const action = document.querySelector('[name="action"]').value;
-    if (!action) {
-        showNotification('Please select an action to perform.', 'warning');
-        return false;
-    }
-
-    const actionText = action.replace('_', ' ').toLowerCase();
-    const count = selectedCheckboxes.length;
-    
-    return confirm(`Are you sure you want to ${actionText} ${count} selected quer${count === 1 ? 'y' : 'ies'}?`);
-}
-
 function showNotification(message, type = 'info') {
     // Create notification element
     const notification = document.createElement('div');
@@ -991,17 +884,5 @@ function showNotification(message, type = 'info') {
         }, 150);
     }, 5000);
 }
-
-// Add event listeners to checkboxes for bulk action state
-document.addEventListener('change', function(e) {
-    if (e.target.classList.contains('query-checkbox')) {
-        updateBulkActionState();
-    }
-});
-
-// Initialize bulk action state on page load
-document.addEventListener('DOMContentLoaded', function() {
-    updateBulkActionState();
-});
 </script>
-@endsection
+@endpush

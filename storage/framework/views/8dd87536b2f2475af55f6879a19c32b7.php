@@ -1,3 +1,0 @@
-<?php echo e($slot); ?>: <?php echo e($url); ?>
-
-<?php /**PATH /home/u783962882/domains/tazen.in/public_html/animalpride/vendor/laravel/framework/src/Illuminate/Mail/resources/views/text/button.blade.php ENDPATH**/ ?>

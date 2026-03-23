@@ -57,6 +57,14 @@ class ContactQueryController extends Controller
         }
         
         $contactQuery->update($updateData);
+
+        if ($request->expectsJson() || $request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Contact query status updated successfully!',
+                'status' => $contactQuery->status,
+            ]);
+        }
         
         return back()->with('success', 'Contact query status updated successfully!');
     }

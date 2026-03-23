@@ -50,6 +50,16 @@ class ImageLibrary extends Model
         return $query->where('mime_type', 'like', 'image/%');
     }
 
+    public function scopeVideos($query)
+    {
+        return $query->where('mime_type', 'like', 'video/%');
+    }
+
+    public function scopeHasTag($query, $tag)
+    {
+        return $query->whereJsonContains('tags', $tag);
+    }
+
     // Accessors
     public function getStatusBadgeAttribute()
     {

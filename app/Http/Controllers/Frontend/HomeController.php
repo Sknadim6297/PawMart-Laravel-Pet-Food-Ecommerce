@@ -8,7 +8,7 @@ use App\Models\Product;
 use App\Models\PetCareService;
 use App\Models\HeroSection;
 use App\Models\WelcomeSection;
-use App\Models\Statistic;
+use App\Models\Testimonial;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -90,11 +90,11 @@ class HomeController extends Controller
             ->ordered()
             ->get();
 
-        // Get statistics for counter section
-        $statistics = Statistic::active()
+        // Get active testimonials for homepage section
+        $testimonials = Testimonial::active()
             ->ordered()
             ->get();
 
-        return view('frontend.index', compact('categories', 'petTypes', 'featuredProducts', 'healthyProducts', 'dealOfWeek', 'petCareServices', 'heroSections', 'welcomeSections', 'statistics'));
+        return view('frontend.index', compact('categories', 'petTypes', 'featuredProducts', 'healthyProducts', 'dealOfWeek', 'petCareServices', 'heroSections', 'welcomeSections', 'testimonials'));
     }
 }

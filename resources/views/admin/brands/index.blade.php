@@ -1,3 +1,7 @@
+@php
+use Illuminate\Support\Facades\Storage;
+@endphp
+
 @extends('admin.layouts.app')
 
 @section('title', 'Brand Management')
@@ -383,6 +387,105 @@
     margin-left: 4px;
 }
 
+/* Filters Section */
+.brands-filters-wrapper {
+    background: white;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.brands-filters-header {
+    background: linear-gradient(135deg, #fe5716, #ff7a3d);
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brands-filters-header h5 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 14px;
+    color: white;
+}
+
+.brands-filters-body {
+    padding: 15px 20px;
+    background: #f8f9fa;
+}
+
+.brands-filters-body .form-label {
+    font-size: 12px;
+    margin-bottom: 5px;
+    color: #495057;
+}
+
+.brands-filters-body .form-control,
+.brands-filters-body .form-select {
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+.brands-filters-body .form-control-sm,
+.brands-filters-body .form-select-sm {
+    padding: 5px 8px;
+    font-size: 12px;
+}
+
+.brands-filters-body .input-group-sm .input-group-text {
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+.brands-filters-body .input-group-text {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-right: none;
+    border-radius: 6px 0 0 6px;
+    color: #6c757d;
+}
+
+.brands-filters-body .input-group .form-control {
+    border-left: none;
+    border-radius: 0 6px 6px 0;
+}
+
+.brands-filters-body .btn-primary {
+    background: linear-gradient(135deg, #fe5716, #ff7a3d);
+    border: none;
+    border-radius: 6px;
+    padding: 6px 15px;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+.brands-filters-body .btn-primary:hover {
+    background: linear-gradient(135deg, #e54e14, #fe5716);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(254, 87, 22, 0.3);
+}
+
+.brands-filters-body .btn-outline-secondary {
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+.brands-filters-body .btn-outline-secondary:hover {
+    background: #6c757d;
+    border-color: #6c757d;
+    color: white;
+}
+
 /* Brand Statistics Cards */
 .stat-card.total-brands {
     border-left-color: #3498db;
@@ -420,6 +523,26 @@
 @media (max-width: 768px) {
     .brands-management-wrapper {
         padding: 10px;
+    }
+    
+    .brands-filters-body {
+        padding: 15px;
+    }
+    
+    .brands-filters-body .row {
+        margin: 0;
+    }
+    
+    .brands-filters-body .col-lg-2,
+    .brands-filters-body .col-lg-1,
+    .brands-filters-body .col-lg-3,
+    .brands-filters-body .col-md-4,
+    .brands-filters-body .col-md-3,
+    .brands-filters-body .col-md-2,
+    .brands-filters-body .col-sm-6,
+    .brands-filters-body .col-sm-4,
+    .brands-filters-body .col-sm-3 {
+        padding: 0 0 15px 0;
     }
     
     .brands-header {
@@ -715,14 +838,78 @@
         </div>
     </div>
 
+    <!-- Filters Section -->
+    <div class="brands-filters-wrapper">
+        <div class="brands-filters-header">
+            <h5><i class="fas fa-filter me-2"></i>Filters & Search</h5>
+        </div>
+        <div class="brands-filters-body">
+            <form method="GET" action="{{ route('admin.brands.index') }}" class="row g-2 align-items-end">
+                <div class="col-lg-2 col-md-4 col-sm-6">
+                    <label class="form-label fw-semibold text-dark small">🔍 Search</label>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                        <input type="text" name="search" class="form-control form-control-sm" 
+                               placeholder="Search..." 
+                               value="{{ request('search') }}">
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-3 col-sm-4">
+                    <label class="form-label fw-semibold text-dark small">📊 Status</label>
+                    <select name="status" class="form-select form-select-sm">
+                        <option value="">All</option>
+                        <option value="active" {{ request('status') === 'active' ? 'selected' : '' }}>Active</option>
+                        <option value="inactive" {{ request('status') === 'inactive' ? 'selected' : '' }}>Inactive</option>
+                    </select>
+                </div>
+
+                <div class="col-lg-2 col-md-3 col-sm-4">
+                    <label class="form-label fw-semibold text-dark small">📦 Products</label>
+                    <select name="products" class="form-select form-select-sm">
+                        <option value="">All</option>
+                        <option value="with_products" {{ request('products') === 'with_products' ? 'selected' : '' }}>With Products</option>
+                        <option value="no_products" {{ request('products') === 'no_products' ? 'selected' : '' }}>No Products</option>
+                    </select>
+                </div>
+
+                <div class="col-lg-2 col-md-3 col-sm-4">
+                    <label class="form-label fw-semibold text-dark small">🔄 Sort By</label>
+                    <select name="sort_by" class="form-select form-select-sm">
+                        <option value="sort_order" {{ request('sort_by') === 'sort_order' ? 'selected' : '' }}>Order</option>
+                        <option value="name" {{ request('sort_by') === 'name' ? 'selected' : '' }}>Name</option>
+                        <option value="created_at" {{ request('sort_by') === 'created_at' ? 'selected' : '' }}>Date</option>
+                        <option value="status" {{ request('sort_by') === 'status' ? 'selected' : '' }}>Status</option>
+                    </select>
+                </div>
+
+                <div class="col-lg-1 col-md-2 col-sm-3">
+                    <label class="form-label fw-semibold text-dark small">⬆️ Order</label>
+                    <select name="sort_order" class="form-select form-select-sm">
+                        <option value="asc" {{ request('sort_order') === 'asc' ? 'selected' : '' }}>ASC</option>
+                        <option value="desc" {{ request('sort_order') === 'desc' ? 'selected' : '' }}>DESC</option>
+                    </select>
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            <i class="fas fa-filter"></i> Filter
+                        </button>
+                        <a href="{{ route('admin.brands.index') }}" class="btn btn-outline-secondary btn-sm" title="Reset">
+                            <i class="fas fa-redo"></i> Reset
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Brands Table -->
     <div class="brands-table-wrapper">
         <div class="brands-table-header">
             <h3 class="table-title">All Brands ({{ $brands->total() }})</h3>
-            <div class="table-controls">
-                <!-- Future: Add search and filter controls here -->
-                        </div>
-                    </div>
+        </div>
 
         @if($brands->count() > 0)
                     <div class="table-responsive">

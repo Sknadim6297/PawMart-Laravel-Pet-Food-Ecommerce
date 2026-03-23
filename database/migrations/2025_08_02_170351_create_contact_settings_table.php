@@ -50,7 +50,7 @@ return new class extends Migration
             
             // Contact Form
             $table->string('form_title')->default('Book Your Place or Find out More');
-            $table->text('form_textarea_placeholder')->default('Please let us know which day package you\'re interested');
+            $table->text('form_textarea_placeholder')->default('Please let us know which day package you are interested');
             
             // Awards Section
             $table->string('awards_title')->default('Awards Winning Company');

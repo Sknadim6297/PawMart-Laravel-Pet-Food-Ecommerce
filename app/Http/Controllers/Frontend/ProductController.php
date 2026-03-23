@@ -77,8 +77,16 @@ class ProductController extends Controller
         }
 
         // Filter by stock availability
-        if ($request->has('in_stock') && $request->in_stock == '1') {
+        $stockFilter = $request->get('stock');
+        if (!$stockFilter && $request->get('in_stock') == '1') {
+            // Backward compatibility for existing links using in_stock=1
+            $stockFilter = 'in_stock';
+        }
+
+        if ($stockFilter === 'in_stock') {
             $query->inStock();
+        } elseif ($stockFilter === 'out_of_stock') {
+            $query->where('stock_quantity', '<=', 0);
         }
 
         // Apply sorting

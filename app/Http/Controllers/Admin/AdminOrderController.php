@@ -9,11 +9,94 @@ use Illuminate\Http\Request;
 
 class AdminOrderController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Order::with(['user', 'orderItems.product', 'orderItems.cookedFood'])
-                      ->orderBy('created_at', 'desc')
-                      ->paginate(15);
+        $query = Order::with(['user', 'orderItems.product', 'orderItems.cookedFood']);
+
+        // Search functionality
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('order_number', 'like', "%{$search}%")
+                  ->orWhereHas('user', function($userQuery) use ($search) {
+                      $userQuery->where('name', 'like', "%{$search}%")
+                                ->orWhere('email', 'like', "%{$search}%");
+                      
+                      // Only search by phone if the column exists
+                      if (\Illuminate\Support\Facades\Schema::hasColumn('users', 'phone')) {
+                          $userQuery->orWhere('phone', 'like', "%{$search}%");
+                      }
+                  });
+            });
+        }
+
+        // Status filter
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        // Payment status filter
+        if ($request->filled('payment_status')) {
+            $query->where('payment_status', $request->payment_status);
+        }
+
+        // Payment method filter
+        if ($request->filled('payment_method')) {
+            $query->where('payment_method', $request->payment_method);
+        }
+
+        // Date filter
+        if ($request->filled('date_range')) {
+            $dateRange = $request->date_range;
+            $now = now();
+            
+            switch ($dateRange) {
+                case 'today':
+                    $query->whereDate('created_at', $now->toDateString());
+                    break;
+                case 'week':
+                    $query->whereBetween('created_at', [
+                        $now->copy()->startOfWeek(),
+                        $now->copy()->endOfWeek()
+                    ]);
+                    break;
+                case 'month':
+                    $query->whereMonth('created_at', $now->month)
+                          ->whereYear('created_at', $now->year);
+                    break;
+                case 'year':
+                    $query->whereYear('created_at', $now->year);
+                    break;
+            }
+        }
+
+        // Custom date range
+        if ($request->filled('date_from')) {
+            $query->whereDate('created_at', '>=', $request->date_from);
+        }
+        if ($request->filled('date_to')) {
+            $query->whereDate('created_at', '<=', $request->date_to);
+        }
+
+        // Amount range filter
+        if ($request->filled('amount_min')) {
+            $query->where('total_amount', '>=', $request->amount_min);
+        }
+        if ($request->filled('amount_max')) {
+            $query->where('total_amount', '<=', $request->amount_max);
+        }
+
+        // Sort functionality
+        $sortBy = $request->get('sort_by', 'created_at');
+        $sortOrder = $request->get('sort_order', 'desc');
+        
+        if (in_array($sortBy, ['created_at', 'total_amount', 'status', 'payment_status', 'order_number'])) {
+            $query->orderBy($sortBy, $sortOrder);
+        } else {
+            $query->orderBy('created_at', 'desc'); // Default sort
+        }
+
+        $orders = $query->paginate(15)->withQueryString();
         
         return view('admin.orders.index', compact('orders'));
     }

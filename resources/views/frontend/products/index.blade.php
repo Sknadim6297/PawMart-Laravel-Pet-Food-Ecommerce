@@ -339,8 +339,10 @@
                 @if(request('brand'))
                   <input type="hidden" name="brand" value="{{ request('brand') }}">
                 @endif
-                @if(request('in_stock'))
-                  <input type="hidden" name="in_stock" value="{{ request('in_stock') }}">
+                @if(request('stock'))
+                  <input type="hidden" name="stock" value="{{ request('stock') }}">
+                @elseif(request('in_stock'))
+                  <input type="hidden" name="stock" value="in_stock">
                 @endif
                 
                 <!-- Price Range Visual -->
@@ -413,15 +415,22 @@
             <div class="boder-bar"></div>
             <ul class="category">
               <li>
-                <a href="{{ route('products.index', array_merge(request()->query(), ['in_stock' => '1'])) }}" 
-                   class="{{ request('in_stock') == '1' ? 'active' : '' }}">
-                   In Stock Only
+               <a href="{{ route('products.index', array_merge(request()->except('in_stock'), ['stock' => 'in_stock'])) }}" 
+                 class="{{ request('stock') === 'in_stock' || request('in_stock') == '1' ? 'active' : '' }}">
+                 In Stock
                    <span>{{ \App\Models\Product::active()->inStock()->count() }}</span>
                 </a>
               </li>
               <li>
-                <a href="{{ route('products.index', request()->except('in_stock')) }}" 
-                   class="{{ !request('in_stock') ? 'active' : '' }}">
+               <a href="{{ route('products.index', array_merge(request()->except('in_stock'), ['stock' => 'out_of_stock'])) }}" 
+                 class="{{ request('stock') === 'out_of_stock' ? 'active' : '' }}">
+                 Out of Stock
+                 <span>{{ \App\Models\Product::active()->where('stock_quantity', '<=', 0)->count() }}</span>
+               </a>
+              </li>
+              <li>
+               <a href="{{ route('products.index', request()->except(['stock', 'in_stock'])) }}" 
+                 class="{{ !request('stock') && !request('in_stock') ? 'active' : '' }}">
                    All Products
                    <span>{{ \App\Models\Product::active()->count() }}</span>
                 </a>
@@ -453,6 +462,11 @@
               @if(request('max_price'))
                 <input type="hidden" name="max_price" value="{{ request('max_price') }}">
               @endif
+              @if(request('stock'))
+                <input type="hidden" name="stock" value="{{ request('stock') }}">
+              @elseif(request('in_stock'))
+                <input type="hidden" name="stock" value="in_stock">
+              @endif
               <select name="sort" id="sort-select" class="form-select sort-dropdown" onchange="this.form.submit()">
                 <option value="created_at" {{ request('sort') == 'created_at' ? 'selected' : '' }}>Recently Added</option>
                 <option value="name" {{ request('sort') == 'name' ? 'selected' : '' }}>Name A-Z</option>
@@ -465,7 +479,7 @@
         </div>
         
         <!-- Active Filters Display -->
-        @if(request('category') || request('subcategory') || request('brand') || request('min_price') || request('max_price') || request('in_stock'))
+        @if(request('category') || request('subcategory') || request('brand') || request('min_price') || request('max_price') || request('stock') || request('in_stock'))
         <div class="active-filters mb-4">
             <h6 class="mb-2">Active Filters:</h6>
             <div class="filter-tags d-flex flex-wrap gap-2">
@@ -506,10 +520,17 @@
                     </span>
                 @endif
                 
-                @if(request('in_stock'))
+                @if(request('stock') === 'in_stock' || request('in_stock'))
                     <span class="filter-tag">
-                        In Stock Only
-                        <a href="{{ route('products.index', request()->except('in_stock')) }}" class="remove-filter">×</a>
+                    In Stock
+                    <a href="{{ route('products.index', request()->except(['stock', 'in_stock'])) }}" class="remove-filter">×</a>
+                  </span>
+                @endif
+
+                @if(request('stock') === 'out_of_stock')
+                  <span class="filter-tag">
+                    Out of Stock
+                    <a href="{{ route('products.index', request()->except(['stock', 'in_stock'])) }}" class="remove-filter">×</a>
                     </span>
                 @endif
                 

@@ -70,11 +70,20 @@ class PageController extends Controller
      */
     public function videoGallery()
     {
-        // Get all active videos from the image library
+        // Get videos tagged with 'video-gallery' and are active
         $videos = ImageLibrary::where('status', true)
             ->where('mime_type', 'like', 'video/%')
+            ->hasTag('video-gallery') // Prioritize videos with 'video-gallery' tag
             ->orderBy('created_at', 'desc')
             ->get();
+
+        // If no videos are tagged 'video-gallery', show all active videos
+        if ($videos->isEmpty()) {
+            $videos = ImageLibrary::where('status', true)
+                ->where('mime_type', 'like', 'video/%')
+                ->orderBy('created_at', 'desc')
+                ->get();
+        }
 
         return view('frontend.pages.video-gallery', compact('videos'));
     }

@@ -8,7 +8,7 @@
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
-    <link rel="icon" type="image/png" href="{{ asset('assets/img/logo/petnet_logo.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('assets/img/logo/animal_pride_logo.png') }}">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -245,33 +245,7 @@
             position: relative;
             z-index: 1;
         }
-
-        .brand-logo {
-            width: 85px;
-            height: 85px;
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 18px;
-            font-size: 32px;
-            animation: logoPulse 3s ease-in-out infinite;
-            border: 3px solid rgba(255, 255, 255, 0.4);
-            padding: 15px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2),
-                        inset 0 2px 10px rgba(255, 255, 255, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .brand-logo:hover {
-            transform: scale(1.05);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3),
-                        inset 0 2px 10px rgba(255, 255, 255, 0.4);
-        }
-
+       
         .brand-logo .logo-img {
             width: 100%;
             height: 100%;
@@ -636,7 +610,7 @@
             <!-- Header -->
             <div class="login-header">
                 <div class="brand-logo">
-                    <img src="{{ asset('assets/img/logo/petnet_logo.png') }}" alt="Animal Pride Logo" class="logo-img">
+                    <img src="{{ asset('assets/img/logo/animal_pride_logo.png') }}" alt="Animal Pride Logo" class="logo-img">
                 </div>
                 <h1 class="login-title">Animal Pride Admin</h1>
                 <p class="login-subtitle">Welcome back! Please sign in to manage your pet store</p>

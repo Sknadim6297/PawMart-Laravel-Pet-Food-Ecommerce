@@ -13,9 +13,49 @@ class BrandController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $brands = Brand::ordered()->paginate(15);
+        $query = Brand::withCount('products');
+
+        // Search functionality
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('slug', 'like', "%{$search}%");
+            });
+        }
+
+        // Status filter
+        if ($request->filled('status')) {
+            $query->where('status', $request->status === 'active');
+        }
+
+        // Products count filter
+        if ($request->filled('products')) {
+            if ($request->products === 'with_products') {
+                $query->has('products');
+            } elseif ($request->products === 'no_products') {
+                $query->doesntHave('products');
+            }
+        }
+
+        // Sort functionality
+        $sortBy = $request->get('sort_by', 'sort_order');
+        $sortOrder = $request->get('sort_order', 'asc');
+        
+        if (in_array($sortBy, ['name', 'created_at', 'sort_order', 'status'])) {
+            if ($sortBy === 'products') {
+                $query->orderBy('products_count', $sortOrder);
+            } else {
+                $query->orderBy($sortBy, $sortOrder);
+            }
+        } else {
+            $query->ordered();
+        }
+
+        $brands = $query->paginate(15)->withQueryString();
+        
         return view('admin.brands.index', compact('brands'));
     }
 

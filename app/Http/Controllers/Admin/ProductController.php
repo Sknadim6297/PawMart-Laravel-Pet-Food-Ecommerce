@@ -15,10 +15,73 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::with(['category', 'brand'])->ordered()->paginate(10);
-        return view('admin.products.index', compact('products'));
+        $query = Product::with(['category', 'brand']);
+
+        // Search functionality
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%")
+                  ->orWhere('sku', 'like', "%{$search}%")
+                  ->orWhere('short_description', 'like', "%{$search}%");
+            });
+        }
+
+        // Status filter
+        if ($request->filled('status')) {
+            $query->where('is_active', $request->status === 'active');
+        }
+
+        // Category filter
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
+
+        // Brand filter
+        if ($request->filled('brand_id')) {
+            $query->where('brand_id', $request->brand_id);
+        }
+
+        // Stock filter
+        if ($request->filled('stock')) {
+            if ($request->stock === 'in_stock') {
+                $query->where('stock_quantity', '>', 0);
+            } elseif ($request->stock === 'out_of_stock') {
+                $query->where('stock_quantity', '<=', 0);
+            } elseif ($request->stock === 'low_stock') {
+                $query->where('stock_quantity', '>', 0)->where('stock_quantity', '<=', 10);
+            }
+        }
+
+        // Featured filter
+        if ($request->filled('featured')) {
+            $query->where('is_featured', $request->featured === 'yes');
+        }
+
+        // Sort functionality
+        $sortBy = $request->get('sort_by', 'sort_order');
+        $sortOrder = $request->get('sort_order', 'asc');
+        
+        if (in_array($sortBy, ['name', 'created_at', 'sort_order', 'price', 'stock_quantity'])) {
+            if ($sortBy === 'price') {
+                $query->orderByRaw('COALESCE(sale_price, price) ' . $sortOrder);
+            } else {
+                $query->orderBy($sortBy, $sortOrder);
+            }
+        } else {
+            $query->ordered();
+        }
+
+        $products = $query->paginate(10)->appends($request->query());
+        
+        // Get categories and brands for filter dropdowns
+        $categories = Category::mainCategories()->active()->ordered()->get();
+        $brands = Brand::active()->ordered()->get();
+        
+        return view('admin.products.index', compact('products', 'categories', 'brands'));
     }
 
     /**

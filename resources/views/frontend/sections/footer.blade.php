@@ -1,42 +1,16 @@
-<div class="gap">
-    <div class="container">
-        @php
-            $websiteSettings = \App\Models\WebsiteSetting::getSettings();
-            $contactSettings = \App\Models\ContactSetting::getSettings();
-        @endphp
-        <div class="insta-img">
-            <h3><i class="fa-brands fa-instagram"></i>Follow {{ $websiteSettings['instagram_handle'] ?? $websiteSettings['company_name'] ?? '@domain.com' }}</h3>
-            @if(!empty($websiteSettings['instagram_url']))
-                <a href="{{ $websiteSettings['instagram_url'] }}" target="_blank" class="button">Follow Us</a>
-            @else
-                <a href="#" class="button">Follow Us</a>
-            @endif
-        </div>
-            <ul class="image-gallery">
-              <li>
-                <a href="{{ asset('assets/img/gallery-1.jpg') }}" data-fancybox="gallery"><figure><img alt="girl" src="{{ asset('assets/img/gallery-1.jpg') }}"></figure></a>
-              </li>
-              <li>
-                <a href="{{ asset('assets/img/gallery-2.jpg') }}" data-fancybox="gallery"><figure><img alt="girl" src="{{ asset('assets/img/gallery-2.jpg') }}"></figure></a>
-              </li>
-              <li>
-                <a href="{{ asset('assets/img/gallery-3.jpg') }}" data-fancybox="gallery"><figure><img alt="girl" src="{{ asset('assets/img/gallery-3.jpg') }}"></figure></a>
-              </li>
-              <li>
-                <a href="{{ asset('assets/img/gallery-4.jpg') }}" data-fancybox="gallery"><figure><img alt="girl" src="{{ asset('assets/img/gallery-4.jpg') }}"></figure></a>
-              </li>
-              <li>
-                <a href="{{ asset('assets/img/gallery-5.jpg') }}" data-fancybox="gallery"><figure><img alt="girl" src="{{ asset('assets/img/gallery-5.jpg') }}"></figure></a>
-              </li>
-              <li>
-                <a href="{{ asset('assets/img/gallery-6.jpg') }}" data-fancybox="gallery"><figure><img alt="girl" src="{{ asset('assets/img/gallery-6.jpg') }}"></figure></a>
-              </li>
-              <li>
-                <a href="{{ asset('assets/img/gallery-7.jpg') }}" data-fancybox="gallery"><figure><img alt="girl" src="{{ asset('assets/img/gallery-7.jpg') }}"></figure></a>
-              </li>
-            </ul>
-    </div>
-</div>
+@php
+        $websiteSettings = \App\Models\WebsiteSetting::getSettings();
+        $contactSettings = \App\Models\ContactSetting::getSettings();
+
+        $phonePrimary = $contactSettings->phone_number ?? '';
+        $phoneSecondary = $contactSettings->phone_number_2 ?? '';
+
+        if (!$phonePrimary && !empty($websiteSettings['phone'])) {
+                $phoneParts = array_map('trim', explode(',', $websiteSettings['phone']));
+                $phonePrimary = $phoneParts[0] ?? '';
+                $phoneSecondary = $phoneParts[1] ?? '';
+        }
+@endphp
 <footer style="background-color: #fff8e5; background-image:url({{ asset('assets/img/background.png') }})">
     <div class="container">
         <div class="row">
@@ -51,14 +25,14 @@
                             <img src="{{ asset('assets/img/logo.png') }}" alt="logo" class="footer-logo">
                         @endif
                     </a>
-                    <p>{{ $websiteSettings['footer_description'] ?? 'At vero eos et accusam justo duo dolo res et ea rebum. Stet clita kasd guber gren. Aenean sollici tudin lorem qsben elit clita.' }}</p>
+                    <p>{{ $websiteSettings['footer_description'] ?? '' }}</p>
                     <div class="phone">
                           <i>
                             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
                             <path d="M0,81v350h512V81H0z M456.952,111L256,286.104L55.047,111H456.952z M30,128.967l134.031,116.789L30,379.787V128.967z
                                M51.213,401l135.489-135.489L256,325.896l69.298-60.384L460.787,401H51.213z M482,379.788L347.969,245.756L482,128.967V379.788z"></path>
                             </svg>
-                          </i><a href="mailto:{{ $websiteSettings['email'] ?? 'info@animalpride.in' }}">{{ $websiteSettings['email'] ?? 'info@animalpride.in' }}</a>
+                          </i><a href="mailto:{{ $websiteSettings['email'] ?? '' }}">{{ $websiteSettings['email'] ?? '' }}</a>
                     </div>
                         <div class="phone d-flax align-items-center">
                           <i>
@@ -66,8 +40,8 @@
                               </svg>
                             </i>
                           <div class="footer-addresses">
-                              <p class="mb-2"><strong>CLINIC & GROOMING CENTER:</strong><br>{{ $contactSettings->office1_address ?? 'BE-10, SECTOR - I, SALT LAKE, KOLKATA - 700 064 (OPPOSITE SEN MAHASAY BUSSTOP)' }}</p>
-                              <p class="mb-0"><strong>SALES OUTLET:</strong><br>{{ $contactSettings->office2_address ?? 'Q - 424, SUKANTANAGAR, SALT LAKE, SECTOR - IV, KOLKATA - 700 106 (OPPOSITE UPCOMING CHINGRIGHATA METRO)' }}</p>
+                                                            <p class="mb-2"><strong>CLINIC & GROOMING CENTER:</strong><br>{{ $contactSettings->office1_address ?? '' }}</p>
+                                                            <p class="mb-0"><strong>SALES OUTLET:</strong><br>{{ $contactSettings->office2_address ?? '' }}</p>
                           </div>
                         </div>
                 </div>
@@ -84,7 +58,6 @@
                       {{-- Cooked Foods - DISABLED
                       <li><i class="fa-solid fa-angle-right"></i><a href="{{ route('cooked-foods.index') }}">Cooked Foods</a></li>
                       --}}
-                      <li><i class="fa-solid fa-angle-right"></i><a href="{{ route('blog') }}">Our Blog</a></li>
                       <li><i class="fa-solid fa-angle-right"></i><a href="{{ route('contact') }}">Contact</a></li>
                     </ul>
                   </div>
@@ -95,14 +68,18 @@
                       <h3>working hours</h3>
                       <div class="boder"></div>
                       <div class="working-time">
-                          <h6 class="pt-0"><strong>Salt Lake:</strong> <span>10:30 AM – 9:00 PM</span></h6>
-                          <h6><strong>Chingrighata:</strong> <span>9:00 AM – 10:00 PM</span></h6>
+                          <h6 class="pt-0"><strong>Salt Lake:</strong> <span>{{ $contactSettings->working_hours_salt_lake ?? '' }}</span></h6>
+                          <h6><strong>Chingrighata:</strong> <span>{{ $contactSettings->working_hours_chingrighata ?? '' }}</span></h6>
                           <div class="call-us">
                               <img src="{{ asset('assets/img/hadphon.png') }}" alt="hadphon">
                               <div>
-                                  <a href="tel:7439767977">7439767977</a><br>
-                                  <a href="tel:9748546599">9748546599</a>
-                                  <span>{{ $websiteSettings['support_text'] ?? 'Got Questions? Call us 24/7' }}</span>
+                                  @if($phonePrimary)
+                                      <a href="tel:{{ preg_replace('/[^0-9+]/', '', $phonePrimary) }}">{{ $phonePrimary }}</a><br>
+                                  @endif
+                                  @if($phoneSecondary)
+                                      <a href="tel:{{ preg_replace('/[^0-9+]/', '', $phoneSecondary) }}">{{ $phoneSecondary }}</a>
+                                  @endif
+                                  <span>{{ $websiteSettings['support_text'] ?? '' }}</span>
                               </div>
                           </div>
                           <ul class="social-icon">
@@ -131,7 +108,7 @@
             </div>
         </div>
         <div class="copyright">
-            <p>{{ $websiteSettings['footer_copyright'] ?? 'Animal Pride - Copyright 2023. Design by Sk Nadim' }}</p>
+            <p>{{ $websiteSettings['footer_copyright'] ?? '' }}</p>
             <a href="#"><img src="{{ asset('assets/img/visa.jpg') }}" alt="cad"></a>
         </div>
     </div>

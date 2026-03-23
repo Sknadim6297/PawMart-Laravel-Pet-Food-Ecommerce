@@ -52,8 +52,8 @@
                                             <span class="text-muted">No Image</span>
                                         @endif
                                     </td>
-                                    <td>{{ Str::limit($welcomeSection->title, 30) }}</td>
-                                    <td>{{ Str::limit($welcomeSection->description, 40) }}</td>
+                                    <td>{{ \Illuminate\Support\Str::limit($welcomeSection->title, 30) }}</td>
+                                    <td>{{ \Illuminate\Support\Str::limit($welcomeSection->description, 40) }}</td>
                                     <td>{{ $welcomeSection->button_text }}</td>
                                     <td>{{ $welcomeSection->sort_order }}</td>
                                     <td>

@@ -1,3 +1,7 @@
+@php
+use Illuminate\Support\Str;
+@endphp
+
 @extends('admin.layouts.app')
 
 @section('title', 'Reviews Management')
@@ -636,15 +640,8 @@
                 </div>
             </form>
 
-            <!-- Bulk Actions -->
+            <!-- Export Buttons -->
             <div class="d-flex gap-2">
-                <button type="button" class="btn-bulk-approve btn-sm" onclick="bulkApprove()">
-                    <i class="fas fa-check"></i> Bulk Approve
-                </button>
-                <button type="button" class="btn-bulk-delete btn-sm" onclick="bulkDelete()">
-                    <i class="fas fa-trash"></i> Bulk Delete
-                </button>
-                <!-- Export Buttons -->
                 <a href="{{ route('admin.reviews.export-csv', request()->query()) }}" class="btn btn-success btn-sm">
                     <i class="fas fa-file-excel"></i> Export Excel
                 </a>
@@ -660,38 +657,26 @@
         <div class="reviews-table-header">
             <h5><i class="fas fa-list me-2"></i>Reviews List</h5>
             <div class="d-flex align-items-center gap-3">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="select-all">
-                    <label class="form-check-label fw-semibold" for="select-all">Select All</label>
-                </div>
                 <span class="badge bg-light text-dark border px-3 py-2">{{ $reviews->total() }} reviews</span>
             </div>
         </div>
         <div class="reviews-table-body">
-            <form id="bulk-form">
-                @csrf
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <input type="checkbox" id="select-all">
-                                </th>
-                                <th>Product</th>
-                                <th>Reviewer</th>
-                                <th>Rating</th>
-                                <th>Comment</th>
-                                <th>Status</th>
-                                <th>Date</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($reviews as $review)
-                            <tr>
-                                <td>
-                                    <input type="checkbox" name="review_ids[]" value="{{ $review->id }}" class="review-checkbox">
-                                </td>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Reviewer</th>
+                            <th>Rating</th>
+                            <th>Comment</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($reviews as $review)
+                        <tr>
                                 <td>
                                     <div class="d-flex align-items-center">
                                         @if($review->product->image)
@@ -759,19 +744,21 @@
                                         </a>
                                         
                                         @if($review->is_approved)
-                                            <button type="button" 
-                                                    class="btn-action btn-reject approve-reject-btn" 
-                                                    data-url="{{ route('admin.reviews.reject', $review) }}"
-                                                    data-action="reject">
-                                                <i class="fas fa-times"></i> Reject
-                                            </button>
+                                            <form action="{{ route('admin.reviews.reject', $review) }}" method="POST"
+                                                  class="d-inline-block" onsubmit="return confirm('Are you sure you want to reject this review?')">
+                                                @csrf
+                                                <button type="submit" class="btn-action btn-reject">
+                                                    <i class="fas fa-times"></i> Reject
+                                                </button>
+                                            </form>
                                         @else
-                                            <button type="button" 
-                                                    class="btn-action btn-approve approve-reject-btn" 
-                                                    data-url="{{ route('admin.reviews.approve', $review) }}"
-                                                    data-action="approve">
-                                                <i class="fas fa-check"></i> Approve
-                                            </button>
+                                            <form action="{{ route('admin.reviews.approve', $review) }}" method="POST"
+                                                  class="d-inline-block" onsubmit="return confirm('Are you sure you want to approve this review?')">
+                                                @csrf
+                                                <button type="submit" class="btn-action btn-approve">
+                                                    <i class="fas fa-check"></i> Approve
+                                                </button>
+                                            </form>
                                         @endif
                                         
                                         <form action="{{ route('admin.reviews.destroy', $review) }}" 
@@ -787,7 +774,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="8" class="text-center py-5">
+                                <td colspan="7" class="text-center py-5">
                                     <div class="empty-state">
                                         <i class="fas fa-star"></i>
                                         <h5>No Reviews Found</h5>
@@ -799,7 +786,6 @@
                         </tbody>
                     </table>
                 </div>
-            </form>
         </div>
     </div>
 
@@ -855,255 +841,15 @@ $(document).ready(function() {
         alert('JavaScript Error: jQuery is missing. Please refresh the page.');
         return;
     }
-    
+
     console.log('jQuery loaded successfully. Version:', jQuery.fn.jquery);
     console.log('CSRF Token:', $('meta[name="csrf-token"]').attr('content'));
-    
+
     // Setup AJAX CSRF token
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    
-    // Handle approve/reject buttons with AJAX
-    $('.approve-reject-btn').on('click', function(e) {
-        e.preventDefault();
-        
-        const btn = $(this);
-        const url = btn.data('url');
-        const action = btn.data('action');
-        const actionText = action === 'approve' ? 'approve' : 'reject';
-        
-        console.log('Button clicked:', action, 'URL:', url);
-        
-        if (confirm(`Are you sure you want to ${actionText} this review?`)) {
-            // Show loading state
-            const originalHtml = btn.html();
-            btn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i>');
-            
-            // Make AJAX request
-            $.ajax({
-                url: url,
-                method: 'POST',
-                data: {
-                    _token: $('meta[name="csrf-token"]').attr('content'),
-                    _method: 'POST'
-                },
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                success: function(response) {
-                    console.log('Success response:', response);
-                    
-                    // Show success message
-                    if (response && response.message) {
-                        const alertDiv = $('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
-                            '<i class="fas fa-check-circle me-2"></i>' + response.message +
-                            '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' +
-                            '</div>');
-                        $('.card-body').prepend(alertDiv);
-                        
-                        // Auto-dismiss after 3 seconds
-                        setTimeout(() => alertDiv.alert('close'), 3000);
-                    } else {
-                        // Fallback success message
-                        const alertDiv = $('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
-                            '<i class="fas fa-check-circle me-2"></i>Operation completed successfully.' +
-                            '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' +
-                            '</div>');
-                        $('.card-body').prepend(alertDiv);
-                        
-                        // Auto-dismiss after 3 seconds
-                        setTimeout(() => alertDiv.alert('close'), 3000);
-                    }
-                    
-                    // Reload page to show updated status
-                    setTimeout(() => window.location.reload(), 1000);
-                },
-                error: function(xhr, status, error) {
-                    console.error('AJAX Error:', {
-                        xhr: xhr,
-                        status: status,
-                        error: error,
-                        responseText: xhr.responseText,
-                        responseJSON: xhr.responseJSON
-                    });
-                    
-                    let errorMessage = 'Something went wrong';
-                    if (xhr.responseJSON && xhr.responseJSON.message) {
-                        errorMessage = xhr.responseJSON.message;
-                    } else if (xhr.status === 419) {
-                        errorMessage = 'CSRF token mismatch. Please refresh the page and try again.';
-                    } else if (xhr.status === 404) {
-                        errorMessage = 'Review not found or URL is incorrect.';
-                    } else if (xhr.status === 500) {
-                        errorMessage = 'Server error occurred. Please try again.';
-                    } else if (xhr.responseText) {
-                        errorMessage = 'Server error: ' + xhr.status;
-                    }
-                    
-                    const alertDiv = $('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
-                        '<i class="fas fa-exclamation-circle me-2"></i>Error: ' + errorMessage +
-                        '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' +
-                        '</div>');
-                    $('.card-body').prepend(alertDiv);
-                    
-                    btn.prop('disabled', false).html(originalHtml);
-                }
-            });
-        }
-    });
-    
-    // Handle legacy form submissions (fallback)
-    $('.approve-reject-form').on('submit', function(e) {
-        e.preventDefault();
-        
-        const form = $(this);
-        const action = form.data('action');
-        const actionText = action === 'approve' ? 'approve' : 'reject';
-        
-        if (confirm(`Are you sure you want to ${actionText} this review?`)) {
-            // Show loading state
-            const submitBtn = form.find('button[type="submit"]');
-            const originalHtml = submitBtn.html();
-            submitBtn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i>');
-            
-            // Submit form via AJAX to prevent URL issues
-            $.ajax({
-                url: form.attr('action'),
-                method: 'POST',
-                data: form.serialize(),
-                success: function(response) {
-                    console.log('Form success response:', response);
-                    
-                    // Show success message
-                    if (response && response.message) {
-                        const alertDiv = $('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
-                            '<i class="fas fa-check-circle me-2"></i>' + response.message +
-                            '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' +
-                            '</div>');
-                        $('.card-body').prepend(alertDiv);
-                    } else {
-                        // Fallback success message
-                        const alertDiv = $('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
-                            '<i class="fas fa-check-circle me-2"></i>Review updated successfully.' +
-                            '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' +
-                            '</div>');
-                        $('.card-body').prepend(alertDiv);
-                    }
-                        
-                        // Auto-dismiss after 3 seconds
-                        setTimeout(() => alertDiv.alert('close'), 3000);
-                    }
-                    
-                    // Reload page to show updated status
-                    setTimeout(() => window.location.reload(), 1000);
-                },
-                error: function(xhr, status, error) {
-                    let errorMessage = 'Something went wrong';
-                    if (xhr.responseJSON && xhr.responseJSON.message) {
-                        errorMessage = xhr.responseJSON.message;
-                    }
-                    alert('Error: ' + errorMessage);
-                    submitBtn.prop('disabled', false).html(originalHtml);
-                }
-            });
-        }
-    });
-    
-    // Select all checkbox functionality
-    $('#select-all').change(function() {
-        $('.review-checkbox').prop('checked', $(this).prop('checked'));
-    });
-
-    // Update select all when individual checkboxes change
-    $('.review-checkbox').change(function() {
-        if ($('.review-checkbox:checked').length === $('.review-checkbox').length) {
-            $('#select-all').prop('checked', true);
-        } else {
-            $('#select-all').prop('checked', false);
-        }
-    });
 });
-
-function bulkApprove() {
-    if (typeof $ === 'undefined') {
-        alert('jQuery is not loaded. Please refresh the page.');
-        return;
-    }
-    
-    const selected = $('.review-checkbox:checked').map(function() {
-        return $(this).val();
-    }).get();
-
-    if (selected.length === 0) {
-        alert('Please select at least one review to approve.');
-        return;
-    }
-
-    if (confirm(`Are you sure you want to approve ${selected.length} review(s)?`)) {
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = '{{ route("admin.reviews.bulk-approve") }}';
-        
-        const csrfToken = document.createElement('input');
-        csrfToken.type = 'hidden';
-        csrfToken.name = '_token';
-        csrfToken.value = '{{ csrf_token() }}';
-        form.appendChild(csrfToken);
-
-        selected.forEach(function(id) {
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = 'review_ids[]';
-            input.value = id;
-            form.appendChild(input);
-        });
-
-        document.body.appendChild(form);
-        form.submit();
-    }
-}
-
-function bulkDelete() {
-    if (typeof $ === 'undefined') {
-        alert('jQuery is not loaded. Please refresh the page.');
-        return;
-    }
-    
-    const selected = $('.review-checkbox:checked').map(function() {
-        return $(this).val();
-    }).get();
-
-    if (selected.length === 0) {
-        alert('Please select at least one review to delete.');
-        return;
-    }
-
-    if (confirm(`Are you sure you want to delete ${selected.length} review(s)? This action cannot be undone.`)) {
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = '{{ route("admin.reviews.bulk-delete") }}';
-        
-        const csrfToken = document.createElement('input');
-        csrfToken.type = 'hidden';
-        csrfToken.name = '_token';
-        csrfToken.value = '{{ csrf_token() }}';
-        form.appendChild(csrfToken);
-
-        selected.forEach(function(id) {
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = 'review_ids[]';
-            input.value = id;
-            form.appendChild(input);
-        });
-
-        document.body.appendChild(form);
-        form.submit();
-    }
-}
 @endpush

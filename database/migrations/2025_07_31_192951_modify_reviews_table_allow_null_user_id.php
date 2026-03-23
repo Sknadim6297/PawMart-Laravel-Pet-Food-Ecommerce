@@ -12,33 +12,50 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Check if user_id is already nullable - if so, skip this migration
-        $columns = DB::select('DESCRIBE reviews');
-        $userIdColumn = collect($columns)->firstWhere('Field', 'user_id');
+        // For SQLite, check if user_id is already nullable using PRAGMA
+        $driver = DB::connection()->getDriverName();
         
-        if ($userIdColumn && $userIdColumn->Null === 'YES') {
-            // user_id is already nullable, nothing to do
-            return;
+        if ($driver === 'sqlite') {
+            $columns = DB::select("PRAGMA table_info(reviews)");
+            $userIdColumn = collect($columns)->firstWhere('name', 'user_id');
+            
+            if ($userIdColumn && $userIdColumn->notnull == 0) {
+                // user_id is already nullable, nothing to do
+                return;
+            }
+        } else {
+            // MySQL/MariaDB check
+            $columns = DB::select('DESCRIBE reviews');
+            $userIdColumn = collect($columns)->firstWhere('Field', 'user_id');
+            
+            if ($userIdColumn && $userIdColumn->Null === 'YES') {
+                // user_id is already nullable, nothing to do
+                return;
+            }
+        }
+        
+        // For SQLite, we can't drop foreign keys, so we'll just modify the column
+        // SQLite will handle the foreign key constraint automatically
+        if ($driver !== 'sqlite') {
+            Schema::table('reviews', function (Blueprint $table) {
+                // Drop foreign key constraint if it exists (MySQL/MariaDB)
+                $foreignKeys = DB::select("
+                    SELECT CONSTRAINT_NAME 
+                    FROM information_schema.KEY_COLUMN_USAGE 
+                    WHERE TABLE_SCHEMA = DATABASE() 
+                    AND TABLE_NAME = 'reviews' 
+                    AND COLUMN_NAME = 'user_id' 
+                    AND REFERENCED_TABLE_NAME IS NOT NULL
+                ");
+                
+                if (!empty($foreignKeys)) {
+                    $table->dropForeign(['user_id']);
+                }
+            });
         }
         
         Schema::table('reviews', function (Blueprint $table) {
-            // Check and drop foreign key constraint if it exists
-            $foreignKeys = DB::select("
-                SELECT CONSTRAINT_NAME 
-                FROM information_schema.KEY_COLUMN_USAGE 
-                WHERE TABLE_SCHEMA = DATABASE() 
-                AND TABLE_NAME = 'reviews' 
-                AND COLUMN_NAME = 'user_id' 
-                AND REFERENCED_TABLE_NAME IS NOT NULL
-            ");
-            
-            if (!empty($foreignKeys)) {
-                $table->dropForeign(['user_id']);
-            }
-        });
-        
-        Schema::table('reviews', function (Blueprint $table) {
-            // Check and drop unique constraint if it exists (though it likely doesn't exist)
+            // Check and drop unique constraint if it exists
             try {
                 $table->dropUnique(['product_id', 'user_id']);
             } catch (\Illuminate\Database\QueryException $e) {
@@ -51,10 +68,14 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable()->change();
         });
         
-        Schema::table('reviews', function (Blueprint $table) {
-            // Add the foreign key constraint back
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-        });
+        // Only add foreign key back for non-SQLite databases
+        // SQLite maintains foreign key constraints automatically
+        if ($driver !== 'sqlite') {
+            Schema::table('reviews', function (Blueprint $table) {
+                // Add the foreign key constraint back
+                $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            });
+        }
     }
 
     /**

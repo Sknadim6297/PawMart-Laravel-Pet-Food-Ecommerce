@@ -13,7 +13,17 @@ class WelcomeSection extends Model
         'button_link',
         'image',
         'sort_order',
-        'is_active'
+        'is_active',
+        // Service tile 1
+        'service_title',
+        'service_description',
+        'service_icon',
+        'service_link',
+        // Service tile 2
+        'service2_title',
+        'service2_description',
+        'service2_icon',
+        'service2_link',
     ];
 
     protected $casts = [

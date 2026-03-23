@@ -1,3 +1,7 @@
+@php
+use Illuminate\Support\Str;
+@endphp
+
 @extends('admin.layouts.app')
 
 @section('title', 'Category Management')
@@ -75,6 +79,32 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
+.categories-table-container {
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #fe5716 #f8f9fa;
+}
+
+.categories-table-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.categories-table-container::-webkit-scrollbar-track {
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.categories-table-container::-webkit-scrollbar-thumb {
+    background: #fe5716;
+    border-radius: 10px;
+}
+
+.categories-table-container::-webkit-scrollbar-thumb:hover {
+    background: #e54e14;
+}
+
 .categories-table-header {
     background: #f8f9fa;
     padding: 20px 25px;
@@ -116,6 +146,7 @@
 .categories-table {
     width: 100%;
     border-collapse: collapse;
+    min-width: 800px;
 }
 
 .categories-table th {
@@ -471,10 +502,133 @@
     color: #f39c12;
 }
 
+/* Filters Section */
+.categories-filters-wrapper {
+    background: white;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.categories-filters-header {
+    background: linear-gradient(135deg, #fe5716, #ff7a3d);
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.categories-filters-header h5 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 14px;
+    color: white;
+}
+
+.categories-filters-body {
+    padding: 15px 20px;
+    background: #f8f9fa;
+}
+
+.categories-filters-body .form-label {
+    font-size: 12px;
+    margin-bottom: 5px;
+    color: #495057;
+}
+
+.categories-filters-body .form-control,
+.categories-filters-body .form-select {
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+.categories-filters-body .form-control-sm,
+.categories-filters-body .form-select-sm {
+    padding: 5px 8px;
+    font-size: 12px;
+}
+
+.categories-filters-body .input-group-sm .input-group-text {
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+.categories-filters-body .form-control:focus,
+.categories-filters-body .form-select:focus {
+    border-color: #fe5716;
+    box-shadow: 0 0 0 0.2rem rgba(254, 87, 22, 0.15);
+}
+
+.categories-filters-body .input-group-text {
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-right: none;
+    border-radius: 8px 0 0 8px;
+    color: #6c757d;
+}
+
+.categories-filters-body .input-group .form-control {
+    border-left: none;
+    border-radius: 0 8px 8px 0;
+}
+
+.categories-filters-body .btn-primary {
+    background: linear-gradient(135deg, #fe5716, #ff7a3d);
+    border: none;
+    border-radius: 6px;
+    padding: 6px 15px;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+.categories-filters-body .btn-primary:hover {
+    background: linear-gradient(135deg, #e54e14, #fe5716);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(254, 87, 22, 0.3);
+}
+
+.categories-filters-body .btn-outline-secondary {
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+.categories-filters-body .btn-outline-secondary:hover {
+    background: #6c757d;
+    border-color: #6c757d;
+    color: white;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .categories-management-wrapper {
         padding: 15px;
+    }
+    
+    .categories-filters-body {
+        padding: 15px;
+    }
+    
+    .categories-filters-body .row {
+        margin: 0;
+    }
+    
+    .categories-filters-body .col-lg-3,
+    .categories-filters-body .col-lg-2,
+    .categories-filters-body .col-lg-1,
+    .categories-filters-body .col-md-6,
+    .categories-filters-body .col-md-4,
+    .categories-filters-body .col-sm-6,
+    .categories-filters-body .col-sm-12 {
+        padding: 0 0 15px 0;
     }
     
     .categories-header {
@@ -493,30 +647,56 @@
         align-items: stretch;
     }
     
+    .categories-table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 0 -15px;
+        padding: 0 15px;
+    }
+    
     .categories-table {
         font-size: 12px;
+        min-width: 700px;
     }
     
     .categories-table th,
     .categories-table td {
         padding: 10px 8px;
+        white-space: nowrap;
+    }
+    
+    .categories-table td:first-child {
+        white-space: normal;
+        min-width: 200px;
     }
     
     .category-info {
-        flex-direction: column;
+        flex-direction: row;
         gap: 10px;
-        align-items: flex-start;
+        align-items: center;
     }
     
     .category-image,
     .category-image-placeholder {
         width: 50px;
         height: 50px;
+        flex-shrink: 0;
+    }
+    
+    .category-details {
+        min-width: 150px;
     }
     
     .action-buttons {
-        flex-direction: column;
+        flex-direction: row;
         gap: 5px;
+        flex-wrap: wrap;
+    }
+    
+    .btn-action {
+        font-size: 11px;
+        padding: 5px 10px;
+        min-width: 60px;
     }
 }
 
@@ -586,6 +766,73 @@
         </div>
     </div>
 
+    <!-- Filters Section -->
+    <div class="categories-filters-wrapper">
+        <div class="categories-filters-header">
+            <h5><i class="fas fa-filter me-2"></i>Filters & Search</h5>
+        </div>
+        <div class="categories-filters-body">
+            <form method="GET" action="{{ route('admin.categories.index') }}" class="row g-2 align-items-end">
+                <div class="col-lg-2 col-md-4 col-sm-6">
+                    <label class="form-label fw-semibold text-dark small">🔍 Search</label>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                        <input type="text" name="search" class="form-control form-control-sm" 
+                               placeholder="Search..." 
+                               value="{{ request('search') }}">
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-3 col-sm-4">
+                    <label class="form-label fw-semibold text-dark small">📊 Status</label>
+                    <select name="status" class="form-select form-select-sm">
+                        <option value="">All</option>
+                        <option value="active" {{ request('status') === 'active' ? 'selected' : '' }}>Active</option>
+                        <option value="inactive" {{ request('status') === 'inactive' ? 'selected' : '' }}>Inactive</option>
+                    </select>
+                </div>
+
+                <div class="col-lg-2 col-md-3 col-sm-4">
+                    <label class="form-label fw-semibold text-dark small">📁 Type</label>
+                    <select name="type" class="form-select form-select-sm">
+                        <option value="">All</option>
+                        <option value="main" {{ request('type') === 'main' ? 'selected' : '' }}>Main</option>
+                        <option value="subcategory" {{ request('type') === 'subcategory' ? 'selected' : '' }}>Subcategory</option>
+                    </select>
+                </div>
+
+                <div class="col-lg-2 col-md-3 col-sm-4">
+                    <label class="form-label fw-semibold text-dark small">🔄 Sort By</label>
+                    <select name="sort_by" class="form-select form-select-sm">
+                        <option value="sort_order" {{ request('sort_by') === 'sort_order' ? 'selected' : '' }}>Order</option>
+                        <option value="name" {{ request('sort_by') === 'name' ? 'selected' : '' }}>Name</option>
+                        <option value="created_at" {{ request('sort_by') === 'created_at' ? 'selected' : '' }}>Date</option>
+                        <option value="is_active" {{ request('sort_by') === 'is_active' ? 'selected' : '' }}>Status</option>
+                    </select>
+                </div>
+
+                <div class="col-lg-1 col-md-2 col-sm-3">
+                    <label class="form-label fw-semibold text-dark small">⬆️ Order</label>
+                    <select name="sort_order" class="form-select form-select-sm">
+                        <option value="asc" {{ request('sort_order') === 'asc' ? 'selected' : '' }}>ASC</option>
+                        <option value="desc" {{ request('sort_order') === 'desc' ? 'selected' : '' }}>DESC</option>
+                    </select>
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            <i class="fas fa-filter"></i> Filter
+                        </button>
+                        <a href="{{ route('admin.categories.index') }}" class="btn btn-outline-secondary btn-sm" title="Reset">
+                            <i class="fas fa-redo"></i> Reset
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Categories Table -->
     <div class="categories-table-wrapper">
         <div class="categories-table-header">
@@ -593,6 +840,7 @@
         </div>
 
         @if($categories->count() > 0)
+        <div class="categories-table-container">
         <table class="categories-table">
             <thead>
                 <tr>
@@ -679,6 +927,7 @@
                 @endforeach
             </tbody>
         </table>
+        </div>
 
         <!-- Custom Admin Pagination -->
         <div class="admin-pagination-wrapper">

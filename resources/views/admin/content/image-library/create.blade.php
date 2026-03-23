@@ -162,7 +162,7 @@
                         </div>
                     </div>
 
-                    <div class="tip-item">
+                    <div class="tip-item mb-3">
                         <div class="d-flex">
                             <div class="icon-circle bg-light me-3">
                                 <i class="fas fa-compress-alt text-danger"></i>
@@ -170,6 +170,18 @@
                             <div>
                                 <h6 class="mb-1">Auto Optimization</h6>
                                 <small class="text-muted">Images are automatically optimized</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tip-item">
+                        <div class="d-flex">
+                            <div class="icon-circle bg-light me-3">
+                                <i class="fas fa-tags text-primary"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Gallery Tags</h6>
+                                <small class="text-muted">Use "gallery" tag for Photo Gallery, "video-gallery" tag for Video Gallery. Edit files after upload to add tags.</small>
                             </div>
                         </div>
                     </div>

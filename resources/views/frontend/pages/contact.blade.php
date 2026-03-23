@@ -3,6 +3,45 @@
 @section('title', $contactSettings->page_title ?? 'Contact Us')
 
 @section('content')
+@php
+    $emailAddresses = collect(array_merge([
+        $contactSettings->email_address ?? 'info@animalpride.in',
+    ], $contactSettings->additional_email_addresses ?? []))
+        ->map(fn ($item) => trim((string) $item))
+        ->filter()
+        ->unique()
+        ->values();
+
+    $phoneNumbers = collect(array_merge([
+        $contactSettings->phone_number ?? '7439767977',
+        $contactSettings->phone_number_2 ?? '',
+    ], $contactSettings->additional_phone_numbers ?? []))
+        ->map(fn ($item) => trim((string) $item))
+        ->filter()
+        ->unique()
+        ->values();
+
+    $officeLocations = collect([
+        [
+            'title' => $contactSettings->office1_title ?? 'CLINIC & GROOMING CENTER:',
+            'address' => $contactSettings->office1_address ?? 'BE-10, SECTOR - I, SALT LAKE, KOLKATA - 700 064 (OPPOSITE SEN MAHASAY BUSSTOP)',
+        ],
+        [
+            'title' => $contactSettings->office2_title ?? 'SALES OUTLET:',
+            'address' => $contactSettings->office2_address ?? 'Q - 424, SUKANTANAGAR, SALT LAKE, SECTOR - IV, KOLKATA - 700 106 (OPPOSITE UPCOMING CHINGRIGHATA METRO)',
+        ],
+    ]);
+
+    foreach (($contactSettings->additional_addresses ?? []) as $address) {
+        $address = trim((string) $address);
+        if ($address !== '') {
+            $officeLocations->push([
+                'title' => 'ADDITIONAL LOCATION:',
+                'address' => $address,
+            ]);
+        }
+    }
+@endphp
 <section class="banner" style="background-color: #fff8e5; background-image:url(assets/img/banner.png)">
     <div class="container">
         <div class="row align-items-center">
@@ -55,7 +94,9 @@
                         </svg>
                       </i>
                       <span>{{ $contactSettings->email_title ?? 'Email Us' }}</span>
-                      <a href="mailto:{{ $contactSettings->email_address ?? 'info@animalpride.in' }}">{{ $contactSettings->email_address ?? 'info@animalpride.in' }}</a>
+                      @foreach($emailAddresses as $email)
+                          <a href="mailto:{{ $email }}" class="d-block {{ !$loop->first ? 'mt-1' : '' }}">{{ $email }}</a>
+                      @endforeach
                 </div>
             </div>
             <div class="col-lg-4 col-md-6">
@@ -67,10 +108,9 @@
                         <svg height="112" viewBox="0 0 24 24" width="112" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill="rgb(255255,255)" fill-rule="evenodd"><path d="m7 2.75c-.41421 0-.75.33579-.75.75v17c0 .4142.33579.75.75.75h10c.4142 0 .75-.3358.75-.75v-17c0-.41421-.3358-.75-.75-.75zm-2.25.75c0-1.24264 1.00736-2.25 2.25-2.25h10c1.2426 0 2.25 1.00736 2.25 2.25v17c0 1.2426-1.0074 2.25-2.25 2.25h-10c-1.24264 0-2.25-1.0074-2.25-2.25z"></path><path d="m10.25 5c0-.41421.3358-.75.75-.75h2c.4142 0 .75.33579.75.75s-.3358.75-.75.75h-2c-.4142 0-.75-.33579-.75-.75z"></path><path d="m9.25 19c0-.4142.33579-.75.75-.75h4c.4142 0 .75.3358.75.75s-.3358.75-.75.75h-4c-.41421 0-.75-.3358-.75-.75z"></path></g></svg>
                       </i>
                       <span>{{ $contactSettings->phone_title ?? 'Call Us' }}</span>
-                      <a href="tel:{{ $contactSettings->phone_number ?? '7439767977' }}">{{ $contactSettings->phone_number ?? '7439767977' }}</a>
-                      @if($contactSettings->phone_number_2 ?? '9748546599')
-                          <a href="tel:{{ $contactSettings->phone_number_2 ?? '9748546599' }}" class="d-block mt-1">{{ $contactSettings->phone_number_2 ?? '9748546599' }}</a>
-                      @endif
+                      @foreach($phoneNumbers as $phone)
+                          <a href="tel:{{ preg_replace('/[^0-9+]/', '', $phone) }}" class="d-block {{ !$loop->first ? 'mt-1' : '' }}">{{ $phone }}</a>
+                      @endforeach
                       <h6>{{ $contactSettings->phone_subtitle ?? 'Call Us' }}</h6>
                 </div>
             </div>
@@ -132,20 +172,15 @@
             <div class="col-lg-6">
                 <div class="office-locations">
                     <h2>Our Office Locations</h2>
-                    <div class="office-card mb-4">
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="fa-solid fa-location-dot me-3" style="color: #ee643c; font-size: 1.5rem;"></i>
-                            <h5 class="mb-0" style="color: #ee643c;">{{ $contactSettings->office1_title ?? 'CLINIC & GROOMING CENTER:' }}</h5>
+                    @foreach($officeLocations as $location)
+                        <div class="office-card {{ $loop->last ? '' : 'mb-4' }}">
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="fa-solid fa-location-dot me-3" style="color: #ee643c; font-size: 1.5rem;"></i>
+                                <h5 class="mb-0" style="color: #ee643c;">{{ $location['title'] }}</h5>
+                            </div>
+                            <p class="ms-5">{{ $location['address'] }}</p>
                         </div>
-                        <p class="ms-5">{{ $contactSettings->office1_address ?? 'BE-10, SECTOR - I, SALT LAKE, KOLKATA - 700 064 (OPPOSITE SEN MAHASAY BUSSTOP)' }}</p>
-                    </div>
-                    <div class="office-card">
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="fa-solid fa-location-dot me-3" style="color: #ee643c; font-size: 1.5rem;"></i>
-                            <h5 class="mb-0" style="color: #ee643c;">{{ $contactSettings->office2_title ?? 'SALES OUTLET:' }}</h5>
-                        </div>
-                        <p class="ms-5">{{ $contactSettings->office2_address ?? 'Q - 424, SUKANTANAGAR, SALT LAKE, SECTOR - IV, KOLKATA - 700 106 (OPPOSITE UPCOMING CHINGRIGHATA METRO)' }}</p>
-                    </div>
+                    @endforeach
                 </div>
             </div>
             <div class="col-lg-6">

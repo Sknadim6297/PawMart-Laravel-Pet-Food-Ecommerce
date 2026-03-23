@@ -10,7 +10,8 @@ use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\BlogController;
-use App\Http\Controllers\Admin\ImageLibraryController;
+use App\Http\Controllers\Admin\ImageUploadController;
+use App\Http\Controllers\Admin\VideoUploadController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\CookedFoodController;
 use App\Http\Controllers\Admin\ContactController;
@@ -21,6 +22,7 @@ use App\Http\Controllers\Admin\PetCareServiceController;
 use App\Http\Controllers\Admin\HeroSectionController;
 use App\Http\Controllers\Admin\WelcomeSectionController;
 use App\Http\Controllers\Admin\StatisticController;
+use App\Http\Controllers\Admin\TestimonialController;
 
 // Admin Authentication
 Route::get('login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
@@ -37,6 +39,9 @@ Route::middleware('admin')->group(function () {
     
     // Welcome Sections Management
     Route::resource('welcome-sections', WelcomeSectionController::class, ['as' => 'admin']);
+
+    // Testimonials Management
+    Route::resource('testimonials', TestimonialController::class, ['as' => 'admin']);
     
     // Statistics Management
     Route::resource('statistics', StatisticController::class, ['as' => 'admin']);
@@ -184,20 +189,28 @@ Route::middleware('admin')->group(function () {
             Route::delete('/{comment}', [\App\Http\Controllers\Admin\BlogCommentController::class, 'destroy'])->name('destroy');
         });
 
-        // Image Library Management
-        Route::prefix('image-library')->name('image-library.')->group(function () {
-            Route::get('/', [ImageLibraryController::class, 'index'])->name('index');
-            Route::get('/create', [ImageLibraryController::class, 'create'])->name('create');
-            Route::post('/', [ImageLibraryController::class, 'store'])->name('store');
-            Route::get('/{imageLibrary}', [ImageLibraryController::class, 'show'])->name('show');
-            Route::get('/{imageLibrary}/edit', [ImageLibraryController::class, 'edit'])->name('edit');
-            Route::put('/{imageLibrary}', [ImageLibraryController::class, 'update'])->name('update');
-            Route::delete('/{imageLibrary}', [ImageLibraryController::class, 'destroy'])->name('destroy');
-            Route::get('/{imageLibrary}/download', [ImageLibraryController::class, 'download'])->name('download');
-            Route::patch('/{imageLibrary}/toggle-status', [ImageLibraryController::class, 'toggleStatus'])->name('toggle-status');
-            Route::post('/{imageLibrary}/track-download', [ImageLibraryController::class, 'trackDownload'])->name('track-download');
-            Route::post('/{imageLibrary}/view', [ImageLibraryController::class, 'trackView'])->name('track-view');
-            Route::post('/bulk-delete', [ImageLibraryController::class, 'bulkDelete'])->name('bulk-delete');
+        // Image Upload Management
+        Route::prefix('image-upload')->name('image-upload.')->group(function () {
+            Route::get('/', [ImageUploadController::class, 'index'])->name('index');
+            Route::get('/create', [ImageUploadController::class, 'create'])->name('create');
+            Route::post('/', [ImageUploadController::class, 'store'])->name('store');
+            Route::get('/{imageUpload}/edit', [ImageUploadController::class, 'edit'])->name('edit');
+            Route::put('/{imageUpload}', [ImageUploadController::class, 'update'])->name('update');
+            Route::delete('/{imageUpload}', [ImageUploadController::class, 'destroy'])->name('destroy');
+            Route::patch('/{imageUpload}/toggle-status', [ImageUploadController::class, 'toggleStatus'])->name('toggle-status');
+            Route::post('/bulk-delete', [ImageUploadController::class, 'bulkDelete'])->name('bulk-delete');
+        });
+
+        // Video Upload Management
+        Route::prefix('video-upload')->name('video-upload.')->group(function () {
+            Route::get('/', [VideoUploadController::class, 'index'])->name('index');
+            Route::get('/create', [VideoUploadController::class, 'create'])->name('create');
+            Route::post('/', [VideoUploadController::class, 'store'])->name('store');
+            Route::get('/{videoUpload}/edit', [VideoUploadController::class, 'edit'])->name('edit');
+            Route::put('/{videoUpload}', [VideoUploadController::class, 'update'])->name('update');
+            Route::delete('/{videoUpload}', [VideoUploadController::class, 'destroy'])->name('destroy');
+            Route::patch('/{videoUpload}/toggle-status', [VideoUploadController::class, 'toggleStatus'])->name('toggle-status');
+            Route::post('/bulk-delete', [VideoUploadController::class, 'bulkDelete'])->name('bulk-delete');
         });
     });
     

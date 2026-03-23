@@ -360,6 +360,22 @@ textarea.form-control {
 @endpush
 
 @section('content')
+@php
+    $additionalEmailsValue = old('additional_email_addresses');
+    if ($additionalEmailsValue === null) {
+        $additionalEmailsValue = implode(PHP_EOL, $contactSettings->additional_email_addresses ?? []);
+    }
+
+    $additionalPhonesValue = old('additional_phone_numbers');
+    if ($additionalPhonesValue === null) {
+        $additionalPhonesValue = implode(PHP_EOL, $contactSettings->additional_phone_numbers ?? []);
+    }
+
+    $additionalAddressesValue = old('additional_addresses');
+    if ($additionalAddressesValue === null) {
+        $additionalAddressesValue = implode(PHP_EOL, $contactSettings->additional_addresses ?? []);
+    }
+@endphp
 <div class="contact-management-wrapper">
     <!-- Page Header -->
     <div class="contact-header">
@@ -454,6 +470,11 @@ textarea.form-control {
                                                     <input type="email" class="form-control" id="email_address" name="email_address" 
                                                            value="{{ old('email_address', $contactSettings->email_address) }}" required>
                                                 </div>
+                                                <div class="mb-3">
+                                                    <label for="additional_email_addresses" class="form-label">Additional Email Addresses</label>
+                                                    <textarea class="form-control" id="additional_email_addresses" name="additional_email_addresses" rows="4" placeholder="One email per line">{{ $additionalEmailsValue }}</textarea>
+                                                    <small class="text-muted">Enter one email per line.</small>
+                                                </div>
                                             </div>
 
                                             <!-- Phone Section -->
@@ -478,6 +499,11 @@ textarea.form-control {
                                                     <label for="phone_subtitle" class="form-label">Phone Subtitle</label>
                                                     <input type="text" class="form-control" id="phone_subtitle" name="phone_subtitle" 
                                                            value="{{ old('phone_subtitle', $contactSettings->phone_subtitle) }}">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="additional_phone_numbers" class="form-label">Additional Phone Numbers</label>
+                                                    <textarea class="form-control" id="additional_phone_numbers" name="additional_phone_numbers" rows="4" placeholder="One phone number per line">{{ $additionalPhonesValue }}</textarea>
+                                                    <small class="text-muted">Enter one phone number per line.</small>
                                                 </div>
                                             </div>
 
@@ -546,6 +572,13 @@ textarea.form-control {
                                                 <div class="mb-3">
                                                     <label for="office2_address" class="form-label">Office 2 Address</label>
                                                     <textarea class="form-control" id="office2_address" name="office2_address" rows="3" required>{{ old('office2_address', $contactSettings->office2_address) }}</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="mb-3">
+                                                    <label for="additional_addresses" class="form-label">Additional Addresses</label>
+                                                    <textarea class="form-control" id="additional_addresses" name="additional_addresses" rows="4" placeholder="One address per line">{{ $additionalAddressesValue }}</textarea>
+                                                    <small class="text-muted">Enter one address per line.</small>
                                                 </div>
                                             </div>
                                         </div>

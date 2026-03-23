@@ -37,16 +37,27 @@ class WelcomeSectionController extends Controller
             'button_text' => 'nullable|string|max:50',
             'button_link' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'service_icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'service2_icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'sort_order' => 'nullable|integer|min:0'
         ]);
 
-    $data = $request->only(['title', 'description', 'button_text', 'button_link', 'sort_order']);
-    // Ensure button_link is not null to satisfy DB constraints
-    $data['button_link'] = $data['button_link'] ?? '#';
-    $data['is_active'] = $request->has('is_active') ? true : false;
+        $data = $request->only([
+            'title', 'description', 'button_text', 'button_link', 'sort_order',
+            'service_title', 'service_description', 'service_link',
+            'service2_title', 'service2_description', 'service2_link'
+        ]);
+        $data['button_link'] = $data['button_link'] ?? '#';
+        $data['is_active'] = $request->has('is_active') ? true : false;
 
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('welcome-sections', 'public');
+        }
+        if ($request->hasFile('service_icon')) {
+            $data['service_icon'] = $request->file('service_icon')->store('welcome-sections', 'public');
+        }
+        if ($request->hasFile('service2_icon')) {
+            $data['service2_icon'] = $request->file('service2_icon')->store('welcome-sections', 'public');
         }
 
         WelcomeSection::create($data);
@@ -82,20 +93,36 @@ class WelcomeSectionController extends Controller
             'button_text' => 'nullable|string|max:50',
             'button_link' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'service_icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'service2_icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'sort_order' => 'nullable|integer|min:0'
         ]);
 
-    $data = $request->only(['title', 'description', 'button_text', 'button_link', 'sort_order']);
-    // Ensure button_link is not null to satisfy DB constraints
-    $data['button_link'] = $data['button_link'] ?? '#';
-    $data['is_active'] = $request->has('is_active') ? true : false;
+        $data = $request->only([
+            'title', 'description', 'button_text', 'button_link', 'sort_order',
+            'service_title', 'service_description', 'service_link',
+            'service2_title', 'service2_description', 'service2_link'
+        ]);
+        $data['button_link'] = $data['button_link'] ?? '#';
+        $data['is_active'] = $request->has('is_active') ? true : false;
 
         if ($request->hasFile('image')) {
-            // Delete old image
             if ($welcomeSection->image) {
                 Storage::disk('public')->delete($welcomeSection->image);
             }
             $data['image'] = $request->file('image')->store('welcome-sections', 'public');
+        }
+        if ($request->hasFile('service_icon')) {
+            if ($welcomeSection->service_icon) {
+                Storage::disk('public')->delete($welcomeSection->service_icon);
+            }
+            $data['service_icon'] = $request->file('service_icon')->store('welcome-sections', 'public');
+        }
+        if ($request->hasFile('service2_icon')) {
+            if ($welcomeSection->service2_icon) {
+                Storage::disk('public')->delete($welcomeSection->service2_icon);
+            }
+            $data['service2_icon'] = $request->file('service2_icon')->store('welcome-sections', 'public');
         }
 
         $welcomeSection->update($data);
